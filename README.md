@@ -13,13 +13,13 @@ long term  health  and  wellness.
 
 The  MannFit  System  has  already  been  demonstrated  in  projects  as  shown  in  the
 research  paper  Integral  Kinematics  (Time, Integrals  of  Distance,  Energy,  etc.)  and
-Integral  Kinesiology (http://wearcam.org/mannfit.pdf) . One  project  from  the  paper  shows  basic  equipment  like  a
-destabilizing  bar  attached  to  rings  with  rope  can  be  used  to  exercise  with  the  MannFit
-System  technique,  by  attempting  to  balance  the  bar  for  long  periods  of  time  using  core
-muscles.  However,  the  MannFit  System  requires  development  in  a  smart  interfacing
-technology  that  can  interact  and  train  with  a  user  during  these  types  of  Integral
-Kinematic  exercises.  Without  this  implementation,  the  MannFit  System  fitness  methods
-will  not  be  accessible  to  its  target  audience.
+Integral  Kinesiology (http://wearcam.org/mannfit.pdf). One  project  from  the  paper  shows  basic  
+equipment  like  a destabilizing  bar  attached  to  rings  with  rope  can  be  used  to  exercise  
+with  the  MannFit System  technique,  by  attempting  to  balance  the  bar  for  long  periods  
+of  time  using  core muscles.  However,  the  MannFit  System  requires  development  in  a  
+smart  interfacing technology  that  can  interact  and  train  with  a  user  during  these  
+types  of  Integral Kinematic  exercises.  Without  this  implementation,  the  MannFit  
+System  fitness  methods will  not  be  accessible  to  its  target  audience.
 
 The  MannFit  System  will  take  advantage  of  smartphone  technology  and  have  an
 iOS  mobile  application  developed  that  will  act  as  this  interface.  This  application  will  act
