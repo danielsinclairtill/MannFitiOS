@@ -11,79 +11,146 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    // MARK: Initilization
+    enum ColliderType: UInt32 {
+        case player = 1
+        case food = 2
+        case wall = 4
+    }
+    
+    let background = SKSpriteNode()
+    let wall1 = SKSpriteNode()
+    let wall2 = SKSpriteNode()
+    let wall3 = SKSpriteNode()
+    let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
+    let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
+    let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
+    var foodSpot: SKSpriteNode?
+    
+    var trajectoryTimer: Timer?
+    var trajectoryPath: [SKShapeNode] = []
+    var shootVector: CGVector = CGVector(dx: 1, dy: 0)
     
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        physicsWorld.contactDelegate = self
+
+        // background setup
+        let bounds:CGSize = frame.size
+        backgroundColor = SKColor.black
+        background.zPosition = -10.0
+        background.scale(to: frame.size)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        // player setup
+        player.zPosition = 0
+        player.position = CGPoint(x: bounds.width / 2, y: player.size.height / 2 + 10)
+        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height / 2)
+        wall1.physicsBody?.isDynamic = false
+        player.physicsBody?.categoryBitMask = ColliderType.player.rawValue
+        player.physicsBody?.collisionBitMask = ColliderType.wall.rawValue + ColliderType.food.rawValue
+        eatingPacman()
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
+        // wall setup
+        wall1.zPosition = 0
+        var wallPosition: CGPoint = CGPoint(x: bounds.width / 2, y: 0)
+        var wallSize: CGSize = CGSize(width: bounds.width, height: 1)
+        wall1.physicsBody = SKPhysicsBody(rectangleOf: wallSize, center: wallPosition)
+        wall1.physicsBody?.isDynamic = false
+        wall1.physicsBody?.categoryBitMask = ColliderType.wall.rawValue
+        
+        wall2.zPosition = 0
+        wallPosition = CGPoint(x: 0, y: bounds.height / 2)
+        wallSize = CGSize(width: 1, height: bounds.height)
+        wall2.physicsBody = SKPhysicsBody(rectangleOf: wallSize, center: wallPosition)
+        wall2.physicsBody?.isDynamic = false
+        wall2.physicsBody?.categoryBitMask = ColliderType.wall.rawValue
+        
+        wall3.zPosition = 0
+        wallPosition = CGPoint(x: bounds.width, y: bounds.height / 2)
+        wallSize = CGSize(width: 1, height: bounds.height)
+        wall3.physicsBody = SKPhysicsBody(rectangleOf: wallSize, center: wallPosition)
+        wall3.physicsBody?.isDynamic = false
+        wall3.physicsBody?.categoryBitMask = ColliderType.wall.rawValue
+        
+        // add nodes
+        addChild(background)
+        addChild(wall1)
+        addChild(wall2)
+        addChild(wall3)
+        addChild(player)
+        
+        // setup food
+        refreshFood()
+    }
+
+    private func refreshFood() {
+        if let food = foodSpot {
+            food.removeFromParent()
+            foodSpot = nil
+        }
+        foodSpot = SKSpriteNode(imageNamed: "pacmanFood")
+        if let food = foodSpot {
+            let bounds:CGSize = frame.size
+            food.zPosition = 0
+            food.position = CGPoint(x: bounds.width / 2, y: bounds.height)
+            food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
+            food.physicsBody?.isDynamic = false
+            food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
+            food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+            addChild(food)
         }
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+    // MARK: Pacman Animations
+    private func eatingPacman() {
+        player.run(SKAction.repeatForever(
+            SKAction.animate(with: [playerFrame1, playerFrame2],
+                                         timePerFrame: 0.2,
+                                         resize: false,
+                                         restore: true)),
+                                         withKey:"eatingPacman")
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
+    override func update(_ currentTime: CFTimeInterval) {
+        if let food = foodSpot {
+            food.position.y -= 10
         }
     }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
+}
+
+// MARK: Touches
+extension GameScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        /* Called when a touch begins */
+        // Retrieve location of touch
+        if let touch = touches.first {
+            let touchPosition = touch.location(in: view)
+            if touchPosition.x < self.frame.width / 2 {
+                player.physicsBody?.applyForce(CGVector(dx: -1000, dy: 0))
+            }
+            else {
+                player.physicsBody?.applyForce(CGVector(dx: 1000, dy: 0))
+            }
         }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        player.physicsBody?.velocity = CGVector.zero
     }
 }
+
+// MARK: Contacts
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        // Edge Contact
+        if bodyA.categoryBitMask == ColliderType.food.rawValue || bodyB.categoryBitMask == ColliderType.food.rawValue {
+            refreshFood()
+        }
+    }
+}
+
