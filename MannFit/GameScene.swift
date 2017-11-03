@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import CoreMotion
 
 class GameScene: SKScene {
     
@@ -18,7 +19,13 @@ class GameScene: SKScene {
         case wall = 4
     }
     
+    let motionManager = CMMotionManager()
+    
     let background = SKSpriteNode()
+    let scoreLabel = SKLabelNode()
+    let highScoreLabel = SKLabelNode()
+    var score: Int = 0
+    var highscore: Int = 0
     let wall1 = SKSpriteNode()
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
@@ -41,11 +48,33 @@ class GameScene: SKScene {
         background.zPosition = -10.0
         background.scale(to: frame.size)
         
+        // scoreLabel setup
+        scoreLabel.zPosition = 1
+        scoreLabel.fontName = "AvenirNextCondensed-Heavy"
+        scoreLabel.fontSize = 50.0
+        scoreLabel.fontColor = SKColor.white
+        var scoreText = String(score)
+        scoreLabel.text = scoreText
+        scoreLabel.horizontalAlignmentMode = .right
+        scoreLabel.position = CGPoint(x: bounds.width - scoreLabel.frame.size.width / 2 - 15.0,
+                                      y: bounds.height - scoreLabel.frame.size.height - 15.0)
+        
+        // highScoreLabel setup
+        highScoreLabel.zPosition = 1
+        highScoreLabel.fontName = "AvenirNextCondensed-Heavy"
+        highScoreLabel.fontSize = 50.0
+        highScoreLabel.fontColor = SKColor.red
+        scoreText = String(score)
+        highScoreLabel.text = scoreText
+        highScoreLabel.horizontalAlignmentMode = .right
+        highScoreLabel.position = CGPoint(x: bounds.width - highScoreLabel.frame.size.width / 2 - 15.0,
+                                      y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
+        
         // player setup
         player.zPosition = 0
-        player.position = CGPoint(x: bounds.width / 2, y: player.size.height / 2 + 10)
+        player.position = CGPoint(x: bounds.width / 2, y: player.size.height / 2 + 20.0)
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height / 2)
-        wall1.physicsBody?.isDynamic = false
+        player.physicsBody?.isDynamic = false
         player.physicsBody?.categoryBitMask = ColliderType.player.rawValue
         player.physicsBody?.collisionBitMask = ColliderType.wall.rawValue + ColliderType.food.rawValue
         eatingPacman()
@@ -74,6 +103,8 @@ class GameScene: SKScene {
         
         // add nodes
         addChild(background)
+        addChild(scoreLabel)
+        addChild(highScoreLabel)
         addChild(wall1)
         addChild(wall2)
         addChild(wall3)
@@ -81,6 +112,9 @@ class GameScene: SKScene {
         
         // setup food
         refreshFood()
+        
+        // setup motion
+        motionManager.startAccelerometerUpdates()
     }
 
     private func refreshFood() {
@@ -92,9 +126,10 @@ class GameScene: SKScene {
         if let food = foodSpot {
             let bounds:CGSize = frame.size
             food.zPosition = 0
-            food.position = CGPoint(x: bounds.width / 2, y: bounds.height)
+            let randomXPos:CGFloat = CGFloat(arc4random_uniform(UInt32(bounds.width - food.size.width) - 40))
+            food.position = CGPoint(x: 20.0 + food.size.width + randomXPos, y: bounds.height)
             food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
-            food.physicsBody?.isDynamic = false
+            food.physicsBody?.isDynamic = true
             food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
             food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
             addChild(food)
@@ -111,32 +146,32 @@ class GameScene: SKScene {
                                          withKey:"eatingPacman")
     }
     
+    private func updateScore(_ score: Int) {
+        if score > self.highscore {
+            self.highscore = score
+            let scoreText = String(score)
+            highScoreLabel.text = scoreText
+        }
+        self.score = score
+        let scoreText = String(score)
+        scoreLabel.text = scoreText
+    }
+    
     override func update(_ currentTime: CFTimeInterval) {
+        
+        // food update
         if let food = foodSpot {
+            if food.position.y <= 0 {
+                refreshFood()
+                updateScore(0)
+            }
             food.position.y -= 10
         }
-    }
-}
-
-// MARK: Touches
-extension GameScene {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        /* Called when a touch begins */
-        // Retrieve location of touch
-        if let touch = touches.first {
-            let touchPosition = touch.location(in: view)
-            if touchPosition.x < self.frame.width / 2 {
-                player.physicsBody?.applyForce(CGVector(dx: -1000, dy: 0))
-            }
-            else {
-                player.physicsBody?.applyForce(CGVector(dx: 1000, dy: 0))
-            }
+        
+        // motion update
+        if let data = motionManager.accelerometerData {
+            player.position.x = CGFloat(data.acceleration.x) * frame.width / 2 * 2 + frame.width / 2
         }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        player.physicsBody?.velocity = CGVector.zero
     }
 }
 
@@ -150,6 +185,7 @@ extension GameScene: SKPhysicsContactDelegate {
         // Edge Contact
         if bodyA.categoryBitMask == ColliderType.food.rawValue || bodyB.categoryBitMask == ColliderType.food.rawValue {
             refreshFood()
+            updateScore(score + 1)
         }
     }
 }
