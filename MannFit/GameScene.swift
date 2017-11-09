@@ -15,17 +15,13 @@ class GameScene: SKScene {
 
     // MARK: Food Paths
     struct foodPathPresets {
-        static let tenSecondMiddle: [CGFloat] = [0, 0, 0, 0, 0]
-        static let tenSecondLeft: [CGFloat] = [-10, -10, -10, -10, -10]
-        static let tenSecondRight: [CGFloat] = [10, 10, 10, 10, 10]
+        static let tenFoodMiddle: [CGFloat] = [0, 0, 0, 0, 0]
+        static let tenFoodLeft: [CGFloat] = [-10, -10, -10, -10, -10]
+        static let tenFoodRight: [CGFloat] = [10, 10, 10, 10, 10]
         static let middleToLeft: [CGFloat] = [0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
         static let middleToRight: [CGFloat] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         static let leftToMiddle: [CGFloat] = [-10, -9, -8, -7, -6, -5, -4 ,-3, -2, -1, 0]
         static let rightToMiddle: [CGFloat] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-    }
-    
-    struct foodPathLevel {
-        static let one: [CGFloat] = foodPathPresets.tenSecondMiddle + foodPathPresets.middleToLeft + foodPathPresets.tenSecondLeft + foodPathPresets.leftToMiddle + foodPathPresets.tenSecondMiddle
     }
     
     // MARK: Initilization
@@ -51,6 +47,7 @@ class GameScene: SKScene {
     var foodPathTimer: Timer?
     var foodPath: [CGFloat] = []
     var foodSpots: [SKSpriteNode] = []
+    var lastFoodPos: CGFloat = 0.0
     
     override func didMove(to view: SKView) {
         
@@ -125,7 +122,10 @@ class GameScene: SKScene {
         addChild(player)
         
         // setup food
-        foodPath = foodPathLevel.one
+        foodPath = foodPathPresets.tenFoodMiddle
+        if let lastFood = foodPath.last {
+            lastFoodPos = lastFood
+        }
         startFoodPath()
         
         // setup motion
@@ -137,6 +137,20 @@ class GameScene: SKScene {
     }
 
     @objc private func refreshFood() {
+        if foodPath.isEmpty {
+            if lastFoodPos == 0 {
+                let presetVariations = [foodPathPresets.tenFoodMiddle, foodPathPresets.middleToLeft, foodPathPresets.middleToRight]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
+            else if lastFoodPos == 10 {
+                let presetVariations = [foodPathPresets.tenFoodRight, foodPathPresets.rightToMiddle]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
+            else if lastFoodPos == -10 {
+                let presetVariations = [foodPathPresets.tenFoodLeft, foodPathPresets.leftToMiddle]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
+        }
         if foodPath.isEmpty == false {
             let food = (SKSpriteNode(imageNamed: "pacmanFood"))
             let bounds:CGSize = frame.size
@@ -164,7 +178,15 @@ class GameScene: SKScene {
         food.removeFromParent()
         let indexOfFood = foodSpots.index{$0 === food}
         if let index = indexOfFood {
-        foodSpots.remove(at:index)
+            foodSpots.remove(at:index)
+        }
+    }
+    
+    private func appendToFoodPathWithRandomPresets(_ presetVariations: [[CGFloat]]) {
+        let randomIndex:Int = Int(arc4random_uniform(UInt32(presetVariations.count)))
+        foodPath += presetVariations[randomIndex]
+        if let lastFood = foodPath.last {
+            lastFoodPos = lastFood
         }
     }
     
