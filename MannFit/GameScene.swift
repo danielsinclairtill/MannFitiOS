@@ -10,7 +10,23 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
+
 class GameScene: SKScene {
+
+    // MARK: Food Paths
+    struct foodPathPresets {
+        static let tenSecondMiddle: [CGFloat] = [0, 0, 0, 0, 0]
+        static let tenSecondLeft: [CGFloat] = [-10, -10, -10, -10, -10]
+        static let tenSecondRight: [CGFloat] = [10, 10, 10, 10, 10]
+        static let middleToLeft: [CGFloat] = [0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
+        static let middleToRight: [CGFloat] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        static let leftToMiddle: [CGFloat] = [-10, -9, -8, -7, -6, -5, -4 ,-3, -2, -1, 0]
+        static let rightToMiddle: [CGFloat] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    }
+    
+    struct foodPathLevel {
+        static let one: [CGFloat] = foodPathPresets.tenSecondMiddle + foodPathPresets.middleToLeft + foodPathPresets.tenSecondLeft + foodPathPresets.leftToMiddle + foodPathPresets.tenSecondMiddle
+    }
     
     // MARK: Initilization
     enum ColliderType: UInt32 {
@@ -32,11 +48,9 @@ class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
-    var foodSpot: SKSpriteNode?
-    
-    var trajectoryTimer: Timer?
-    var trajectoryPath: [SKShapeNode] = []
-    var shootVector: CGVector = CGVector(dx: 1, dy: 0)
+    var foodPathTimer: Timer?
+    var foodPath: [CGFloat] = []
+    var foodSpots: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
         
@@ -111,28 +125,46 @@ class GameScene: SKScene {
         addChild(player)
         
         // setup food
-        refreshFood()
+        foodPath = foodPathLevel.one
+        startFoodPath()
         
         // setup motion
         motionManager.startAccelerometerUpdates()
     }
+    
+    private func startFoodPath() {
+        foodPathTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(refreshFood), userInfo: nil, repeats: true)
+    }
 
-    private func refreshFood() {
-        if let food = foodSpot {
-            food.removeFromParent()
-            foodSpot = nil
-        }
-        foodSpot = SKSpriteNode(imageNamed: "pacmanFood")
-        if let food = foodSpot {
+    @objc private func refreshFood() {
+        if foodPath.isEmpty == false {
+            let food = (SKSpriteNode(imageNamed: "pacmanFood"))
             let bounds:CGSize = frame.size
             food.zPosition = 0
-            let randomXPos:CGFloat = CGFloat(arc4random_uniform(UInt32(bounds.width - food.size.width) - 40))
-            food.position = CGPoint(x: 20.0 + food.size.width + randomXPos, y: bounds.height)
+            var variation: CGFloat = 0
+            if let nextPos = foodPath.first {
+                variation = ((bounds.width - 20.0 - food.size.width) / 2.0) / 10.0 * nextPos
+                foodPath.removeFirst()
+            }
+            let positionX = (bounds.width / 2.0) + variation
+            food.position = CGPoint(x: positionX, y: bounds.height + food.size.height)
             food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
             food.physicsBody?.isDynamic = true
+            food.physicsBody?.affectedByGravity = false
             food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
             food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+            food.physicsBody?.collisionBitMask = 0
+            
+            foodSpots.append(food)
             addChild(food)
+        }
+    }
+    
+    private func removeFood(_ food: SKSpriteNode) {
+        food.removeFromParent()
+        let indexOfFood = foodSpots.index{$0 === food}
+        if let index = indexOfFood {
+        foodSpots.remove(at:index)
         }
     }
     
@@ -160,12 +192,12 @@ class GameScene: SKScene {
     override func update(_ currentTime: CFTimeInterval) {
         
         // food update
-        if let food = foodSpot {
+        for food in foodSpots {
             if food.position.y <= 0 {
-                refreshFood()
+                removeFood(food)
                 updateScore(0)
             }
-            food.position.y -= 10
+            food.position.y -= 5
         }
         
         // motion update
@@ -183,9 +215,17 @@ extension GameScene: SKPhysicsContactDelegate {
         let bodyB = contact.bodyB
         
         // Edge Contact
-        if bodyA.categoryBitMask == ColliderType.food.rawValue || bodyB.categoryBitMask == ColliderType.food.rawValue {
-            refreshFood()
-            updateScore(score + 1)
+        if bodyA.categoryBitMask == ColliderType.food.rawValue {
+            if let food = contact.bodyA.node as? SKSpriteNode {
+                removeFood(food)
+                updateScore(score + 1)
+            }
+        }
+        else if bodyB.categoryBitMask == ColliderType.food.rawValue {
+            if let food = contact.bodyB.node as? SKSpriteNode {
+                removeFood(food)
+                updateScore(score + 1)
+            }
         }
     }
 }
