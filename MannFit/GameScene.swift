@@ -132,6 +132,7 @@ class GameScene: SKScene {
             food.physicsBody?.isDynamic = true
             food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
             food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+            food.physicsBody?.collisionBitMask = 0
             addChild(food)
         }
     }
