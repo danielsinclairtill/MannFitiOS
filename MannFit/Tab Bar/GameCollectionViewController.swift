@@ -39,7 +39,6 @@ extension GameCollectionViewController {
         return 1
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.games.count
     }
@@ -47,8 +46,10 @@ extension GameCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! GameMenuCell
         
-        cell.imageView.image = self.games[indexPath.item].gameImage
-
+        if let image = self.games[indexPath.item].gameImage {
+            cell.imageView.image = image
+        }
+        
         cell.backgroundColor = UIColor.white
         
         return cell
@@ -78,5 +79,3 @@ extension GameCollectionViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-
-

@@ -11,10 +11,8 @@ import UIKit
 struct Game {
     let gameName: String
     let gameImageName: String
-}
-
-extension Game {
-    var gameImage: UIImage {
-        return UIImage(named: self.gameImageName)!
+    
+    var gameImage: UIImage? {
+        return UIImage(named: self.gameImageName)
     }
 }
