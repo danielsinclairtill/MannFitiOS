@@ -65,7 +65,7 @@ class GameScene: SKScene {
         scoreLabel.zPosition = 1
         scoreLabel.fontName = "AvenirNextCondensed-Heavy"
         scoreLabel.fontSize = 50.0
-        scoreLabel.fontColor = SKColor.darkGray
+        scoreLabel.fontColor = SKColor.white
         var scoreText = String(score)
         scoreLabel.text = scoreText
         scoreLabel.horizontalAlignmentMode = .right
@@ -147,6 +147,7 @@ class GameScene: SKScene {
         line.zPosition = 0
         line.path = path
         line.lineWidth = 100.0
+        line.strokeColor = UIColor.gray
         line.physicsBody = SKPhysicsBody(edgeChainFrom: path)
         line.physicsBody?.isDynamic = true
         line.physicsBody?.affectedByGravity = false
