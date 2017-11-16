@@ -65,7 +65,7 @@ class GameScene: SKScene {
         scoreLabel.zPosition = 1
         scoreLabel.fontName = "AvenirNextCondensed-Heavy"
         scoreLabel.fontSize = 50.0
-        scoreLabel.fontColor = SKColor.darkGray
+        scoreLabel.fontColor = SKColor.white
         var scoreText = String(score)
         scoreLabel.text = scoreText
         scoreLabel.horizontalAlignmentMode = .right
