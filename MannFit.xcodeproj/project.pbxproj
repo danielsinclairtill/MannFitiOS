@@ -16,6 +16,7 @@
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
 		A030F3271FB3A5B400658AA3 /* GameMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */; };
+		A0B666471FBE1A2600A125FD /* pacman_beginning.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0B666461FBE1A2600A125FD /* pacman_beginning.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuCell.swift; sourceTree = "<group>"; };
+		A0B666461FBE1A2600A125FD /* pacman_beginning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pacman_beginning.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		68FE5CD91FB0D7B300D2E6FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A0B666461FBE1A2600A125FD /* pacman_beginning.wav */,
 				6838407D1FA7845000889E75 /* Main.storyboard */,
 				683840801FA7845000889E75 /* Assets.xcassets */,
 				683840821FA7845000889E75 /* LaunchScreen.storyboard */,
@@ -167,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B666471FBE1A2600A125FD /* pacman_beginning.wav in Resources */,
 				6838407F1FA7845000889E75 /* Main.storyboard in Resources */,
 				683840811FA7845000889E75 /* Assets.xcassets in Resources */,
 				683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */,

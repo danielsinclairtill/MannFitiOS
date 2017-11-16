@@ -13,6 +13,17 @@ import AVFoundation
 
 class GameScene: SKScene {
     
+    // MARK: Food Paths
+    struct foodPathPresets {
+        static let tenFoodMiddle: [CGFloat] = [0, 0, 0, 0, 0]
+        static let tenFoodLeft: [CGFloat] = [-10, -10, -10, -10, -10]
+        static let tenFoodRight: [CGFloat] = [10, 10, 10, 10, 10]
+        static let middleToLeft: [CGFloat] = [0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
+        static let middleToRight: [CGFloat] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        static let leftToMiddle: [CGFloat] = [-10, -9, -8, -7, -6, -5, -4 ,-3, -2, -1, 0]
+        static let rightToMiddle: [CGFloat] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    }
+    
     // MARK: Initilization
     enum ColliderType: UInt32 {
         case player = 1
@@ -34,6 +45,10 @@ class GameScene: SKScene {
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
     var foodSpot: SKSpriteNode?
+    var foodPathTimer: Timer?
+    var foodPath: [CGFloat] = []
+    var foodSpots: [SKSpriteNode] = []
+    var lastFoodPos: CGFloat = 0.0
     
     var trajectoryTimer: Timer?
     var trajectoryPath: [SKShapeNode] = []
@@ -42,6 +57,8 @@ class GameScene: SKScene {
     let engine = AVAudioEngine()
     let audioPlayerNode = AVAudioPlayerNode()
     let unitTimePitch = AVAudioUnitTimePitch()
+    
+    var audioBuffer: AVAudioPCMBuffer?
     
     override func didMove(to view: SKView) {
         
@@ -115,62 +132,151 @@ class GameScene: SKScene {
         addChild(wall3)
         addChild(player)
         
+    
         // setup food
-        refreshFood()
+        foodPath = foodPathPresets.tenFoodMiddle
+        if let lastFood = foodPath.last {
+            lastFoodPos = lastFood
+        }
+        startFoodPath()
         
         // setup motion
         motionManager.startAccelerometerUpdates()
 
-        //self.setupAudioEngine()
+        guard let buffer = self.setupFileBuffer(with: "pacman_beginning", type: "wav") else {
+            return
+        }
         
-        let filePath = Bundle.main.path(forResource: "pacman_beginning", ofType: "wav")!
-        let url = NSURL.fileURL(withPath: filePath)
-
-        let audioFile = try? AVAudioFile(forReading: url)
-        let audioFormat = audioFile?.processingFormat
-        let audioFrameCount = UInt32(audioFile!.length)
-        let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat!, frameCapacity: audioFrameCount)
-        try? audioFile?.read(into: audioFileBuffer!)
-        
-        let mainMixer = self.engine.mainMixerNode
-        self.engine.attach(self.audioPlayerNode)
-        self.engine.connect(self.audioPlayerNode, to: mainMixer, format: audioFileBuffer?.format)
-        try? self.engine.start()
-        
-        self.audioPlayerNode.play()
-        self.audioPlayerNode.scheduleBuffer(audioFileBuffer!, at: nil, options: .loops, completionHandler: nil)
-        
+        self.audioBuffer = buffer
+        self.setupAudioEngine(with: self.audioBuffer!)
+    }
     
+    private func setupFileBuffer(with file: String, type: String) -> AVAudioPCMBuffer? {
+        let resource = Bundle.main.path(forResource: file, ofType: type)
+        
+        guard let filePath = resource else {
+            return nil
+        }
+        
+        let url = NSURL.fileURL(withPath: filePath)
+        
+        do {
+            let audioFile = try AVAudioFile(forReading: url)
+            let audioFormat = audioFile.processingFormat
+            let audioFrameCount = AVAudioFrameCount(audioFile.length)
+            let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount)
+            
+            guard let buffer = audioFileBuffer else {
+                return nil
+            }
+            
+            try audioFile.read(into: buffer)
+            
+            return audioFileBuffer
+        } catch {
+            return nil
+        }
     }
 
-    private func setupAudioEngine() {
+    private func setupAudioEngine(with audioFileBuffer: AVAudioPCMBuffer) {
         self.engine.attach(self.audioPlayerNode)
         self.engine.attach(self.unitTimePitch)
         
-        self.engine.connect(self.audioPlayerNode, to: self.unitTimePitch, format: nil)
-        self.engine.connect(self.unitTimePitch, to: self.engine.outputNode, format: nil)
+        self.engine.connect(self.audioPlayerNode, to: self.unitTimePitch, format: audioFileBuffer.format)
+        self.engine.connect(self.unitTimePitch, to: self.engine.mainMixerNode, format: audioFileBuffer.format)
         
-        try? self.engine.start()
-        self.audioPlayerNode.play()
+        self.audioPlayerNode.scheduleBuffer(audioFileBuffer, at: nil, options: .loops, completionHandler: nil)
         
+        do {
+            try self.engine.start()
+            self.audioPlayerNode.play()
+        } catch {
+            //TODO: - Error handling
+            print("Error. Handle this")
+            fatalError()
+        }
     }
     
-    private func refreshFood() {
-        if let food = foodSpot {
-            food.removeFromParent()
-            foodSpot = nil
+    private func modifyPitch(with value: Float) {
+        self.unitTimePitch.pitch = value
+        self.audioPlayerNode.scheduleBuffer(self.audioBuffer!, at: nil, options: .loops, completionHandler: nil)
+    }
+    
+    private func startFoodPath() {
+        foodPathTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(refreshFood), userInfo: nil, repeats: true)
+    }
+    
+//    @objc private func refreshFood() {
+//        if let food = foodSpot {
+//            food.removeFromParent()
+//            foodSpot = nil
+//        }
+//        foodSpot = SKSpriteNode(imageNamed: "pacmanFood")
+//        if let food = foodSpot {
+//            let bounds:CGSize = frame.size
+//            food.zPosition = 0
+//            let randomXPos:CGFloat = CGFloat(arc4random_uniform(UInt32(bounds.width - food.size.width) - 40))
+//            food.position = CGPoint(x: 20.0 + food.size.width + randomXPos, y: bounds.height)
+//            food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
+//            food.physicsBody?.isDynamic = true
+//            food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
+//            food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+//            addChild(food)
+//        }
+//    }
+
+    
+    @objc private func refreshFood() {
+        if foodPath.isEmpty {
+            if lastFoodPos == 0 {
+                let presetVariations = [foodPathPresets.tenFoodMiddle, foodPathPresets.middleToLeft, foodPathPresets.middleToRight]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
+            else if lastFoodPos == 10 {
+                let presetVariations = [foodPathPresets.tenFoodRight, foodPathPresets.rightToMiddle]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
+            else if lastFoodPos == -10 {
+                let presetVariations = [foodPathPresets.tenFoodLeft, foodPathPresets.leftToMiddle]
+                appendToFoodPathWithRandomPresets(presetVariations)
+            }
         }
-        foodSpot = SKSpriteNode(imageNamed: "pacmanFood")
-        if let food = foodSpot {
+        if foodPath.isEmpty == false {
+            let food = (SKSpriteNode(imageNamed: "pacmanFood"))
             let bounds:CGSize = frame.size
             food.zPosition = 0
-            let randomXPos:CGFloat = CGFloat(arc4random_uniform(UInt32(bounds.width - food.size.width) - 40))
-            food.position = CGPoint(x: 20.0 + food.size.width + randomXPos, y: bounds.height)
+            var variation: CGFloat = 0
+            if let nextPos = foodPath.first {
+                variation = ((bounds.width - 20.0 - food.size.width) / 2.0) / 10.0 * nextPos
+                foodPath.removeFirst()
+            }
+            let positionX = (bounds.width / 2.0) + variation
+            food.position = CGPoint(x: positionX, y: bounds.height + food.size.height)
             food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
             food.physicsBody?.isDynamic = true
+            food.physicsBody?.affectedByGravity = false
             food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
             food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+            food.physicsBody?.collisionBitMask = 0
+            
+            foodSpots.append(food)
             addChild(food)
+        }
+    }
+
+    private func removeFood(_ food: SKSpriteNode) {
+        food.removeFromParent()
+        let indexOfFood = foodSpots.index{$0 === food}
+        if let index = indexOfFood {
+            foodSpots.remove(at:index)
+        }
+    }
+    
+    private func appendToFoodPathWithRandomPresets(_ presetVariations: [[CGFloat]]) {
+        let randomIndex:Int = Int(arc4random_uniform(UInt32(presetVariations.count)))
+        foodPath += presetVariations[randomIndex]
+        if let lastFood = foodPath.last {
+            lastFoodPos = lastFood
         }
     }
     
@@ -178,10 +284,10 @@ class GameScene: SKScene {
     private func eatingPacman() {
         player.run(SKAction.repeatForever(
             SKAction.animate(with: [playerFrame1, playerFrame2],
-                                         timePerFrame: 0.2,
-                                         resize: false,
-                                         restore: true)),
-                                         withKey:"eatingPacman")
+                             timePerFrame: 0.2,
+                             resize: false,
+                             restore: true)),
+                   withKey:"eatingPacman")
     }
     
     private func updateScore(_ score: Int) {
@@ -198,12 +304,12 @@ class GameScene: SKScene {
     override func update(_ currentTime: CFTimeInterval) {
         
         // food update
-        if let food = foodSpot {
+        for food in foodSpots {
             if food.position.y <= 0 {
-                refreshFood()
+                removeFood(food)
                 updateScore(0)
             }
-            food.position.y -= 10
+            food.position.y -= 5
         }
         
         // motion update
@@ -221,9 +327,17 @@ extension GameScene: SKPhysicsContactDelegate {
         let bodyB = contact.bodyB
         
         // Edge Contact
-        if bodyA.categoryBitMask == ColliderType.food.rawValue || bodyB.categoryBitMask == ColliderType.food.rawValue {
-            refreshFood()
-            updateScore(score + 1)
+        if bodyA.categoryBitMask == ColliderType.food.rawValue {
+            if let food = contact.bodyA.node as? SKSpriteNode {
+                removeFood(food)
+                updateScore(score + 1)
+            }
+        }
+        else if bodyB.categoryBitMask == ColliderType.food.rawValue {
+            if let food = contact.bodyB.node as? SKSpriteNode {
+                removeFood(food)
+                updateScore(score + 1)
+            }
         }
     }
 }
