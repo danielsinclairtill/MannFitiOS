@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
+import AVFoundation
 
 class GameScene: SKScene {
     
@@ -37,6 +38,10 @@ class GameScene: SKScene {
     var trajectoryTimer: Timer?
     var trajectoryPath: [SKShapeNode] = []
     var shootVector: CGVector = CGVector(dx: 1, dy: 0)
+    
+    let engine = AVAudioEngine()
+    let audioPlayerNode = AVAudioPlayerNode()
+    let unitTimePitch = AVAudioUnitTimePitch()
     
     override func didMove(to view: SKView) {
         
@@ -115,8 +120,41 @@ class GameScene: SKScene {
         
         // setup motion
         motionManager.startAccelerometerUpdates()
+
+        //self.setupAudioEngine()
+        
+        let filePath = Bundle.main.path(forResource: "pacman_beginning", ofType: "wav")!
+        let url = NSURL.fileURL(withPath: filePath)
+
+        let audioFile = try? AVAudioFile(forReading: url)
+        let audioFormat = audioFile?.processingFormat
+        let audioFrameCount = UInt32(audioFile!.length)
+        let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat!, frameCapacity: audioFrameCount)
+        try? audioFile?.read(into: audioFileBuffer!)
+        
+        let mainMixer = self.engine.mainMixerNode
+        self.engine.attach(self.audioPlayerNode)
+        self.engine.connect(self.audioPlayerNode, to: mainMixer, format: audioFileBuffer?.format)
+        try? self.engine.start()
+        
+        self.audioPlayerNode.play()
+        self.audioPlayerNode.scheduleBuffer(audioFileBuffer!, at: nil, options: .loops, completionHandler: nil)
+        
+    
     }
 
+    private func setupAudioEngine() {
+        self.engine.attach(self.audioPlayerNode)
+        self.engine.attach(self.unitTimePitch)
+        
+        self.engine.connect(self.audioPlayerNode, to: self.unitTimePitch, format: nil)
+        self.engine.connect(self.unitTimePitch, to: self.engine.outputNode, format: nil)
+        
+        try? self.engine.start()
+        self.audioPlayerNode.play()
+        
+    }
+    
     private func refreshFood() {
         if let food = foodSpot {
             food.removeFromParent()
