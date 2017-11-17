@@ -10,23 +10,27 @@ import UIKit
 
 class BalancePath: NSObject {
 
-    let origin: CGPoint
-    var length: CGFloat
+    let startPoint: CGPoint
+    var endPoint: CGPoint
+    // specifices the last part of the path
+    // 0 - undefined 1 - striaght 2 - arc, left 3 - arc, right
+    var endPathSegment: Int
+    var totalLength: CGFloat
     var pathPoints: [CGPoint]
     var path: CGMutablePath
     let bounds: CGSize
-    let amplification: CGFloat
 
-    init(origin: CGPoint, length: CGFloat, bounds: CGSize, amplification: CGFloat) {
-        self.origin = origin
-        self.length = length
+    init(origin: CGPoint, length: CGFloat, bounds: CGSize) {
+        self.startPoint = origin
+        self.endPoint = origin
+        self.endPathSegment = 0
+        self.totalLength = 0.0
         self.bounds = bounds
-        self.amplification = amplification
         self.pathPoints = [origin]
         self.path = CGMutablePath()
         path.move(to: origin)
         super.init()
-        appendArcPath(left: true)
+        appendStraightPathSegment(length: length)
     }
     
     func playerInPath(playerYPosition: CGFloat) -> Bool {
@@ -51,25 +55,56 @@ class BalancePath: NSObject {
         }
     }
     
-    private func appendRandomPath() {
-        
-    }
-    
-    private func appendStraightPath() {
-        for y in 0...Int(length - 1) {
-            let newPoint = CGPoint(x: origin.x, y: origin.y + CGFloat(y))
-            path.addLine(to: newPoint)
-            pathPoints.append(newPoint)
+    func appendBalancePathWithRandomSegment(length: CGFloat, amplification: CGFloat) {
+        let randomPathIndex = Int(arc4random_uniform(2))
+        let randomArcIndex = Int(arc4random_uniform(2))
+      
+        if endPathSegment == 1 {
+            if randomPathIndex == 0 {
+                appendStraightPathSegment(length: length)
+            } else if randomPathIndex == 1 {
+                appendArcPathSegment(length: length, amplification: amplification, left: randomArcIndex == 0)
+            }
+        } else if endPathSegment == 2 {
+            if randomPathIndex == 0 {
+                appendStraightPathSegment(length: length)
+            } else if randomPathIndex == 1 {
+                appendArcPathSegment(length: length, amplification: amplification, left: true)
+            }
+        } else if endPathSegment == 3 {
+            if randomPathIndex == 0 {
+                appendStraightPathSegment(length: length)
+            } else if randomPathIndex == 1 {
+                appendArcPathSegment(length: length, amplification: amplification, left: false)
+            }
         }
     }
     
-    private func appendArcPath(left: Bool) {
+    func appendStraightPathSegment(length: CGFloat) {
+        for y in 1...Int(length) {
+            let newPoint = CGPoint(x: endPoint.x, y: endPoint.y + CGFloat(y))
+            path.addLine(to: newPoint)
+            pathPoints.append(newPoint)
+        }
+        totalLength += length
+        if let lastPoint = pathPoints.last {
+            endPoint = lastPoint
+        }
+        endPathSegment = 1
+    }
+    
+    func appendArcPathSegment(length: CGFloat, amplification: CGFloat, left: Bool) {
         let angleValue = left ? -CGFloat.pi : CGFloat.pi
-        for y in 0...Int(length - 1) {
-            let x = origin.x + sin(CGFloat(y) * angleValue / length) * bounds.width / 2 * amplification
-            let newPoint = CGPoint(x: x, y: origin.y + CGFloat(y))
+        for y in 1...Int(length) {
+            let x = endPoint.x + sin(CGFloat(y) * 2 * angleValue / length) * bounds.width / 2 * amplification
+            let newPoint = CGPoint(x: x, y: endPoint.y + CGFloat(y))
             path.addLine(to: newPoint)
             pathPoints.append(newPoint)
         }
+        totalLength += length
+        if let lastPoint = pathPoints.last {
+            endPoint = lastPoint
+        }
+        endPathSegment = left ? 2 : 3
     }
 }

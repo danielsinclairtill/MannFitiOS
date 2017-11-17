@@ -27,7 +27,7 @@ class GameScene: SKScene {
     let scoreLabel = SKLabelNode()
     let highScoreLabel = SKLabelNode()
     var score: Int = 0
-    var highscore: Int = 0
+    var highscore: Float = 0
     let wall1 = SKSpriteNode()
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
@@ -70,11 +70,10 @@ class GameScene: SKScene {
         
         // player setup
         player.zPosition = 0
-        player.scale(to: CGSize(width: 80.0, height: 80.0))
+        player.scale(to: CGSize(width: 10.0, height: 10.0))
         player.position = CGPoint(x: bounds.width / 2, y: playerRelativeYPosition)
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height / 2)
-        player.physicsBody?.isDynamic = true
-        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.isDynamic = false
         player.physicsBody?.categoryBitMask = ColliderType.player.rawValue
         player.physicsBody?.collisionBitMask = ColliderType.wall.rawValue + ColliderType.food.rawValue
         eatingPacman()
@@ -108,9 +107,10 @@ class GameScene: SKScene {
         addChild(wall1)
         addChild(wall2)
         addChild(wall3)
-        // addChild(player)
+        addChild(player)
         
-        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds, amplification: 0.8)
+        // initiate balance path
+        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds)
         if let balancePath = balancePath {
             balancePathNode.zPosition = 0
             balancePathNode.path = balancePath.path
@@ -120,7 +120,6 @@ class GameScene: SKScene {
             balancePathNode.physicsBody?.isDynamic = false
             addChild(balancePathNode)
         }
-
         
         // setup motion
         motionManager.startAccelerometerUpdates()
@@ -137,14 +136,12 @@ class GameScene: SKScene {
     }
     
     private func updateScore(_ score: Int) {
-        if score > self.highscore {
-            self.highscore = score
-            let scoreText = String(score)
-            highScoreLabel.text = scoreText
-        }
         self.score = score
-        let scoreText = String(score)
+        var scoreText = String(score)
         scoreLabel.text = scoreText
+        self.highscore += Float(score) / 100.0
+        scoreText = String(highscore)
+        highScoreLabel.text = scoreText
     }
     
     override func update(_ currentTime: CFTimeInterval) {
@@ -163,7 +160,13 @@ class GameScene: SKScene {
                 let relativePlayerPosition = CGPoint(x: player.position.x, y: playerRelativeYPosition)
                 xDifference = balancePath.differenceFromPathPoint(relativePlayerPosition)
             }
+            
+            // extend path
+            if balancePath.totalLength - playerRelativeYPosition <= frame.height {
+                balancePath.appendBalancePathWithRandomSegment(length: 500.0, amplification: 0.8)
+                balancePathNode.path = balancePath.path
+            }
         }
-        updateScore(Int(xDifference))        
+        updateScore(Int(xDifference))
     }
 }
