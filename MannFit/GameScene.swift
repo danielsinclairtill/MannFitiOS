@@ -162,8 +162,9 @@ class GameScene: SKScene {
             // extend path
             if balancePath.totalLength - playerRelativeYPosition <= frame.height {
                 balancePath.appendBalancePathWithRandomSegment(length: 500.0, amplification: 0.8)
-                balancePathNode.path = balancePath.path
             }
+            print(balancePath.pathPoints.count)
+            balancePathNode.path = balancePath.path
         }
         updateScore(Int(xDifference))
     }

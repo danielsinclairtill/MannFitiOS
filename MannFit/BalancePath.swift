@@ -48,9 +48,24 @@ class BalancePath: NSObject {
         }
         if let index = index {
             let pathPoint = pathPoints[index]
+            if point.y - first.y > 20.0 {
+                pathPoints.removeFirst()
+                recreatePath()
+            }
             return abs(pathPoint.x - point.x)
         } else {
             return 0.0
+        }
+    }
+    
+    private func recreatePath() {
+        path = CGMutablePath()
+        for (index, point) in pathPoints.enumerated() {
+            if index == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
         }
     }
     
