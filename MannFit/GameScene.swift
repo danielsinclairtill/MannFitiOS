@@ -156,10 +156,8 @@ class GameScene: SKScene {
         if let balancePath = balancePath {
             balancePathNode.position.y -= 1
             playerRelativeYPosition += 1
-            if balancePath.playerInPath(playerYPosition: playerRelativeYPosition) {
-                let relativePlayerPosition = CGPoint(x: player.position.x, y: playerRelativeYPosition)
-                xDifference = balancePath.differenceFromPathPoint(relativePlayerPosition)
-            }
+            let relativePlayerPosition = CGPoint(x: player.position.x, y: playerRelativeYPosition)
+            xDifference = balancePath.differenceFromPathPoint(relativePlayerPosition)
             
             // extend path
             if balancePath.totalLength - playerRelativeYPosition <= frame.height {

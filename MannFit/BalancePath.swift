@@ -33,17 +33,16 @@ class BalancePath: NSObject {
         appendStraightPathSegment(length: length)
     }
     
-    func playerInPath(playerYPosition: CGFloat) -> Bool {
+    func differenceFromPathPoint(_ point: CGPoint) -> CGFloat {
         guard let first = pathPoints.first else {
-            return false
+            return 0.0
         }
         guard let last = pathPoints.last else {
-            return false
+            return 0.0
         }
-        return playerYPosition >= first.y && playerYPosition <= last.y
-    }
-    
-    func differenceFromPathPoint(_ point: CGPoint) -> CGFloat {
+        if point.y <= first.y && point.y >= last.y {
+            return 0.0
+        }
         let index = pathPoints.index {
             $0.y == point.y
         }
