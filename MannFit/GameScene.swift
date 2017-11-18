@@ -1,3 +1,11 @@
+//
+//  GameScene.swift
+//  MannFit
+//
+//  Created by Luis Abraham on 2017-10-30.
+//  Copyright © 2017 MannFit Labs. All rights reserved.
+//
+
 import SpriteKit
 import GameplayKit
 import CoreMotion
@@ -30,8 +38,6 @@ class GameScene: SKScene {
     var balancePath: BalancePath?
     var balancePathNode: SKShapeNode = SKShapeNode()
     
-    var engine: AudioEngine?
-    
     override func didMove(to view: SKView) {
         
         // background setup
@@ -60,7 +66,7 @@ class GameScene: SKScene {
         highScoreLabel.text = scoreText
         highScoreLabel.horizontalAlignmentMode = .right
         highScoreLabel.position = CGPoint(x: bounds.width - highScoreLabel.frame.size.width / 2 - 15.0,
-                                          y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
+                                      y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
         
         // player setup
         player.zPosition = 0
@@ -117,21 +123,16 @@ class GameScene: SKScene {
         
         // setup motion
         motionManager.startAccelerometerUpdates()
-        
-        guard let engine = AudioEngine(with: "pacman_beginning", type: "wav", options: .loops) else { return }
-        
-        self.engine = engine
-        self.engine!.setupAudioEngine()
     }
     
     // MARK: Pacman Animations
     private func eatingPacman() {
         player.run(SKAction.repeatForever(
             SKAction.animate(with: [playerFrame1, playerFrame2],
-                             timePerFrame: 0.2,
-                             resize: false,
-                             restore: true)),
-                   withKey:"eatingPacman")
+                                         timePerFrame: 0.2,
+                                         resize: false,
+                                         restore: true)),
+                                         withKey:"eatingPacman")
     }
     
     private func updateScore(_ score: Int) {
@@ -162,10 +163,9 @@ class GameScene: SKScene {
             if balancePath.totalLength - playerRelativeYPosition <= frame.height {
                 balancePath.appendBalancePathWithRandomSegment(length: 500.0, amplification: 0.8)
             }
-
+            //print(balancePath.pathPoints.count)
             balancePathNode.path = balancePath.path
         }
         updateScore(Int(xDifference))
-        self.engine!.modifyPitch(with: -Float(xDifference * 2))
     }
 }
