@@ -1,14 +1,7 @@
-//
-//  GameScene.swift
-//  MannFit
-//
-//  Created by Luis Abraham on 2017-10-30.
-//  Copyright © 2017 MannFit Labs. All rights reserved.
-//
-
 import SpriteKit
 import GameplayKit
 import CoreMotion
+
 
 class GameScene: SKScene {
     
@@ -16,7 +9,8 @@ class GameScene: SKScene {
     enum ColliderType: UInt32 {
         case player = 1
         case food = 2
-        case wall = 4
+        case line = 4
+        case wall = 8
     }
     
     let motionManager = CMMotionManager()
@@ -25,23 +19,21 @@ class GameScene: SKScene {
     let scoreLabel = SKLabelNode()
     let highScoreLabel = SKLabelNode()
     var score: Int = 0
-    var highscore: Int = 0
+    var highscore: Float = 0
     let wall1 = SKSpriteNode()
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
     let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
+    var playerRelativeYPosition: CGFloat = 20.0
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
-    var foodSpot: SKSpriteNode?
+    var balancePath: BalancePath?
+    var balancePathNode: SKShapeNode = SKShapeNode()
     
-    var trajectoryTimer: Timer?
-    var trajectoryPath: [SKShapeNode] = []
-    var shootVector: CGVector = CGVector(dx: 1, dy: 0)
+    var engine: AudioEngine?
     
     override func didMove(to view: SKView) {
         
-        physicsWorld.contactDelegate = self
-
         // background setup
         let bounds:CGSize = frame.size
         backgroundColor = SKColor.black
@@ -68,11 +60,12 @@ class GameScene: SKScene {
         highScoreLabel.text = scoreText
         highScoreLabel.horizontalAlignmentMode = .right
         highScoreLabel.position = CGPoint(x: bounds.width - highScoreLabel.frame.size.width / 2 - 15.0,
-                                      y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
+                                          y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
         
         // player setup
         player.zPosition = 0
-        player.position = CGPoint(x: bounds.width / 2, y: player.size.height / 2 + 20.0)
+        player.scale(to: CGSize(width: 10.0, height: 10.0))
+        player.position = CGPoint(x: bounds.width / 2, y: playerRelativeYPosition)
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height / 2)
         player.physicsBody?.isDynamic = false
         player.physicsBody?.categoryBitMask = ColliderType.player.rawValue
@@ -110,83 +103,69 @@ class GameScene: SKScene {
         addChild(wall3)
         addChild(player)
         
-        // setup food
-        refreshFood()
+        // initiate balance path
+        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds, distanceToBottom: 20.0)
+        if let balancePath = balancePath {
+            balancePathNode.zPosition = 0
+            balancePathNode.path = balancePath.path
+            balancePathNode.lineWidth = 5.0
+            balancePathNode.strokeColor = UIColor.white
+            balancePathNode.physicsBody = SKPhysicsBody(edgeChainFrom: balancePath.path)
+            balancePathNode.physicsBody?.isDynamic = false
+            addChild(balancePathNode)
+        }
         
         // setup motion
         motionManager.startAccelerometerUpdates()
-    }
-
-    private func refreshFood() {
-        if let food = foodSpot {
-            food.removeFromParent()
-            foodSpot = nil
-        }
-        foodSpot = SKSpriteNode(imageNamed: "pacmanFood")
-        if let food = foodSpot {
-            let bounds:CGSize = frame.size
-            food.zPosition = 0
-            let randomXPos:CGFloat = CGFloat(arc4random_uniform(UInt32(bounds.width - food.size.width) - 40))
-            food.position = CGPoint(x: 20.0 + food.size.width + randomXPos, y: bounds.height)
-            food.physicsBody = SKPhysicsBody(circleOfRadius: food.size.height / 2)
-            food.physicsBody?.isDynamic = true
-            food.physicsBody?.categoryBitMask = ColliderType.food.rawValue
-            food.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
-            addChild(food)
-        }
+        
+        guard let engine = AudioEngine(with: "pacman_beginning", type: "wav", options: .loops) else { return }
+        
+        self.engine = engine
+        self.engine!.setupAudioEngine()
     }
     
     // MARK: Pacman Animations
     private func eatingPacman() {
         player.run(SKAction.repeatForever(
             SKAction.animate(with: [playerFrame1, playerFrame2],
-                                         timePerFrame: 0.2,
-                                         resize: false,
-                                         restore: true)),
-                                         withKey:"eatingPacman")
+                             timePerFrame: 0.2,
+                             resize: false,
+                             restore: true)),
+                   withKey:"eatingPacman")
     }
     
     private func updateScore(_ score: Int) {
-        if score > self.highscore {
-            self.highscore = score
-            let scoreText = String(score)
-            highScoreLabel.text = scoreText
-        }
         self.score = score
-        let scoreText = String(score)
+        var scoreText = String(score)
         scoreLabel.text = scoreText
+        self.highscore += Float(score) / 100.0
+        scoreText = String(highscore)
+        highScoreLabel.text = scoreText
     }
     
     override func update(_ currentTime: CFTimeInterval) {
-        
-        // food update
-        if let food = foodSpot {
-            if food.position.y <= 0 {
-                refreshFood()
-                updateScore(0)
-            }
-            food.position.y -= 10
-        }
         
         // motion update
         if let data = motionManager.accelerometerData {
             player.position.x = CGFloat(data.acceleration.x) * frame.width / 2 * 2 + frame.width / 2
         }
-    }
-}
-
-// MARK: Contacts
-extension GameScene: SKPhysicsContactDelegate {
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
         
-        // Edge Contact
-        if bodyA.categoryBitMask == ColliderType.food.rawValue || bodyB.categoryBitMask == ColliderType.food.rawValue {
-            refreshFood()
-            updateScore(score + 1)
+        // check path difference
+        var xDifference: CGFloat = 0.0
+        if let balancePath = balancePath {
+            balancePathNode.position.y -= 1
+            playerRelativeYPosition += 1
+            let relativePlayerPosition = CGPoint(x: player.position.x, y: playerRelativeYPosition)
+            xDifference = balancePath.differenceFromPathPoint(relativePlayerPosition)
+            
+            // extend path
+            if balancePath.totalLength - playerRelativeYPosition <= frame.height {
+                balancePath.appendBalancePathWithRandomSegment(length: 500.0, amplification: 0.8)
+            }
+
+            balancePathNode.path = balancePath.path
         }
+        updateScore(Int(xDifference))
+        self.engine!.modifyPitch(with: -Float(xDifference * 2))
     }
 }
-
