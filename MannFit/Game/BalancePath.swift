@@ -24,8 +24,9 @@ class BalancePath: NSObject {
     var pathPoints: [CGPoint]
     var path: CGMutablePath
     let bounds: CGSize
+    var distanceToBottom: CGFloat
     
-    init(origin: CGPoint, length: CGFloat, bounds: CGSize) {
+    init(origin: CGPoint, length: CGFloat, bounds: CGSize, distanceToBottom: CGFloat) {
         self.startPoint = origin
         self.endPoint = origin
         self.endPathSegment = .undefined
@@ -33,6 +34,7 @@ class BalancePath: NSObject {
         self.bounds = bounds
         self.pathPoints = [origin]
         self.path = CGMutablePath()
+        self.distanceToBottom = distanceToBottom
         path.move(to: origin)
         super.init()
         appendStraightPathSegment(length: length)
@@ -53,7 +55,7 @@ class BalancePath: NSObject {
         }
         if let index = index {
             let pathPoint = pathPoints[index]
-            if point.y - first.y > 20.0 {
+            if point.y - first.y > self.distanceToBottom {
                 pathPoints.removeFirst()
                 recreatePath()
             }

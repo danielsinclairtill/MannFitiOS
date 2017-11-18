@@ -104,7 +104,7 @@ class GameScene: SKScene {
         addChild(player)
         
         // initiate balance path
-        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds)
+        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds, distanceToBottom: 20.0)
         if let balancePath = balancePath {
             balancePathNode.zPosition = 0
             balancePathNode.path = balancePath.path
