@@ -24,7 +24,7 @@ class GameScene: SKScene {
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
     let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
-    var playerRelativeYPosition: CGFloat = 20.0
+    var playerRelativeYPosition: CGFloat = 50.0
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
     var balancePath: BalancePath?
