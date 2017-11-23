@@ -16,6 +16,8 @@ class GameCollectionViewController: UICollectionViewController {
     
     private let gameDataSource = GameDataSource()
     
+    private let managedObjectContext = CoreDataWrapper().managedObjectContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,8 +28,14 @@ class GameCollectionViewController: UICollectionViewController {
         guard let storyboard = self.storyboard else { return }
         
         let game = self.gameDataSource.object(at: indexPath)
-        let gameViewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier)
-        self.present(gameViewController, animated: true, completion: nil)
+        
+        // If this view controller does not comply with the CoreData contract, exit because we cannot save data.
+        guard let gameViewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier) as? CoreDataCompliant else { return }
+        
+        gameViewController.managedObjectContext = self.managedObjectContext
+        
+        // We know this is a UIViewController, so cast back
+        self.present(gameViewController as! UIViewController, animated: true, completion: nil)
     }
 }
 
