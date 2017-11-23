@@ -10,11 +10,11 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+class PacManGameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scene = GameScene(size: view.bounds.size)
+        let scene = PacManGameScene(size: view.bounds.size)
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true
@@ -27,5 +27,10 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
+}
+
+extension PacManGameViewController: GameOverDelegate {
+    func sendGameData(game: String, duration: Int, absement: Float) {
+        print("game over")
+    }
 }

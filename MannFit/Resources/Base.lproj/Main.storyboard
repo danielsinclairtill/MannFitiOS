@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Pac Man Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pacmanIdentifier" id="BV1-FR-VrT" customClass="PacManGameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,7 +61,6 @@
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>
                                     <outlet property="imageView" destination="WBk-zt-A7R" id="lqc-I5-eUI"/>
-                                    <segue destination="BV1-FR-VrT" kind="show" identifier="showGameSegue" id="nXe-cg-RTK"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

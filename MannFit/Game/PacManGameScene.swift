@@ -3,7 +3,7 @@ import GameplayKit
 import CoreMotion
 
 
-class GameScene: SKScene {
+class PacManGameScene: SKScene {
     
     // MARK: Initilization
     enum ColliderType: UInt32 {
@@ -33,6 +33,8 @@ class GameScene: SKScene {
     let balancePathAmplification: CGFloat = 0.8
     
     var engine: AudioEngine?
+    
+    var gameOverDelegate: GameOverDelegate?
     
     override func didMove(to view: SKView) {
         
@@ -173,5 +175,10 @@ class GameScene: SKScene {
         }
         updateAbsement(Float(xDifference))
         self.engine!.modifyPitch(with: -Float(xDifference * 2))
+    }
+    
+    // MARK: - Game over
+    private func gameOver() {
+        self.gameOverDelegate?.sendGameData(game: "PacMan", duration: 0, absement: 0.0)
     }
 }
