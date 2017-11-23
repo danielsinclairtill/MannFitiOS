@@ -85,21 +85,21 @@ class BalancePath: NSObject {
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
             } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: randomArcIndex == 0)
+                appendArcPathSegment(length: length, amplification: amplification, left: randomArcIndex == 0, easeIn: true, easeOut: false)
             }
             break
         case .leftArc:
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
             } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: true)
+                appendArcPathSegment(length: length, amplification: amplification, left: true, easeIn: false, easeOut: false)
             }
             break
         case .rightArc:
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
             } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: false)
+                appendArcPathSegment(length: length, amplification: amplification, left: false, easeIn: false, easeOut: false)
             }
             break
         default: break
@@ -119,14 +119,45 @@ class BalancePath: NSObject {
         endPathSegment = .straight
     }
     
-    func appendArcPathSegment(length: CGFloat, amplification: CGFloat, left: Bool) {
+    func appendArcPathSegment(length: CGFloat, amplification: CGFloat, left: Bool, easeIn: Bool, easeOut: Bool) {
         let angleValue = left ? -CGFloat.pi : CGFloat.pi
-        for y in 1...Int(length) {
+        let curveDirection: CGFloat = left ? -1.0 : 1.0
+        var startingArcY: Int = 1
+
+        if easeIn {
+            let easeInY: CGFloat = length / 4
+            startingArcY = Int(easeInY) + 1
+            for y in 1...Int(easeInY) {
+                let sinEaseInOutX = 1/2 * (1 - cos(CGFloat(y)/easeInY * CGFloat.pi))
+                let x = endPoint.x + curveDirection * sinEaseInOutX * bounds.width / 2 * amplification
+                let newPoint = CGPoint(x: CGFloat(x), y: endPoint.y + CGFloat(y))
+                path.addLine(to: newPoint)
+                pathPoints.append(newPoint)
+            }
+        }
+        
+        let easeOutLength = length / 4
+        let easeOutY = length - easeOutLength
+        let arcLength = easeOut ? easeOutY : length
+        
+        for y in startingArcY...Int(arcLength) {
             let x = endPoint.x + sin(CGFloat(y) * 2 * angleValue / length) * bounds.width / 2 * amplification
             let newPoint = CGPoint(x: x, y: endPoint.y + CGFloat(y))
             path.addLine(to: newPoint)
             pathPoints.append(newPoint)
         }
+        
+        if easeOut {
+            for y in Int(easeOutY + 1)...Int(length) {
+                let t = CGFloat(easeOutLength - CGFloat(y) - easeOutY)/easeOutLength
+                let sinEaseInOutX = 1/2 * (1 - cos(t * CGFloat.pi))
+                let x = endPoint.x + -curveDirection * sinEaseInOutX * bounds.width / 2 * amplification
+                let newPoint = CGPoint(x: CGFloat(x), y: endPoint.y + CGFloat(y))
+                path.addLine(to: newPoint)
+                pathPoints.append(newPoint)
+            }
+        }
+
         totalLength += length
         if let lastPoint = pathPoints.last {
             endPoint = lastPoint

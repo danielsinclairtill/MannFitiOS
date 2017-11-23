@@ -16,19 +16,21 @@ class GameScene: SKScene {
     let motionManager = CMMotionManager()
     
     let background = SKSpriteNode()
-    let scoreLabel = SKLabelNode()
-    let highScoreLabel = SKLabelNode()
-    var score: Int = 0
-    var highscore: Float = 0
+    let absementLabel = SKLabelNode()
+    let absementScoreLabel = SKLabelNode()
+    var absement: Float = 0
+    var absementScore: Float = 0
     let wall1 = SKSpriteNode()
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
     let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
-    var playerRelativeYPosition: CGFloat = 20.0
+    var playerRelativeYPosition: CGFloat = 50.0
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
     var balancePath: BalancePath?
     var balancePathNode: SKShapeNode = SKShapeNode()
+    let balancePathLength: CGFloat = 600.0
+    let balancePathAmplification: CGFloat = 0.8
     
     var engine: AudioEngine?
     
@@ -40,27 +42,27 @@ class GameScene: SKScene {
         background.zPosition = -10.0
         background.scale(to: frame.size)
         
-        // scoreLabel setup
-        scoreLabel.zPosition = 1
-        scoreLabel.fontName = "AvenirNextCondensed-Heavy"
-        scoreLabel.fontSize = 50.0
-        scoreLabel.fontColor = SKColor.white
-        var scoreText = String(score)
-        scoreLabel.text = scoreText
-        scoreLabel.horizontalAlignmentMode = .right
-        scoreLabel.position = CGPoint(x: bounds.width - scoreLabel.frame.size.width / 2 - 15.0,
-                                      y: bounds.height - scoreLabel.frame.size.height - 15.0)
+        // absementLabel setup
+        absementLabel.zPosition = 1
+        absementLabel.fontName = "AvenirNextCondensed-Heavy"
+        absementLabel.fontSize = 50.0
+        absementLabel.fontColor = SKColor.white
+        var scoreText = String(absement)
+        absementLabel.text = scoreText
+        absementLabel.horizontalAlignmentMode = .right
+        absementLabel.position = CGPoint(x: bounds.width - absementLabel.frame.size.width / 2 + 10.0,
+                                         y: bounds.height - absementLabel.frame.size.height - 15.0)
         
-        // highScoreLabel setup
-        highScoreLabel.zPosition = 1
-        highScoreLabel.fontName = "AvenirNextCondensed-Heavy"
-        highScoreLabel.fontSize = 50.0
-        highScoreLabel.fontColor = SKColor.red
-        scoreText = String(score)
-        highScoreLabel.text = scoreText
-        highScoreLabel.horizontalAlignmentMode = .right
-        highScoreLabel.position = CGPoint(x: bounds.width - highScoreLabel.frame.size.width / 2 - 15.0,
-                                          y: scoreLabel.frame.minY - highScoreLabel.frame.size.height - 10.0 )
+        // absementScoreLabel setup
+        absementScoreLabel.zPosition = 1
+        absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
+        absementScoreLabel.fontSize = 50.0
+        absementScoreLabel.fontColor = SKColor.red
+        scoreText = String(absement)
+        absementScoreLabel.text = scoreText
+        absementScoreLabel.horizontalAlignmentMode = .right
+        absementScoreLabel.position = CGPoint(x: bounds.width - absementScoreLabel.frame.size.width / 2 + 10.0,
+                                              y: absementLabel.frame.minY - absementScoreLabel.frame.size.height - 10.0 )
         
         // player setup
         player.zPosition = 0
@@ -96,15 +98,18 @@ class GameScene: SKScene {
         
         // add nodes
         addChild(background)
-        addChild(scoreLabel)
-        addChild(highScoreLabel)
+        addChild(absementLabel)
+        addChild(absementScoreLabel)
         addChild(wall1)
         addChild(wall2)
         addChild(wall3)
         addChild(player)
         
         // initiate balance path
-        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0), length: 500.0 , bounds: bounds, distanceToBottom: 20.0)
+        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: 100.0),
+                                  length: balancePathLength,
+                                  bounds: bounds,
+                                  distanceToBottom: playerRelativeYPosition)
         if let balancePath = balancePath {
             balancePathNode.zPosition = 0
             balancePathNode.path = balancePath.path
@@ -115,11 +120,11 @@ class GameScene: SKScene {
             addChild(balancePathNode)
         }
         
-        // setup motion
+        // motion setup
         motionManager.startAccelerometerUpdates()
         
+        // audio setup
         guard let engine = AudioEngine(with: "pacman_beginning", type: "wav", options: .loops) else { return }
-        
         self.engine = engine
         self.engine!.setupAudioEngine()
     }
@@ -134,13 +139,14 @@ class GameScene: SKScene {
                    withKey:"eatingPacman")
     }
     
-    private func updateScore(_ score: Int) {
-        self.score = score
-        var scoreText = String(score)
-        scoreLabel.text = scoreText
-        self.highscore += Float(score) / 100.0
-        scoreText = String(highscore)
-        highScoreLabel.text = scoreText
+    private func updateAbsement(_ absement: Float) {
+        let convertedAbsement: Float = absement / Float(frame.width)
+        self.absement = convertedAbsement
+        var scoreText = String(format: "%.1f", self.absement)
+        absementLabel.text = scoreText
+        self.absementScore += convertedAbsement
+        scoreText = String(format: "%.1f", self.absementScore)
+        absementScoreLabel.text = scoreText
     }
     
     override func update(_ currentTime: CFTimeInterval) {
@@ -160,12 +166,12 @@ class GameScene: SKScene {
             
             // extend path
             if balancePath.totalLength - playerRelativeYPosition <= frame.height {
-                balancePath.appendBalancePathWithRandomSegment(length: 500.0, amplification: 0.8)
+                balancePath.appendBalancePathWithRandomSegment(length: balancePathLength, amplification: balancePathAmplification)
             }
 
             balancePathNode.path = balancePath.path
         }
-        updateScore(Int(xDifference))
+        updateAbsement(Float(xDifference))
         self.engine!.modifyPitch(with: -Float(xDifference * 2))
     }
 }
