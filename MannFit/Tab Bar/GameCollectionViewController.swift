@@ -8,55 +8,26 @@
 
 import UIKit
 
-
-
 class GameCollectionViewController: UICollectionViewController {
 
     // MARK: - Properties
-    private let reuseIdentifier = "GameCell"
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
     
-    private lazy var games: [Game] = {
-        var games = [Game]()
-        let pacman = Game(gameName: "Pacman", gameImageName: "pacmanPlayerOpen")
-        
-        games.append(pacman)
-        
-        return games
-    }()
+    private let gameDataSource = GameDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-extension GameCollectionViewController {
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.games.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! GameMenuCell
         
-        if let image = self.games[indexPath.item].gameImage {
-            cell.imageView.image = image
-        }
-        
-        cell.backgroundColor = UIColor.white
-        
-        return cell
+        self.collectionView?.dataSource = self.gameDataSource
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showGameSegue", sender: indexPath)
+        guard let storyboard = self.storyboard else { return }
+        
+        let game = self.gameDataSource.object(at: indexPath)
+        let gameViewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier)
+        self.present(gameViewController, animated: true, completion: nil)
     }
 }
 

@@ -11,6 +11,7 @@ import UIKit
 struct Game {
     let gameName: String
     let gameImageName: String
+    let storyboardIdentifier: String
     
     var gameImage: UIImage? {
         return UIImage(named: self.gameImageName)
