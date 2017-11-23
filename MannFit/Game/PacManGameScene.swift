@@ -179,6 +179,6 @@ class PacManGameScene: SKScene {
     
     // MARK: - Game over
     private func gameOver() {
-        self.gameOverDelegate?.gameOver(game: "PacMan", duration: 0, absement: 0.0)
+        self.gameOverDelegate?.sendGameData(game: "PacMan", duration: 0, absement: 0.0)
     }
 }

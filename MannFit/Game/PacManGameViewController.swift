@@ -30,7 +30,7 @@ class PacManGameViewController: UIViewController {
 }
 
 extension PacManGameViewController: GameOverDelegate {
-    func gameOver(game: String, duration: Int, absement: Float) {
+    func sendGameData(game: String, duration: Int, absement: Float) {
         print("game over")
     }
 }

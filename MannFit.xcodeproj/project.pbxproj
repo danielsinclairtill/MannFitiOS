@@ -8,33 +8,45 @@
 
 /* Begin PBXBuildFile section */
 		683840741FA7844F00889E75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683840731FA7844F00889E75 /* AppDelegate.swift */; };
-		6838407A1FA7844F00889E75 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683840791FA7844F00889E75 /* GameScene.swift */; };
-		6838407C1FA7844F00889E75 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838407B1FA7844F00889E75 /* GameViewController.swift */; };
+		6838407A1FA7844F00889E75 /* PacManGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683840791FA7844F00889E75 /* PacManGameScene.swift */; };
+		6838407C1FA7844F00889E75 /* PacManGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838407B1FA7844F00889E75 /* PacManGameViewController.swift */; };
 		6838407F1FA7845000889E75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6838407D1FA7845000889E75 /* Main.storyboard */; };
 		683840811FA7845000889E75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683840801FA7845000889E75 /* Assets.xcassets */; };
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
+		A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
 		A030F3271FB3A5B400658AA3 /* GameMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */; };
 		A07C5D5B1FBF5AAB00A9A6F8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */; };
 		A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07C5D5C1FBF605200A9A6F8 /* BalancePath.swift */; };
+		A0B62FBE1FC73F180018151B /* CoreDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B62FBD1FC73F180018151B /* CoreDataWrapper.swift */; };
+		A0B62FC11FC73FE50018151B /* MannFit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0B62FBF1FC73FE50018151B /* MannFit.xcdatamodeld */; };
+		A0B62FCC1FC742B50018151B /* WorkoutItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B62FCA1FC742B50018151B /* WorkoutItem+CoreDataClass.swift */; };
+		A0B62FCD1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B62FCB1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift */; };
+		A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B62FCF1FC7434C0018151B /* GameDataSource.swift */; };
 		A0B666471FBE1A2600A125FD /* pacman_beginning.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0B666461FBE1A2600A125FD /* pacman_beginning.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		683840701FA7844F00889E75 /* MannFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MannFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		683840731FA7844F00889E75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		683840791FA7844F00889E75 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		6838407B1FA7844F00889E75 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		683840791FA7844F00889E75 /* PacManGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacManGameScene.swift; sourceTree = "<group>"; };
+		6838407B1FA7844F00889E75 /* PacManGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacManGameViewController.swift; sourceTree = "<group>"; };
 		6838407E1FA7845000889E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		683840801FA7845000889E75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		683840831FA7845000889E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
+		A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuCell.swift; sourceTree = "<group>"; };
 		A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		A07C5D5C1FBF605200A9A6F8 /* BalancePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancePath.swift; sourceTree = "<group>"; };
+		A0B62FBD1FC73F180018151B /* CoreDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWrapper.swift; sourceTree = "<group>"; };
+		A0B62FC01FC73FE50018151B /* MannFit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MannFit.xcdatamodel; sourceTree = "<group>"; };
+		A0B62FCA1FC742B50018151B /* WorkoutItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A0B62FCB1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A0B62FCF1FC7434C0018151B /* GameDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataSource.swift; sourceTree = "<group>"; };
 		A0B666461FBE1A2600A125FD /* pacman_beginning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pacman_beginning.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,12 +80,14 @@
 		683840721FA7844F00889E75 /* MannFit */ = {
 			isa = PBXGroup;
 			children = (
+				A0B62FCE1FC743380018151B /* Data */,
+				A0B62FBC1FC73EF50018151B /* Core Data */,
 				A030F3231FB399C500658AA3 /* Model */,
 				68FE5CDB1FB0D82200D2E6FA /* Tab Bar */,
-				683840731FA7844F00889E75 /* AppDelegate.swift */,
 				68FE5CDA1FB0D7BD00D2E6FA /* Game */,
 				68FE5CD91FB0D7B300D2E6FA /* Resources */,
 				683840851FA7845000889E75 /* Info.plist */,
+				683840731FA7844F00889E75 /* AppDelegate.swift */,
 			);
 			path = MannFit;
 			sourceTree = "<group>";
@@ -92,9 +106,10 @@
 		68FE5CDA1FB0D7BD00D2E6FA /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				683840791FA7844F00889E75 /* GameScene.swift */,
-				6838407B1FA7844F00889E75 /* GameViewController.swift */,
+				683840791FA7844F00889E75 /* PacManGameScene.swift */,
+				6838407B1FA7844F00889E75 /* PacManGameViewController.swift */,
 				A07C5D5C1FBF605200A9A6F8 /* BalancePath.swift */,
+				A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -115,6 +130,25 @@
 				A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A0B62FBC1FC73EF50018151B /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				A0B62FCA1FC742B50018151B /* WorkoutItem+CoreDataClass.swift */,
+				A0B62FCB1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift */,
+				A0B62FBD1FC73F180018151B /* CoreDataWrapper.swift */,
+				A0B62FBF1FC73FE50018151B /* MannFit.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		A0B62FCE1FC743380018151B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A0B62FCF1FC7434C0018151B /* GameDataSource.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,11 +224,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6838407A1FA7844F00889E75 /* GameScene.swift in Sources */,
+				6838407A1FA7844F00889E75 /* PacManGameScene.swift in Sources */,
+				A0B62FCC1FC742B50018151B /* WorkoutItem+CoreDataClass.swift in Sources */,
 				A07C5D5B1FBF5AAB00A9A6F8 /* AudioEngine.swift in Sources */,
+				A0B62FBE1FC73F180018151B /* CoreDataWrapper.swift in Sources */,
+				A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */,
+				A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */,
+				A0B62FC11FC73FE50018151B /* MannFit.xcdatamodeld in Sources */,
 				A030F3251FB399D800658AA3 /* Game.swift in Sources */,
 				A030F3271FB3A5B400658AA3 /* GameMenuCell.swift in Sources */,
-				6838407C1FA7844F00889E75 /* GameViewController.swift in Sources */,
+				6838407C1FA7844F00889E75 /* PacManGameViewController.swift in Sources */,
+				A0B62FCD1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift in Sources */,
 				68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
 				A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */,
@@ -382,6 +422,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A0B62FBF1FC73FE50018151B /* MannFit.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A0B62FC01FC73FE50018151B /* MannFit.xcdatamodel */,
+			);
+			currentVersion = A0B62FC01FC73FE50018151B /* MannFit.xcdatamodel */;
+			path = MannFit.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 683840681FA7844F00889E75 /* Project object */;
 }
