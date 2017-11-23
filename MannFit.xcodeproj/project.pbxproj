@@ -15,6 +15,7 @@
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */; };
+		A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
 		A030F3271FB3A5B400658AA3 /* GameMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */; };
 		A07C5D5B1FBF5AAB00A9A6F8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */; };
@@ -38,6 +39,7 @@
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
+		A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCompliant.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuCell.swift; sourceTree = "<group>"; };
 		A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				6838407B1FA7844F00889E75 /* PacManGameViewController.swift */,
 				A07C5D5C1FBF605200A9A6F8 /* BalancePath.swift */,
 				A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */,
+				A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				A0B62FCD1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift in Sources */,
 				68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
+				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
 				A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

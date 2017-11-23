@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension WorkoutItem {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WorkoutItem> {
@@ -20,7 +19,7 @@ extension WorkoutItem {
     @NSManaged public var absement: Float
     @NSManaged public var caloriesBurned: Int64
     @NSManaged public var workoutDuration: Int64
-    @NSManaged public var date: NSDate
+    @NSManaged public var date: Date
     @NSManaged public var game: String
 
 }
