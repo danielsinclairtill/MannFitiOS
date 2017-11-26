@@ -145,10 +145,10 @@ class PacManGameScene: SKScene {
         let convertedAbsement: Double = absement / Double(frame.width)
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
         self.absement = roundedConvertedAbsement
-        var scoreText = (String(format: "%.1f", self.absement))
+        var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
         self.absementScore += roundedConvertedAbsement
-        scoreText = (String(format: "%.1f", self.absementScore))
+        scoreText = String(format: "%.1f", self.absementScore)
         absementScoreLabel.text = scoreText
     }
     
