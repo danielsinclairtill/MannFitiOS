@@ -126,7 +126,7 @@ class PacManGameScene: SKScene {
         motionManager.startAccelerometerUpdates()
         
         // audio setup
-        guard let engine = AudioEngine(with: "pacman_beginning", type: "wav", options: .loops) else { return }
+        guard let engine = AudioEngine(with: "requiem", type: "mp3", options: .loops) else { return }
         self.engine = engine
         self.engine!.setupAudioEngine()
     }
