@@ -14,6 +14,7 @@
 		683840811FA7845000889E75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683840801FA7845000889E75 /* Assets.xcassets */; };
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
+		8B64AFB71FCB4D4A00C82833 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB61FCB4D4A00C82833 /* GameOverView.swift */; };
 		A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */; };
 		A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
@@ -38,6 +39,7 @@
 		683840831FA7845000889E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
+		8B64AFB61FCB4D4A00C82833 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCompliant.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				A07C5D5C1FBF605200A9A6F8 /* BalancePath.swift */,
 				A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */,
 				A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */,
+				8B64AFB61FCB4D4A00C82833 /* GameOverView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
 				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
+				8B64AFB71FCB4D4A00C82833 /* GameOverView.swift in Sources */,
 				A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
