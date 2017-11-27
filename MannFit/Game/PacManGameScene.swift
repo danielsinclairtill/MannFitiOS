@@ -29,9 +29,9 @@ class PacManGameScene: SKScene {
     let background = SKSpriteNode()
     let absementLabel = SKLabelNode()
     let absementScoreLabel = SKLabelNode()
-    var absement: Float = 0
-    var absementScore: Float = 0
-    
+    var absement: Double = 0
+    var absementScore: Double = 0
+
     let wall1 = SKSpriteNode()
     let wall2 = SKSpriteNode()
     let wall3 = SKSpriteNode()
@@ -152,7 +152,7 @@ class PacManGameScene: SKScene {
         motionManager.startAccelerometerUpdates()
         
         // audio setup
-        guard let engine = AudioEngine(with: "pacman_beginning", type: "wav", options: .loops) else { return }
+        guard let engine = AudioEngine(with: "requiem", type: "mp3", options: .loops) else { return }
         self.engine = engine
         self.engine!.setupAudioEngine()
     }
@@ -176,12 +176,13 @@ class PacManGameScene: SKScene {
         }
     }
     
-    private func updateAbsement(_ absement: Float) {
-        let convertedAbsement: Float = absement / Float(frame.width)
-        self.absement = convertedAbsement
+    private func updateAbsement(_ absement: Double) {
+        let convertedAbsement: Double = absement / Double(frame.width)
+        let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
+        self.absement = roundedConvertedAbsement
         var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
-        self.absementScore += convertedAbsement
+        self.absementScore += roundedConvertedAbsement
         scoreText = String(format: "%.1f", self.absementScore)
         absementScoreLabel.text = scoreText
     }
@@ -196,7 +197,7 @@ class PacManGameScene: SKScene {
         
         // motion update
         if let data = motionManager.accelerometerData {
-            player.position.x = CGFloat(data.acceleration.x) * frame.width / 2 * 2 + frame.width / 2
+            player.position.x = CGFloat(data.acceleration.x) * frame.width / 2 * 5.0 + frame.width / 2
         }
         
         if gameActive {
@@ -217,7 +218,7 @@ class PacManGameScene: SKScene {
                 
                 balancePathNode.path = balancePath.path
             }
-            updateAbsement(Float(xDifference))
+            updateAbsement(Double(xDifference))
             self.engine!.modifyPitch(with: -Float(xDifference * 2))
         }
     }
@@ -225,7 +226,7 @@ class PacManGameScene: SKScene {
     // MARK: - Game over
     private func gameOver() {
         gameActive = false
-        self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: absementScore)
+        self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: Float(absementScore))
         let view = GameOverPromptView(frame: self.frame)
         self.view?.addSubview(view)
     }

@@ -85,21 +85,17 @@ class BalancePath: NSObject {
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
             } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: randomArcIndex == 0, easeIn: true, easeOut: false)
+                appendArcPathSegment(length: length, amplification: amplification, left: randomArcIndex == 0, easeIn: true, easeOut: true)
             }
             break
         case .leftArc:
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
-            } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: true, easeIn: false, easeOut: false)
             }
             break
         case .rightArc:
             if randomPathIndex == 0 {
                 appendStraightPathSegment(length: length)
-            } else if randomPathIndex == 1 {
-                appendArcPathSegment(length: length, amplification: amplification, left: false, easeIn: false, easeOut: false)
             }
             break
         default: break

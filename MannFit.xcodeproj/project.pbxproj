@@ -15,6 +15,7 @@
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */; };
+		8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */; };
 		A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */; };
 		A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
@@ -40,6 +41,7 @@
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptView.swift; sourceTree = "<group>"; };
+		8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounder.swift"; sourceTree = "<group>"; };
 		A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCompliant.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		683840721FA7844F00889E75 /* MannFit */ = {
 			isa = PBXGroup;
 			children = (
+				8B64AFB31FCB3CFD00C82833 /* Helpers */,
 				A0B62FCE1FC743380018151B /* Data */,
 				A0B62FBC1FC73EF50018151B /* Core Data */,
 				A030F3231FB399C500658AA3 /* Model */,
@@ -126,6 +129,14 @@
 				68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */,
 			);
 			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
+		8B64AFB31FCB3CFD00C82833 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		A030F3231FB399C500658AA3 /* Model */ = {
@@ -234,6 +245,7 @@
 				A0B62FCC1FC742B50018151B /* WorkoutItem+CoreDataClass.swift in Sources */,
 				A07C5D5B1FBF5AAB00A9A6F8 /* AudioEngine.swift in Sources */,
 				A0B62FBE1FC73F180018151B /* CoreDataWrapper.swift in Sources */,
+				8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */,
 				A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */,
 				A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */,
 				A0B62FC11FC73FE50018151B /* MannFit.xcdatamodeld in Sources */,
@@ -383,7 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M64S8VZKPQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MannFit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mannfitlabs.MannFitiOS;
@@ -398,7 +410,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M64S8VZKPQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MannFit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mannfitlabs.MannFitiOS;

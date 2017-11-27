@@ -20,20 +20,26 @@ class GameOverPromptView: UIView {
     lazy var restartButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.white
+        button.setTitle("RESTART", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 10.0)
         button.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        return button
     }()
     
     lazy var exitButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.white
+        button.setTitle("EXIT", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 10.0)
         button.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(self.background)
+        self.addSubview(self.restartButton)
+        self.addSubview(self.exitButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +57,20 @@ class GameOverPromptView: UIView {
             self.background.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
             self.background.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             self.background.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            ])
+    
+        NSLayoutConstraint.activate([
+            self.restartButton.widthAnchor.constraint(equalToConstant: mainSreenWidth - 50.0),
+            self.restartButton.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
+            self.restartButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: -self.restartButton.frame.width),
+            self.restartButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.exitButton.widthAnchor.constraint(equalToConstant: mainSreenWidth - 50.0),
+            self.exitButton.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
+            self.exitButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: self.exitButton.frame.width),
+            self.exitButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             ])
     }
 }
