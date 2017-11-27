@@ -13,6 +13,7 @@
 		6838407F1FA7845000889E75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6838407D1FA7845000889E75 /* Main.storyboard */; };
 		683840811FA7845000889E75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683840801FA7845000889E75 /* Assets.xcassets */; };
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
+		68C884141FCC8167008D3FE6 /* requiem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 68C884131FCC8167008D3FE6 /* requiem.mp3 */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */; };
 		8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */; };
@@ -39,6 +40,7 @@
 		683840801FA7845000889E75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		683840831FA7845000889E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68C884131FCC8167008D3FE6 /* requiem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = requiem.mp3; path = ../../../../Downloads/requiem.mp3; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptView.swift; sourceTree = "<group>"; };
 		8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounder.swift"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		68FE5CD91FB0D7B300D2E6FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				68C884131FCC8167008D3FE6 /* requiem.mp3 */,
 				A0B666461FBE1A2600A125FD /* pacman_beginning.wav */,
 				6838407D1FA7845000889E75 /* Main.storyboard */,
 				683840801FA7845000889E75 /* Assets.xcassets */,
@@ -227,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68C884141FCC8167008D3FE6 /* requiem.mp3 in Resources */,
 				A0B666471FBE1A2600A125FD /* pacman_beginning.wav in Resources */,
 				6838407F1FA7845000889E75 /* Main.storyboard in Resources */,
 				683840811FA7845000889E75 /* Assets.xcassets in Resources */,
