@@ -21,7 +21,8 @@ class GameOverPromptView: UIView {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("RESTART", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 10.0)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 30.0)
+        button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -30,7 +31,8 @@ class GameOverPromptView: UIView {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("EXIT", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 10.0)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 30.0)
+        button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -52,6 +54,9 @@ class GameOverPromptView: UIView {
         let mainSreenWidth = self.bounds.size.width
         let mainScreenHeight = self.bounds.size.height
         
+        let restartButtonSize: CGSize = restartButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let exitButtonSize: CGSize = exitButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+
         NSLayoutConstraint.activate([
             self.background.widthAnchor.constraint(equalToConstant: mainSreenWidth - 50.0),
             self.background.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
@@ -60,16 +65,16 @@ class GameOverPromptView: UIView {
             ])
     
         NSLayoutConstraint.activate([
-            self.restartButton.widthAnchor.constraint(equalToConstant: mainSreenWidth - 50.0),
-            self.restartButton.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
-            self.restartButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: -self.restartButton.frame.width),
+            self.restartButton.widthAnchor.constraint(equalToConstant: restartButtonSize.width),
+            self.restartButton.heightAnchor.constraint(equalToConstant: restartButtonSize.height),
+            self.restartButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: -restartButtonSize.width),
             self.restartButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             ])
         
         NSLayoutConstraint.activate([
-            self.exitButton.widthAnchor.constraint(equalToConstant: mainSreenWidth - 50.0),
-            self.exitButton.heightAnchor.constraint(equalToConstant: mainScreenHeight / 3),
-            self.exitButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: self.exitButton.frame.width),
+            self.exitButton.widthAnchor.constraint(equalToConstant: exitButtonSize.width),
+            self.exitButton.heightAnchor.constraint(equalToConstant: exitButtonSize.height),
+            self.exitButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: exitButtonSize.width),
             self.exitButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             ])
     }
