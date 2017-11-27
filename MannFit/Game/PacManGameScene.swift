@@ -19,7 +19,7 @@ class PacManGameScene: SKScene {
     
     var gameTimer: Timer?
     var gameActive: Bool = true
-    let exerciseTime: TimeInterval = 20
+    let exerciseTime: TimeInterval = 1
     lazy var timeLeft: TimeInterval = {
         return exerciseTime
     }()
@@ -226,5 +226,7 @@ class PacManGameScene: SKScene {
     private func gameOver() {
         gameActive = false
         self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: absementScore)
+        let view = GameOverPromptView(frame: self.frame)
+        self.view?.addSubview(view)
     }
 }
