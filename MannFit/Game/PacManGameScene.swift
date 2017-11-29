@@ -36,6 +36,8 @@ class PacManGameScene: SKScene {
     
     var gameOverDelegate: GameOverDelegate?
     
+    var smoothXAcceleration = LowPassFilterSignal(value: 0, timeConstant: 0.90)
+    
     override func didMove(to view: SKView) {
         
         // background setup
@@ -156,7 +158,8 @@ class PacManGameScene: SKScene {
         
         // motion update
         if let data = motionManager.accelerometerData {
-            player.position.x = CGFloat(data.acceleration.x) * frame.width / 2 * 5.0 + frame.width / 2
+            self.smoothXAcceleration.update(newValue: data.acceleration.x)
+            player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * 5.0 + frame.width / 2
         }
         
         // check path difference
