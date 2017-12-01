@@ -10,8 +10,13 @@ import UIKit
 
 class GameOverPromptView: UIView {
     
+    var delegate: GameOverPromptDelegate?
+    private let buttonWidth: CGFloat = 100.0
+    private let buttonFontSize: CGFloat = 25.0
+    
     lazy var background: UIView = {
         let view = UIView()
+        view.layer.cornerRadius = 30.0
         view.backgroundColor = UIColor.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -21,8 +26,9 @@ class GameOverPromptView: UIView {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("RESTART", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 30.0)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: buttonFontSize)
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(restartGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -31,8 +37,9 @@ class GameOverPromptView: UIView {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("EXIT", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: 30.0)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: buttonFontSize)
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(exitGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -53,6 +60,7 @@ class GameOverPromptView: UIView {
         
         let mainSreenWidth = self.bounds.size.width
         let mainScreenHeight = self.bounds.size.height
+        let horizontalPadding: CGFloat = 20.0
         
         let restartButtonSize: CGSize = restartButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let exitButtonSize: CGSize = exitButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
@@ -65,17 +73,25 @@ class GameOverPromptView: UIView {
             ])
     
         NSLayoutConstraint.activate([
-            self.restartButton.widthAnchor.constraint(equalToConstant: restartButtonSize.width),
+            self.restartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
             self.restartButton.heightAnchor.constraint(equalToConstant: restartButtonSize.height),
-            self.restartButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: -restartButtonSize.width),
+            self.restartButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: buttonWidth / 2 + horizontalPadding),
             self.restartButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             ])
         
         NSLayoutConstraint.activate([
-            self.exitButton.widthAnchor.constraint(equalToConstant: exitButtonSize.width),
+            self.exitButton.widthAnchor.constraint(equalToConstant: buttonWidth),
             self.exitButton.heightAnchor.constraint(equalToConstant: exitButtonSize.height),
-            self.exitButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: exitButtonSize.width),
+            self.exitButton.centerXAnchor.constraint(equalTo: self.background.centerXAnchor, constant: -buttonWidth / 2 - horizontalPadding),
             self.exitButton.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             ])
+    }
+    
+    @objc private func restartGame() {
+        self.delegate?.restartGame()
+    }
+    
+    @objc private func exitGame() {
+        self.delegate?.exitGame()
     }
 }

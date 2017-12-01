@@ -15,11 +15,12 @@ class PacManGameScene: SKScene {
     
     let motionManager = CMMotionManager()
     var engine: AudioEngine?
+    var gameOverPromptView: GameOverPromptView?
     var gameOverDelegate: GameOverDelegate?
     
     var gameTimer: Timer?
     var gameActive: Bool = true
-    let exerciseTime: TimeInterval = 1
+    let exerciseTime: TimeInterval = 20
     lazy var timeLeft: TimeInterval = {
         return exerciseTime
     }()
@@ -42,9 +43,10 @@ class PacManGameScene: SKScene {
     }()
     let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
     let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
+    let pacmanAnimationKey = "eatingPacman"
     
     var balancePath: BalancePath?
-    var balancePathNode: SKShapeNode = SKShapeNode()
+    var balancePathNode: SKShapeNode?
     let balancePathStartY: CGFloat = 200.0
     let balancePathLength: CGFloat = 600.0
     let balancePathAmplification: CGFloat = 0.8
@@ -134,11 +136,30 @@ class PacManGameScene: SKScene {
         addChild(player)
         
         // initiate balance path
-        balancePath = BalancePath(origin: CGPoint(x: bounds.width / 2, y: balancePathStartY),
+        initializeBalancePath()
+        
+        // motion setup
+        motionManager.startAccelerometerUpdates()
+        
+        // audio setup
+        initializeAudio()
+    }
+    
+    // MARK: Audio
+    private func initializeAudio() {
+        guard let engine = AudioEngine(with: "requiem", type: "mp3", options: .loops) else { return }
+        self.engine = engine
+        self.engine!.setupAudioEngine()
+    }
+    
+    // MARK: BalancePath
+    private func initializeBalancePath() {
+        balancePath = BalancePath(origin: CGPoint(x: self.frame.width / 2, y: balancePathStartY),
                                   length: balancePathLength,
-                                  bounds: bounds,
+                                  bounds: self.frame.size,
                                   distanceToBottom: playerRelativeStartYPosition)
-        if let balancePath = balancePath {
+        balancePathNode = SKShapeNode()
+        if let balancePath = balancePath, let balancePathNode = balancePathNode {
             balancePathNode.zPosition = 0
             balancePathNode.path = balancePath.path
             balancePathNode.lineWidth = 5.0
@@ -147,14 +168,6 @@ class PacManGameScene: SKScene {
             balancePathNode.physicsBody?.isDynamic = false
             addChild(balancePathNode)
         }
-        
-        // motion setup
-        motionManager.startAccelerometerUpdates()
-        
-        // audio setup
-        guard let engine = AudioEngine(with: "requiem", type: "mp3", options: .loops) else { return }
-        self.engine = engine
-        self.engine!.setupAudioEngine()
     }
     
     // MARK: Pacman Animations
@@ -164,7 +177,7 @@ class PacManGameScene: SKScene {
                              timePerFrame: 0.2,
                              resize: false,
                              restore: true)),
-                   withKey:"eatingPacman")
+                   withKey:pacmanAnimationKey)
     }
     
     @objc private func updateGameTimer() {
@@ -201,13 +214,13 @@ class PacManGameScene: SKScene {
         }
         
         if gameActive {
-            // traverse path
-            balancePathNode.position.y -= 1
-            playerRelativeYPosition += 1
-            
-            // check path difference
             var xDifference: CGFloat = 0.0
-            if let balancePath = balancePath {
+            if let balancePath = balancePath, let balancePathNode = balancePathNode {
+                // traverse path
+                balancePathNode.position.y -= 1
+                playerRelativeYPosition += 1
+                
+                // check path difference
                 let relativePlayerPosition = CGPoint(x: player.position.x, y: playerRelativeYPosition)
                 xDifference = balancePath.differenceFromPathPoint(relativePlayerPosition)
                 
@@ -215,7 +228,6 @@ class PacManGameScene: SKScene {
                 if balancePath.totalLength - playerRelativeYPosition <= frame.height {
                     balancePath.appendBalancePathWithRandomSegment(length: balancePathLength, amplification: balancePathAmplification)
                 }
-                
                 balancePathNode.path = balancePath.path
             }
             updateAbsement(Double(xDifference))
@@ -226,8 +238,41 @@ class PacManGameScene: SKScene {
     // MARK: - Game over
     private func gameOver() {
         gameActive = false
+        player.removeAction(forKey: pacmanAnimationKey)
         self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: Float(absementScore))
         let view = GameOverPromptView(frame: self.frame)
+        view.delegate = self
         self.view?.addSubview(view)
+        self.gameOverPromptView = view
+    }
+}
+
+// MARK: GameOverPromptDelegate
+extension PacManGameScene: GameOverPromptDelegate {
+    func restartGame() {
+        gameOverPromptView?.removeFromSuperview()
+        
+        timeLeft = self.exerciseTime
+        timerSet = false
+        timeLabel.text = String(Int(timeLeft))
+        
+        absement = 0.0
+        absementScore = 0.0
+        var scoreText = String(format: "%.1f", self.absement)
+        absementLabel.text = scoreText
+        scoreText = String(format: "%.1f", self.absementScore)
+        absementScoreLabel.text = scoreText
+        
+        playerRelativeYPosition = playerRelativeStartYPosition
+        balancePathNode?.removeFromParent()
+        balancePathNode = nil
+        balancePath = nil
+        initializeBalancePath()
+        
+        eatingPacman()
+        gameActive = true
+    }
+    func exitGame() {
+        
     }
 }
