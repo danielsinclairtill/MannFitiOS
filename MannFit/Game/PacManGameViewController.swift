@@ -10,13 +10,14 @@ import UIKit
 import SpriteKit
 import CoreData
 
-class PacManGameViewController: GameViewController, CoreDataCompliant {
+class PacManGameViewController: UIViewController, CoreDataCompliant {
     
     var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let scene = PacManGameScene(size: view.bounds.size)
+        scene.gameOverDelegate = self
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true
@@ -47,6 +48,6 @@ extension PacManGameViewController: GameOverDelegate {
     }
     
     func exitGame() {
-        self.gameCollectionDelegate?.exitGame()
+        self.dismiss(animated: true, completion: nil)
     }
 }

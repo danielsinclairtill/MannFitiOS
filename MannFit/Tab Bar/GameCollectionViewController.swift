@@ -13,7 +13,6 @@ class GameCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
-    private var currentGameViewController: UIViewController?
     private let gameDataSource = GameDataSource()
     
     private let managedObjectContext = CoreDataWrapper().managedObjectContext
@@ -34,17 +33,8 @@ class GameCollectionViewController: UICollectionViewController {
         viewController.managedObjectContext = self.managedObjectContext
         
         // We know this is a GameViewController, so cast back
-        let gameViewController = viewController as! GameViewController
-        gameViewController.gameCollectionDelegate = self
-        self.currentGameViewController = gameViewController
+        let gameViewController = viewController as! UIViewController
         self.present(gameViewController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - GameCollectionDelegate
-extension GameCollectionViewController: GameCollectionDelegate {
-    func exitGame() {
-        self.currentGameViewController?.removeFromParentViewController()
     }
 }
 
