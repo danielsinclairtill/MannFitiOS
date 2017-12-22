@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import CoreData
 
-class PacManGameViewController: UIViewController, CoreDataCompliant {
+class PacManGameViewController: GameViewController, CoreDataCompliant {
     
     var managedObjectContext: NSManagedObjectContext!
     
@@ -44,5 +44,9 @@ extension PacManGameViewController: GameOverDelegate {
         workoutItem.absement = absement
         workoutItem.date = Date()
         workoutItem.caloriesBurned = 0 // calculate this after
+    }
+    
+    func exitGame() {
+        self.gameCollectionDelegate?.exitGame()
     }
 }

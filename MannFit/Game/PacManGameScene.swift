@@ -272,7 +272,8 @@ extension PacManGameScene: GameOverPromptDelegate {
         eatingPacman()
         gameActive = true
     }
+    
     func exitGame() {
-        
+        self.gameOverDelegate?.exitGame()
     }
 }
