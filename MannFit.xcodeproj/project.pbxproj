@@ -15,7 +15,6 @@
 		683840841FA7845000889E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683840821FA7845000889E75 /* LaunchScreen.storyboard */; };
 		68C8841C1FCC838C008D3FE6 /* requiem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 68C8841B1FCC838C008D3FE6 /* requiem.mp3 */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
-		8B40422C1FED82850060C3DC /* GameCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B40422B1FED82850060C3DC /* GameCollectionDelegate.swift */; };
 		8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */; };
 		8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */; };
 		8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */; };
@@ -44,7 +43,6 @@
 		683840851FA7845000889E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C8841B1FCC838C008D3FE6 /* requiem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = requiem.mp3; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
-		8B40422B1FED82850060C3DC /* GameCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionDelegate.swift; sourceTree = "<group>"; };
 		8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptDelegate.swift; sourceTree = "<group>"; };
 		8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounder.swift"; sourceTree = "<group>"; };
 		8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptView.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */,
-				8B40422B1FED82850060C3DC /* GameCollectionDelegate.swift */,
 			);
 			path = "Tab Bar";
 			sourceTree = "<group>";
@@ -267,7 +264,6 @@
 				68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
 				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
-				8B40422C1FED82850060C3DC /* GameCollectionDelegate.swift in Sources */,
 				8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */,
 				A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */,
 			);
