@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Delegate to handle logic for buttons presented from the Game Over prompt of a game
 protocol GameOverPromptDelegate {
     func restartGame() -> Void
     func exitGame() -> Void
