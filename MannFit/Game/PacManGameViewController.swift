@@ -17,6 +17,7 @@ class PacManGameViewController: UIViewController, CoreDataCompliant {
     override func viewDidLoad() {
         super.viewDidLoad()
         let scene = PacManGameScene(size: view.bounds.size)
+        scene.gameOverDelegate = self
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true
@@ -44,5 +45,9 @@ extension PacManGameViewController: GameOverDelegate {
         workoutItem.absement = absement
         workoutItem.date = Date()
         workoutItem.caloriesBurned = 0 // calculate this after
+    }
+    
+    func exitGame() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

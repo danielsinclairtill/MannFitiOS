@@ -10,4 +10,5 @@ import Foundation
 
 protocol GameOverDelegate {
     func sendGameData(game: String, duration: Int, absement: Float) -> Void
+    func exitGame() -> Void
 }

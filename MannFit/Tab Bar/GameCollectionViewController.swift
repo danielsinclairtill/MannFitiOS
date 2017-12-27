@@ -13,7 +13,6 @@ class GameCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
-    
     private let gameDataSource = GameDataSource()
     
     private let managedObjectContext = CoreDataWrapper().managedObjectContext
@@ -30,12 +29,12 @@ class GameCollectionViewController: UICollectionViewController {
         let game = self.gameDataSource.object(at: indexPath)
         
         // If this view controller does not comply with the CoreData contract, exit because we cannot save data.
-        guard let gameViewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier) as? CoreDataCompliant else { return }
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier) as? CoreDataCompliant else { return }
+        viewController.managedObjectContext = self.managedObjectContext
         
-        gameViewController.managedObjectContext = self.managedObjectContext
-        
-        // We know this is a UIViewController, so cast back
-        self.present(gameViewController as! UIViewController, animated: true, completion: nil)
+        // We know this is a GameViewController, so cast back
+        let gameViewController = viewController as! UIViewController
+        self.present(gameViewController, animated: true, completion: nil)
     }
 }
 
