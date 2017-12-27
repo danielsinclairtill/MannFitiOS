@@ -105,7 +105,7 @@
             </objects>
             <point key="canvasLocation" x="246" y="1651"/>
         </scene>
-        <!--Item-->
+        <!--Table View Controller-->
         <scene sceneID="eTK-d0-Da9">
             <objects>
                 <tableViewController id="bHz-dz-i8y" sceneMemberID="viewController">
@@ -202,7 +202,7 @@
                             <outlet property="delegate" destination="bHz-dz-i8y" id="QCd-cx-H8Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="rUo-zj-i0X"/>
+                    <tabBarItem key="tabBarItem" title="" systemItem="more" id="rUo-zj-i0X"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTl-mf-t1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
