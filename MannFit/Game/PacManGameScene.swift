@@ -47,7 +47,7 @@ class PacManGameScene: SKScene {
     
     var balancePath: BalancePath?
     var balancePathNode: SKShapeNode?
-    let balancePathStartY: CGFloat = 200.0
+    let balancePathStartY: CGFloat = 500.0
     let balancePathLength: CGFloat = 600.0
     let balancePathAmplification: CGFloat = 0.8
 
@@ -203,7 +203,7 @@ class PacManGameScene: SKScene {
     override func update(_ currentTime: CFTimeInterval) {
         
         // start timer when player begins balance path
-        if playerRelativeYPosition >= 200 && !timerSet {
+        if playerRelativeYPosition >= balancePathStartY && !timerSet {
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGameTimer), userInfo: nil, repeats: true)
             timerSet = true
         }
