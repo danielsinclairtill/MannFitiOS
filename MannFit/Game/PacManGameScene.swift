@@ -238,6 +238,7 @@ class PacManGameScene: SKScene {
     // MARK: - Game over
     private func gameOver() {
         gameActive = false
+        self.engine?.stop()
         player.removeAction(forKey: pacmanAnimationKey)
         self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: Float(absementScore))
         let view = GameOverPromptView(frame: self.frame)
@@ -269,11 +270,14 @@ extension PacManGameScene: GameOverPromptDelegate {
         balancePath = nil
         initializeBalancePath()
         
+        self.engine?.restart()
+        
         eatingPacman()
         gameActive = true
     }
     
     func exitGame() {
+        self.engine?.stop()
         self.gameOverDelegate?.exitGame()
     }
 }

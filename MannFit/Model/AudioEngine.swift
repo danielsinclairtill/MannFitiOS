@@ -48,6 +48,15 @@ class AudioEngine {
         }
     }
     
+    func stop() {
+        self.audioPlayerNode.stop()
+    }
+    
+    func restart() {
+        self.audioPlayerNode.stop()
+        self.audioPlayerNode.play()
+    }
+    
     func modifyPitch(with value: Float) {
         self.unitTimePitch.pitch = value
         self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
