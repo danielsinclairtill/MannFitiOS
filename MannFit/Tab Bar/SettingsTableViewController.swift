@@ -55,6 +55,4 @@ class SettingsTableViewController: UITableViewController {
         let defaults: UserDefaults = UserDefaults.standard
         defaults.set(value, forKey: UserDefaultsKeys.settingsVolumeKey)
     }
-    
-
 }
