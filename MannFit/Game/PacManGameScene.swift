@@ -16,7 +16,7 @@ class PacManGameScene: SKScene {
     let motionManager = CMMotionManager()
     var engine: AudioEngine?
     var gameOverPromptView: GameOverPromptView?
-    var gameOverDelegate: GameOverDelegate?
+    weak var gameOverDelegate: GameOverDelegate?
     
     var gameTimer: Timer?
     var gameActive: Bool = true
