@@ -105,10 +105,10 @@
             </objects>
             <point key="canvasLocation" x="246" y="1651"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Settings Table View Controller-->
         <scene sceneID="eTK-d0-Da9">
             <objects>
-                <tableViewController id="bHz-dz-i8y" sceneMemberID="viewController">
+                <tableViewController id="bHz-dz-i8y" customClass="SettingsTableViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rji-ae-EQw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,6 +131,9 @@
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pjm-N3-XNQ">
                                                     <rect key="frame" x="14" y="43" width="347" height="31"/>
+                                                    <connections>
+                                                        <action selector="sensitivitySlider:" destination="bHz-dz-i8y" eventType="valueChanged" id="nTN-wL-Ztx"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -157,6 +160,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Cw-3W-RbU">
                                                     <rect key="frame" x="312" y="9" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="musicSwitch:" destination="bHz-dz-i8y" eventType="valueChanged" id="3uA-j8-FnC"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -183,6 +189,9 @@
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BfX-UH-fhI">
                                                     <rect key="frame" x="14" y="43" width="347" height="31"/>
+                                                    <connections>
+                                                        <action selector="volumeSlider:" destination="bHz-dz-i8y" eventType="valueChanged" id="eM3-nI-k6K"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -203,6 +212,12 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="" systemItem="more" id="rUo-zj-i0X"/>
+                    <connections>
+                        <outlet property="musicSwitch" destination="7Cw-3W-RbU" id="ekB-s5-wKd"/>
+                        <outlet property="sensitivitySlider" destination="Pjm-N3-XNQ" id="mrw-VO-gXa"/>
+                        <outlet property="settingsTableView" destination="rji-ae-EQw" id="Trj-m1-us8"/>
+                        <outlet property="volumeSlider" destination="BfX-UH-fhI" id="DFd-pw-yS2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTl-mf-t1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

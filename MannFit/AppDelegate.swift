@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct UserDefaultsKeys {
+    static let settingsMotionSensitivityKey = "settingsMotionSensitivityKey"
+    static let settingsMusicKey = "settingsMusicKey"
+    static let settingsVolumeKey = "settingsVolumeKey"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,6 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UserDefaults.standard.register(defaults: [
+            UserDefaultsKeys.settingsMotionSensitivityKey : 0.5,
+            UserDefaultsKeys.settingsMusicKey : true,
+            UserDefaultsKeys.settingsVolumeKey : 1.0,
+            ])
+
         return true
     }
 
