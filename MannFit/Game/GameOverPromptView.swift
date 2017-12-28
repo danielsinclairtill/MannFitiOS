@@ -10,7 +10,7 @@ import UIKit
 
 class GameOverPromptView: UIView {
     
-    var delegate: GameOverPromptDelegate?
+    weak var delegate: GameOverPromptDelegate?
     private let buttonWidth: CGFloat = 100.0
     private let buttonFontSize: CGFloat = 25.0
     
