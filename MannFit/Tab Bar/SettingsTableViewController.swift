@@ -15,16 +15,16 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var musicSwitch: UISwitch!
     @IBOutlet weak var volumeSlider: UISlider!
     
+    let userDefaults: UserDefaults = UserDefaults.standard
     var sensitivity: Float = 0.5
     var music: Bool = true
     var volume: Float = 0.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults: UserDefaults = UserDefaults.standard
-        self.sensitivity = defaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey)
-        self.music = defaults.bool(forKey: UserDefaultsKeys.settingsMusicKey)
-        self.volume = defaults.float(forKey: UserDefaultsKeys.settingsVolumeKey)
+        self.sensitivity = userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey)
+        self.music = userDefaults.bool(forKey: UserDefaultsKeys.settingsMusicKey)
+        self.volume = userDefaults.float(forKey: UserDefaultsKeys.settingsVolumeKey)
         
         self.sensitivitySlider.value = self.sensitivity
         self.musicSwitch.isOn = self.music
@@ -36,23 +36,20 @@ class SettingsTableViewController: UITableViewController {
         let value = sender.value
         self.sensitivitySlider.value = value
         
-        let defaults: UserDefaults = UserDefaults.standard
-        defaults.set(value, forKey: UserDefaultsKeys.settingsMotionSensitivityKey)
+        userDefaults.set(value, forKey: UserDefaultsKeys.settingsMotionSensitivityKey)
     }
     
     @IBAction func musicSwitch(_ sender: UISwitch) {
         let isOn = sender.isOn
         self.volumeSlider.isEnabled = isOn
         
-        let defaults: UserDefaults = UserDefaults.standard
-        defaults.set(isOn, forKey: UserDefaultsKeys.settingsMusicKey)
+        userDefaults.set(isOn, forKey: UserDefaultsKeys.settingsMusicKey)
     }
     
     @IBAction func volumeSlider(_ sender: UISlider) {
         let value = sender.value
         self.volumeSlider.value = value
         
-        let defaults: UserDefaults = UserDefaults.standard
-        defaults.set(value, forKey: UserDefaultsKeys.settingsVolumeKey)
+        userDefaults.set(value, forKey: UserDefaultsKeys.settingsVolumeKey)
     }
 }
