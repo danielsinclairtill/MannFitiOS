@@ -6,8 +6,8 @@
 //  Copyright © 2017 MannFit Labs. All rights reserved.
 //
 
-import UIKit
-
-class Constants: NSObject {
-
+struct UserDefaultsKeys {
+    static let settingsMotionSensitivityKey = "settingsMotionSensitivityKey"
+    static let settingsMusicKey = "settingsMusicKey"
+    static let settingsVolumeKey = "settingsVolumeKey"
 }

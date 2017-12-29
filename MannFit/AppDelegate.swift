@@ -8,12 +8,6 @@
 
 import UIKit
 
-struct UserDefaultsKeys {
-    static let settingsMotionSensitivityKey = "settingsMotionSensitivityKey"
-    static let settingsMusicKey = "settingsMusicKey"
-    static let settingsVolumeKey = "settingsVolumeKey"
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
