@@ -11,3 +11,11 @@ struct UserDefaultsKeys {
     static let settingsMusicKey = "settingsMusicKey"
     static let settingsVolumeKey = "settingsVolumeKey"
 }
+
+struct CoreData {
+    static let WorkoutItem = "WorkoutItem"
+}
+
+struct Storyboard {
+    static let WorkoutCell = "workoutCell"
+}
