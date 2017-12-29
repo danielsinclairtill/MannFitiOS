@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class GameCollectionViewController: UICollectionViewController {
 
@@ -14,8 +15,7 @@ class GameCollectionViewController: UICollectionViewController {
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
     private let gameDataSource = GameDataSource()
-    
-    private let managedObjectContext = CoreDataWrapper().managedObjectContext
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,11 @@ class GameCollectionViewController: UICollectionViewController {
         // We know this is a GameViewController, so cast back
         let gameViewController = viewController as! UIViewController
         self.present(gameViewController, animated: true, completion: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.backgroundColor = UIColor.black
     }
 }
 
@@ -57,3 +62,6 @@ extension GameCollectionViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
+
+// MARK: - CoreDataCompliant
+extension GameCollectionViewController: CoreDataCompliant { }

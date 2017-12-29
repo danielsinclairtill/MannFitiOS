@@ -14,12 +14,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
         // Override point for customization after application launch.
         UserDefaults.standard.register(defaults: [
             UserDefaultsKeys.settingsMotionSensitivityKey : 0.5,
             UserDefaultsKeys.settingsMusicKey : true,
             UserDefaultsKeys.settingsVolumeKey : 1.0,
             ])
+        
+        let tabBarController = self.window?.rootViewController as! UITabBarController
+      
+        // Iterate through tab bar view controllers and set the managed object context
+        for case let vc as CoreDataCompliant in tabBarController.viewControllers! {
+           vc.managedObjectContext = CoreDataWrapper().managedObjectContext
+        }
+        
         return true
     }
 
