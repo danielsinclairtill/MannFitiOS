@@ -36,7 +36,6 @@ class SettingsTableViewController: UITableViewController {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.white
     }
-
     
     @IBAction func sensitivitySlider(_ sender: UISlider) {
         let value = sender.value
