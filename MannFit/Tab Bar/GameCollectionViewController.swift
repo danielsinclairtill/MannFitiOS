@@ -19,7 +19,8 @@ class GameCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.collectionView?.backgroundView?.backgroundColor = .black
+        self.collectionView?.backgroundColor = .black
         self.collectionView?.dataSource = self.gameDataSource
     }
     
@@ -35,11 +36,6 @@ class GameCollectionViewController: UICollectionViewController {
         // We know this is a GameViewController, so cast back
         let gameViewController = viewController as! UIViewController
         self.present(gameViewController, animated: true, completion: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.view.backgroundColor = UIColor.black
     }
 }
 

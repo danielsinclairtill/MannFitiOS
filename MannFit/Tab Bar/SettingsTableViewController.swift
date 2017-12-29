@@ -32,6 +32,12 @@ class SettingsTableViewController: UITableViewController {
         self.volumeSlider.isEnabled = musicSwitch.isOn
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+    }
+
+    
     @IBAction func sensitivitySlider(_ sender: UISlider) {
         let value = sender.value
         self.sensitivitySlider.value = value
