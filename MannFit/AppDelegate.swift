@@ -13,9 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UserDefaults.standard.register(defaults: [
+            UserDefaultsKeys.settingsMotionSensitivityKey : 0.5,
+            UserDefaultsKeys.settingsMusicKey : true,
+            UserDefaultsKeys.settingsVolumeKey : 1.0,
+            ])
         return true
     }
 
@@ -41,6 +45,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-
