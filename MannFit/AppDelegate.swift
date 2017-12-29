@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for case let vc as CoreDataCompliant in tabBarController.viewControllers! {
            vc.managedObjectContext = CoreDataWrapper().managedObjectContext
         }
-     
+        
         return true
     }
 
