@@ -14,7 +14,7 @@ class GameOverPromptView: UIView {
     private let buttonWidth: CGFloat = 100.0
     private let buttonFontSize: CGFloat = 25.0
     
-    lazy var background: UIView = {
+    private lazy var background: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 30.0
         view.backgroundColor = UIColor.gray
@@ -22,7 +22,7 @@ class GameOverPromptView: UIView {
         return view
     }()
     
-    lazy var restartButton: UIButton = {
+    private lazy var restartButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("RESTART", for: .normal)
@@ -33,7 +33,7 @@ class GameOverPromptView: UIView {
         return button
     }()
     
-    lazy var exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.white
         button.setTitle("EXIT", for: .normal)

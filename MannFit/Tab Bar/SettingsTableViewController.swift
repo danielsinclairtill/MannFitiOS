@@ -15,10 +15,10 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var musicSwitch: UISwitch!
     @IBOutlet weak var volumeSlider: UISlider!
     
-    let userDefaults: UserDefaults = UserDefaults.standard
-    var sensitivity: Float = 0.5
-    var music: Bool = true
-    var volume: Float = 0.5
+    private let userDefaults: UserDefaults = UserDefaults.standard
+    private var sensitivity: Float = 0.5
+    private var music: Bool = true
+    private var volume: Float = 0.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,21 +40,18 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func sensitivitySlider(_ sender: UISlider) {
         let value = sender.value
         self.sensitivitySlider.value = value
-        
         userDefaults.set(value, forKey: UserDefaultsKeys.settingsMotionSensitivityKey)
     }
     
     @IBAction func musicSwitch(_ sender: UISwitch) {
         let isOn = sender.isOn
         self.volumeSlider.isEnabled = isOn
-        
         userDefaults.set(isOn, forKey: UserDefaultsKeys.settingsMusicKey)
     }
     
     @IBAction func volumeSlider(_ sender: UISlider) {
         let value = sender.value
         self.volumeSlider.value = value
-        
         userDefaults.set(value, forKey: UserDefaultsKeys.settingsVolumeKey)
     }
 }
