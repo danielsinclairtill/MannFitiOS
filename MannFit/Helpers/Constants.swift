@@ -12,6 +12,10 @@ struct UserDefaultsKeys {
     static let settingsVolumeKey = "settingsVolumeKey"
 }
 
+struct SettingsValues {
+    static let sensitivityDefault: Float = 0.5
+}
+
 struct CoreData {
     static let WorkoutItem = "WorkoutItem"
 }

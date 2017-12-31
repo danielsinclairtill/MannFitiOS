@@ -9,6 +9,7 @@
 import AVFoundation
 
 class AudioEngine {
+    private let userDefaults: UserDefaults = UserDefaults.standard
     private var engine: AVAudioEngine
     private var audioPlayerNode: AVAudioPlayerNode
     private var unitTimePitch: AVAudioUnitTimePitch
@@ -37,7 +38,8 @@ class AudioEngine {
         self.engine.connect(self.unitTimePitch, to: self.engine.mainMixerNode, format: self.audioBuffer.format)
         
         self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
-        
+        self.audioPlayerNode.volume = userDefaults.float(forKey: UserDefaultsKeys.settingsVolumeKey)
+
         do {
             try self.engine.start()
             self.audioPlayerNode.play()

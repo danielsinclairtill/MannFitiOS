@@ -6,50 +6,51 @@ import CoreMotion
 class PacManGameScene: SKScene {
     
     // MARK: Initilization
-    enum ColliderType: UInt32 {
+    private enum ColliderType: UInt32 {
         case player = 1
         case food = 2
         case line = 4
         case wall = 8
     }
     
-    let motionManager = CMMotionManager()
-    var engine: AudioEngine?
+    private let motionManager = CMMotionManager()
+    private let userDefaults: UserDefaults = UserDefaults.standard
+    private var engine: AudioEngine?
     var gameOverPromptView: GameOverPromptView?
     weak var gameOverDelegate: GameOverDelegate?
     
-    var gameTimer: Timer?
-    var gameActive: Bool = true
-    let exerciseTime: TimeInterval = 20
-    lazy var timeLeft: TimeInterval = {
+    private var gameTimer: Timer?
+    private var gameActive: Bool = true
+    private let exerciseTime: TimeInterval = 20
+    private lazy var timeLeft: TimeInterval = {
         return exerciseTime
     }()
-    var timerSet: Bool = false
-    var timeLabel = SKLabelNode()
+    private var timerSet: Bool = false
+    private var timeLabel = SKLabelNode()
     
-    let background = SKSpriteNode()
-    let absementLabel = SKLabelNode()
-    let absementScoreLabel = SKLabelNode()
-    var absement: Double = 0
-    var absementScore: Double = 0
+    private let background = SKSpriteNode()
+    private let absementLabel = SKLabelNode()
+    private let absementScoreLabel = SKLabelNode()
+    private var absement: Double = 0
+    private var absementScore: Double = 0
 
-    let wall1 = SKSpriteNode()
-    let wall2 = SKSpriteNode()
-    let wall3 = SKSpriteNode()
-    let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
-    var playerRelativeStartYPosition: CGFloat = 50.0
+    private let wall1 = SKSpriteNode()
+    private let wall2 = SKSpriteNode()
+    private let wall3 = SKSpriteNode()
+    private let player = SKSpriteNode(imageNamed: "pacmanPlayerOpen")
+    private var playerRelativeStartYPosition: CGFloat = 50.0
     private lazy var playerRelativeYPosition: CGFloat = {
         return playerRelativeStartYPosition
     }()
-    let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
-    let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
-    let pacmanAnimationKey = "eatingPacman"
+    private let playerFrame1 = SKTexture(imageNamed: "pacmanPlayerOpen")
+    private let playerFrame2 = SKTexture(imageNamed: "pacmanPlayerClose")
+    private let pacmanAnimationKey = "eatingPacman"
     
-    var balancePath: BalancePath?
-    var balancePathNode: SKShapeNode?
-    let balancePathStartY: CGFloat = 500.0
-    let balancePathLength: CGFloat = 600.0
-    let balancePathAmplification: CGFloat = 0.8
+    private var balancePath: BalancePath?
+    private var balancePathNode: SKShapeNode?
+    private let balancePathStartY: CGFloat = 500.0
+    private let balancePathLength: CGFloat = 600.0
+    private let balancePathAmplification: CGFloat = 0.8
 
     
     var smoothXAcceleration = LowPassFilterSignal(value: 0, timeConstant: 0.90)
@@ -144,14 +145,16 @@ class PacManGameScene: SKScene {
         motionManager.startAccelerometerUpdates()
         
         // audio setup
-        initializeAudio()
+        if userDefaults.bool(forKey: UserDefaultsKeys.settingsMusicKey) {
+            initializeAudio()
+        }
     }
     
     // MARK: Audio
     private func initializeAudio() {
         guard let engine = AudioEngine(with: "requiem", type: "mp3", options: .loops) else { return }
         self.engine = engine
-        self.engine!.setupAudioEngine()
+        self.engine?.setupAudioEngine()
     }
     
     // MARK: BalancePath
@@ -182,6 +185,7 @@ class PacManGameScene: SKScene {
                    withKey:pacmanAnimationKey)
     }
     
+    // MARK: Game Progression
     @objc private func updateGameTimer() {
         timeLeft -= 1
         timeLabel.text = String(Int(timeLeft))
@@ -213,7 +217,8 @@ class PacManGameScene: SKScene {
         // motion update
         if let data = motionManager.accelerometerData {
             self.smoothXAcceleration.update(newValue: data.acceleration.x)
-            player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * 5.0 + frame.width / 2
+            let sensitivity = 5.0 * (userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault)
+            player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
         }
         
         if gameActive {
@@ -234,7 +239,7 @@ class PacManGameScene: SKScene {
                 balancePathNode.path = balancePath.path
             }
             updateAbsement(Double(xDifference))
-            self.engine!.modifyPitch(with: -Float(xDifference * 2))
+            self.engine?.modifyPitch(with: -Float(xDifference * 2))
         }
     }
     
