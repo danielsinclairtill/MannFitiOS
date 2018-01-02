@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -26,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="271" y="76"/>
         </scene>
-        <!--Game Collection View Controller-->
+        <!--Games-->
         <scene sceneID="HgQ-7p-PbE">
             <objects>
                 <collectionViewController storyboardIdentifier="GameCollectionViewController" id="RcJ-nD-GRh" customClass="GameCollectionViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,20 +50,32 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WBk-zt-A7R">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <rect key="frame" x="15" y="30" width="170" height="170"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="WBk-zt-A7R" secondAttribute="height" multiplier="1:1" id="cRy-hA-uyW"/>
+                                            </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-EJ-qqL">
+                                            <rect key="frame" x="74.5" y="5" width="52" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="WBk-zt-A7R" secondAttribute="trailing" id="8aa-D9-BAh"/>
-                                    <constraint firstAttribute="bottom" secondItem="WBk-zt-A7R" secondAttribute="bottom" id="Ycn-3C-EsT"/>
-                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leading" id="lCe-LX-mKX"/>
-                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="t24-cJ-lAF" secondAttribute="top" id="zFN-Ik-Y2Y"/>
+                                    <constraint firstItem="Vcl-EJ-qqL" firstAttribute="top" secondItem="t24-cJ-lAF" secondAttribute="top" constant="5" id="7Gd-6r-jNw"/>
+                                    <constraint firstItem="Vcl-EJ-qqL" firstAttribute="centerX" secondItem="t24-cJ-lAF" secondAttribute="centerX" id="7Lk-ZD-tU1"/>
+                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="Vcl-EJ-qqL" secondAttribute="bottom" constant="4" id="BWa-yX-tnN"/>
+                                    <constraint firstAttribute="bottom" secondItem="WBk-zt-A7R" secondAttribute="bottom" id="jBQ-8c-zNa"/>
+                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leading" constant="15" id="poe-jc-ZIX"/>
+                                    <constraint firstAttribute="trailing" secondItem="WBk-zt-A7R" secondAttribute="trailing" constant="15" id="yMn-Xy-Cgv"/>
                                 </constraints>
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>
                                     <outlet property="imageView" destination="WBk-zt-A7R" id="lqc-I5-eUI"/>
+                                    <outlet property="label" destination="Vcl-EJ-qqL" id="wX1-kn-gsF"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -71,7 +84,7 @@
                             <outlet property="delegate" destination="RcJ-nD-GRh" id="Ujj-r9-n08"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="zQH-Xh-phC"/>
+                    <tabBarItem key="tabBarItem" title="Games" image="dumbell" id="zQH-Xh-phC"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uv9-73-Fi3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -117,7 +130,7 @@
                                                 <constraint firstItem="Pjm-N3-XNQ" firstAttribute="top" secondItem="adt-Y1-dom" secondAttribute="bottom" constant="8" id="Ze8-Y0-Faj"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="VGd-wY-XSY">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="50"/>
@@ -134,6 +147,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Cw-3W-RbU">
                                                     <rect key="frame" x="312" y="9" width="51" height="31"/>
+                                                    <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <connections>
                                                         <action selector="musicSwitch:" destination="bHz-dz-i8y" eventType="valueChanged" id="3uA-j8-FnC"/>
                                                     </connections>
@@ -147,7 +161,7 @@
                                                 <constraint firstItem="7Cw-3W-RbU" firstAttribute="centerY" secondItem="OO9-88-Ruo" secondAttribute="centerY" id="lNY-kT-RK8"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="88" id="0om-S0-Rb5">
                                         <rect key="frame" x="0.0" y="193.5" width="375" height="88"/>
@@ -177,7 +191,7 @@
                                                 <constraint firstItem="BfX-UH-fhI" firstAttribute="leading" secondItem="5Ci-Y3-kDD" secondAttribute="leadingMargin" id="yjW-hy-6m5"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -219,7 +233,7 @@
             </objects>
             <point key="canvasLocation" x="-474" y="808"/>
         </scene>
-        <!--Workout History View Controller-->
+        <!--History-->
         <scene sceneID="MTh-1b-78f">
             <objects>
                 <tableViewController id="nCD-el-Q1q" customClass="WorkoutHistoryViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
@@ -309,11 +323,15 @@
                             <outlet property="delegate" destination="nCD-el-Q1q" id="aHN-5D-gro"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="history" id="MY1-RH-aFc"/>
+                    <tabBarItem key="tabBarItem" title="History" image="history-list" id="MY1-RH-aFc"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gen-PX-KYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-476" y="1584.5577211394304"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dumbell" width="33" height="33"/>
+        <image name="history-list" width="33" height="33"/>
+    </resources>
 </document>
