@@ -10,5 +10,6 @@ import UIKit
 
 class GameMenuCell: UICollectionViewCell {
     
+    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 }

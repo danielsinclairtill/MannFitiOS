@@ -12,7 +12,7 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
     
     private lazy var games: [Game] = {
         var games = [Game]()
-        let pacman = Game(gameName: "PacMan", gameImageName: "pacmanPlayerOpen", storyboardIdentifier: "pacmanIdentifier")
+        let pacman = Game(gameName: "Pacman Path", gameImageName: "pacmanPlayerOpen", storyboardIdentifier: "pacmanIdentifier")
         
         games.append(pacman)
         
@@ -41,7 +41,7 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
             cell.imageView.image = image
         }
         
-        cell.backgroundColor = UIColor.white
+        cell.label.text = self.games[indexPath.item].gameName
         
         return cell
     }
