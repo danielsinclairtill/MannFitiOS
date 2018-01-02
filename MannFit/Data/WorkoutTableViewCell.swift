@@ -25,5 +25,14 @@ class WorkoutTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func configureCell(workoutItem: WorkoutItem) {
+        self.workoutNameLabel.text = workoutItem.game
+        self.workoutScoreLabel.text = "\(String(format: "%.2f", workoutItem.absement))"
+        self.workoutImageView.image = UIImage(named: workoutItem.game)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.workoutDateLabel.text = dateFormatter.string(from: workoutItem.date)
+    }
 
 }
