@@ -16,6 +16,12 @@ struct SettingsValues {
     static let sensitivityDefault: Float = 0.5
 }
 
+struct GameData {
+    static let pacmanName = "Pacman Path"
+    static let pacmanImageName = "pacmanPlayerOpen"
+    static let pacmanIdentifier = "pacmanIdentifier"
+}
+
 struct CoreData {
     static let WorkoutItem = "WorkoutItem"
 }

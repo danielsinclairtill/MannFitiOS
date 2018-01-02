@@ -30,7 +30,7 @@ class GameCollectionViewController: UICollectionViewController {
         
         // Show the status bar
         statusBarShouldBeHidden = false
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.5) {
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }
