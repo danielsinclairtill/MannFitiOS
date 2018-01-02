@@ -33,6 +33,7 @@ class PacManGameScene: SKScene {
     private let absementScoreLabel = SKLabelNode()
     private var absement: Double = 0
     private var absementScore: Double = 0
+    private let stopButton = SKSpriteNode(imageNamed: "menu-icon")
 
     private let wall1 = SKSpriteNode()
     private let wall2 = SKSpriteNode()
@@ -82,8 +83,14 @@ class PacManGameScene: SKScene {
         scoreText = String(absement)
         absementScoreLabel.text = scoreText
         absementScoreLabel.horizontalAlignmentMode = .right
-        absementScoreLabel.position = CGPoint(x: bounds.width - absementScoreLabel.frame.size.width / 2 + 10.0,
+        absementScoreLabel.position = CGPoint(x: absementLabel.position.x,
                                               y: absementLabel.frame.minY - absementScoreLabel.frame.size.height - 10.0 )
+        
+        // stopButton setup
+        stopButton.zPosition = 1
+        stopButton.size = CGSize(width: 60.0, height: 60.0)
+        stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
+                                      y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
         // timeLabel setup
         timeLabel.zPosition = 1
@@ -132,6 +139,7 @@ class PacManGameScene: SKScene {
         addChild(background)
         addChild(absementLabel)
         addChild(absementScoreLabel)
+        addChild(stopButton)
         addChild(timeLabel)
         addChild(wall1)
         addChild(wall2)
@@ -191,7 +199,7 @@ class PacManGameScene: SKScene {
         timeLabel.text = String(Int(timeLeft))
         if timeLeft <= 0 {
             gameTimer?.invalidate()
-            gameOver()
+            gameOver(completed: true)
         }
     }
     
@@ -244,15 +252,29 @@ class PacManGameScene: SKScene {
     }
     
     // MARK: - Game over
-    private func gameOver() {
+    @objc private func gameOver(completed: Bool) {
+        gameTimer?.invalidate()
         gameActive = false
         self.engine?.stop()
         player.removeAction(forKey: pacmanAnimationKey)
-        self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: Float(absementScore))
+        if completed {
+            self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(exerciseTime), absement: Float(absementScore))
+        }
         let view = GameOverPromptView(frame: self.frame)
         view.delegate = self
         self.view?.addSubview(view)
         self.gameOverPromptView = view
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let pos = touch.location(in: self)
+            let node = self.atPoint(pos)
+            
+            if node == stopButton {
+                gameOver(completed: false)
+            }
+        }
     }
 }
 
