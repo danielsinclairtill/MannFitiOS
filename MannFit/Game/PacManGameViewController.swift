@@ -16,6 +16,7 @@ class PacManGameViewController: UIViewController, CoreDataCompliant {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNeedsStatusBarAppearanceUpdate()
         let scene = PacManGameScene(size: view.bounds.size)
         scene.gameOverDelegate = self
         UIApplication.shared.isIdleTimerDisabled = true
