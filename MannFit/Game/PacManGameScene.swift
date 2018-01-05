@@ -251,7 +251,7 @@ class PacManGameScene: SKScene {
     }
     
     // MARK: - Game over
-    @objc func gameOver(completed: Bool) {
+    @objc private func gameOver(completed: Bool) {
         gameTimer?.invalidate()
         gameActive = false
         self.engine?.stop()
