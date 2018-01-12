@@ -48,12 +48,16 @@ class GameCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let storyboard = self.storyboard else { return }
         
         let game = self.gameDataSource.object(at: indexPath)
-        
+        let preGamePrompt = game.preGamePrompt
+        preGamePrompt.delegate = self
+    }
+    
+    private func loadGame(identifier: String, time: TimeInterval) {
+        guard let storyboard = self.storyboard else { return }
         // If this view controller does not comply with the CoreData contract, exit because we cannot save data.
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier) as? CoreDataCompliant else { return }
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CoreDataCompliant else { return }
         viewController.managedObjectContext = self.managedObjectContext
         
         // Hide the status bar
@@ -90,3 +94,15 @@ extension GameCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CoreDataCompliant
 extension GameCollectionViewController: CoreDataCompliant { }
+
+// MARK: - PreGamePromptDelegate
+extension GameCollectionViewController: PreGamePromptDelegate {
+    
+    func startGame(withTime: TimeInterval) {
+        <#code#>
+    }
+    
+    func cancelGame() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}

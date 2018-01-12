@@ -12,6 +12,7 @@ struct Game {
     let gameName: String
     let gameImageName: String
     let storyboardIdentifier: String
+    let preGamePrompt: PreGamePromptView
     
     var gameImage: UIImage? {
         return UIImage(named: self.gameImageName)
