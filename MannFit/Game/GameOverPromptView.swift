@@ -19,7 +19,7 @@ class GameOverPromptView: UIView {
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 10.0
         button.setTitle("RESTART", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: buttonFontSize)
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(restartGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ class GameOverPromptView: UIView {
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 10.0
         button.setTitle("EXIT", for: .normal)
-        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Heavy", size: buttonFontSize)
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(exitGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

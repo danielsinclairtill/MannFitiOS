@@ -9,6 +9,6 @@
 import Foundation
 
 protocol PreGamePromptDelegate: NSObjectProtocol {
-    func startGame(withTime: TimeInterval)
+    func startGame(time: TimeInterval)
     func cancelGame()
 }

@@ -16,6 +16,7 @@ class GameCollectionViewController: UICollectionViewController {
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
     private let gameDataSource = GameDataSource()
+    private var selectedGameIdentifier: String?
     var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
@@ -48,10 +49,13 @@ class GameCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let game = self.gameDataSource.object(at: indexPath)
+        self.selectedGameIdentifier = game.storyboardIdentifier
+        
         let preGamePrompt = game.preGamePrompt
         preGamePrompt.delegate = self
+        let popup = PopUpViewController(view: preGamePrompt, dismissible: true)
+        self.present(popup, animated: true, completion: nil)
     }
     
     private func loadGame(identifier: String, time: TimeInterval) {
@@ -98,11 +102,15 @@ extension GameCollectionViewController: CoreDataCompliant { }
 // MARK: - PreGamePromptDelegate
 extension GameCollectionViewController: PreGamePromptDelegate {
     
-    func startGame(withTime: TimeInterval) {
-        <#code#>
+    func startGame(time: TimeInterval) {
+        guard let identifier = self.selectedGameIdentifier else { return }
+        // dismiss popup view
+        self.dismiss(animated: true, completion: nil)
+        self.loadGame(identifier: identifier, time: time)
     }
     
     func cancelGame() {
+        // dismiss popup view
         self.dismiss(animated: true, completion: nil)
     }
 }
