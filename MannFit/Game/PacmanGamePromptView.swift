@@ -1,5 +1,5 @@
 //
-//  PreGame1PromptView.swift
+//  PacmanGamePromptView.swift
 //  MannFit
 //
 //  Created by Daniel Till on 1/11/18.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class PreGame1PromptView: PreGamePromptView {
+class PacmanGamePromptView: PreGamePromptView {
     
     struct Game1Step {
-        static let one = "Place smartphone onto center of plankboard"
+        static let one = "Place smartphone on center of plankboard"
         static let two = "Balance on the plankboard in push-up position"
         static let three = "Stay in the path, move the plankboard horizontally to move the player"
     }

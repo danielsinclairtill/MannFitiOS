@@ -12,7 +12,7 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
     
     private lazy var games: [Game] = {
         var games = [Game]()
-        let pacman = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, preGamePrompt: PreGame1PromptView())
+        let pacman = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, preGamePrompt: PacmanGamePromptView())
         
         games.append(pacman)
         
