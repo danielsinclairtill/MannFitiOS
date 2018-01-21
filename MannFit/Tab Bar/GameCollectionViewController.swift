@@ -52,9 +52,15 @@ class GameCollectionViewController: UICollectionViewController {
         let game = self.gameDataSource.object(at: indexPath)
         self.selectedGameIdentifier = game.storyboardIdentifier
         
-        let preGamePrompt = game.preGamePrompt
-        preGamePrompt.delegate = self
-        let popup = PopUpViewController(view: preGamePrompt, dismissible: true)
+        var preGamePromptView: PreGamePromptView
+        let preGamePromptType = game.gameType
+        switch preGamePromptType {
+        case .Pacman:
+            preGamePromptView = PacmanGamePromptView()
+        }
+        
+        preGamePromptView.delegate = self
+        let popup = PopUpViewController(view: preGamePromptView, dismissible: true)
         self.present(popup, animated: true, completion: nil)
     }
     
