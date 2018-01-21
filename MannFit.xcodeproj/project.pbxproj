@@ -17,6 +17,7 @@
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		8B1CC4371FF424D000C6180F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */; };
 		8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */; };
+		8B46928E201527D2004448C9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B46928D201527D2004448C9 /* GameViewController.swift */; };
 		8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */; };
 		8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */; };
 		8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */; };
@@ -56,6 +57,7 @@
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		8B46928D201527D2004448C9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptDelegate.swift; sourceTree = "<group>"; };
 		8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounder.swift"; sourceTree = "<group>"; };
 		8B64AFB61FCB4D4A00C82833 /* GameOverPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */,
 				8BD8E673200822A900ED2BDF /* PacmanGamePromptView.swift */,
 				8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */,
+				8B46928D201527D2004448C9 /* GameViewController.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */,
 				8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */,
 				A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */,
+				8B46928E201527D2004448C9 /* GameViewController.swift in Sources */,
 				8BCFECFF1FFEA36800B418D7 /* PopUpViewAnimation.swift in Sources */,
 				A0B62FC11FC73FE50018151B /* MannFit.xcdatamodeld in Sources */,
 				A030F3251FB399D800658AA3 /* Game.swift in Sources */,

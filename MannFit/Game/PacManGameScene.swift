@@ -20,7 +20,10 @@ class PacManGameScene: SKScene {
     
     private var gameTimer: Timer?
     private var gameActive: Bool = true
-    private let exerciseTime: TimeInterval = 20
+    var inputTime: TimeInterval?
+    private lazy var exerciseTime: TimeInterval = {
+        return inputTime ?? GameData.pacmanDefaultTime
+    }()
     private lazy var timeLeft: TimeInterval = {
         return exerciseTime
     }()

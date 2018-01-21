@@ -98,6 +98,38 @@ class PacmanGamePromptView: PreGamePromptView {
         return imageView
     }()
     
+    private lazy var inputLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.textColor = .white
+        label.text = "Enter excersie time:"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var timeInput: UITextField = {
+        let textField = UITextField()
+        textField.keyboardType = .decimalPad
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        let attributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.paragraphStyle: paragraphStyle,
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: "Seconds", attributes:attributes)
+        
+        textField.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
+        return textField
+    }()
+    
     private lazy var startButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.white
@@ -106,6 +138,8 @@ class PacmanGamePromptView: PreGamePromptView {
         button.titleLabel?.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(startGame), for: .touchUpInside)
+        button.isEnabled = false
+        button.alpha = 0.5
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -129,6 +163,10 @@ class PacmanGamePromptView: PreGamePromptView {
         self.backgroundColor = UIColor.darkGray
         self.translatesAutoresizingMaskIntoConstraints = false
         
+        if let text = timeInput.text {
+            updateStartButton(text: text)
+        }
+        
         self.addSubview(self.title)
         
         // step 1
@@ -146,6 +184,9 @@ class PacmanGamePromptView: PreGamePromptView {
         self.addSubview(self.step3)
         self.addSubview(self.icon3)
         
+        self.addSubview(self.inputLabel)
+        self.addSubview(self.timeInput)
+        
         self.addSubview(self.startButton)
         self.addSubview(self.cancelButton)
     }
@@ -157,7 +198,7 @@ class PacmanGamePromptView: PreGamePromptView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let viewHeight: CGFloat = 400.0
+        let viewHeight: CGFloat = 500.0
         let horizontalPadding: CGFloat = 20.0
         let verticalPadding: CGFloat = 20.0
         
@@ -166,6 +207,8 @@ class PacmanGamePromptView: PreGamePromptView {
         let step2Size: CGSize = step2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step3Size: CGSize = step3.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
 
+        let inputLabelSize: CGSize = inputLabel.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let inputFieldSize: CGSize = timeInput.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         
         let startButtonSize: CGSize = startButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let cancelButtonSize: CGSize = cancelButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
@@ -265,14 +308,82 @@ class PacmanGamePromptView: PreGamePromptView {
             self.cancelButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -buttonWidth / 2 - horizontalPadding),
             self.cancelButton.centerYAnchor.constraint(equalTo: self.startButton.centerYAnchor),
             ])
+        
+        NSLayoutConstraint.activate([
+            self.timeInput.widthAnchor.constraint(equalToConstant: inputFieldSize.width),
+            self.timeInput.heightAnchor.constraint(equalToConstant: inputFieldSize.height + verticalPadding),
+            self.timeInput.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.timeInput.centerYAnchor.constraint(equalTo: self.startButton.topAnchor, constant: -inputFieldSize.height - verticalPadding),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.inputLabel.widthAnchor.constraint(equalToConstant: inputLabelSize.width),
+            self.inputLabel.heightAnchor.constraint(equalToConstant: inputLabelSize.height),
+            self.inputLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.inputLabel.bottomAnchor.constraint(equalTo: self.timeInput.topAnchor, constant: -verticalPadding / 2),
+            ])
     }
     
     @objc private func startGame() {
-        self.delegate?.startGame(time: 20.0)
+        if let text = timeInput.text, let time = Double(text) {
+            self.delegate?.startGame(time: time)
+        }
+    }
+    
+    private func updateStartButton(text: String) {
+        if text.isEmpty {
+            startButton.isEnabled = false
+            startButton.alpha = 0.5
+        } else {
+            startButton.isEnabled = true
+            startButton.alpha = 1.0
+        }
     }
     
     @objc private func cancelGame() {
         self.delegate?.cancelGame()
     }
 }
+
+// MARK: UITextFieldDelegate
+
+extension PacmanGamePromptView: UITextFieldDelegate {
+    
+    // function to limit input of timeInput field to only numbers
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        
+        let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
+        let components = string.components(separatedBy: inverseSet)
+        let filtered = components.joined(separator: "")
+        
+        if let text = textField.text {
+            let text = (text as NSString).replacingCharacters(in: range, with: string)
+            updateStartButton(text: text)
+        }
+        
+        return string == filtered
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        updateStartButton(text: "")
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = nil
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        let attributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.paragraphStyle: paragraphStyle,
+            ]
+        textField.attributedPlaceholder = NSAttributedString(string: "Seconds", attributes:attributes)
+    }
+}
+
 

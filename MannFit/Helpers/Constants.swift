@@ -20,6 +20,7 @@ struct GameData {
     static let pacmanName = "Pacman Path"
     static let pacmanImageName = "pacmanPlayerOpen"
     static let pacmanIdentifier = "pacmanIdentifier"
+    static let pacmanDefaultTime = 20.0
 }
 
 struct CoreData {

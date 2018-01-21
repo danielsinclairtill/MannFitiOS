@@ -71,7 +71,8 @@ class GameCollectionViewController: UICollectionViewController {
         }
         
         // We know this is a GameViewController, so cast back
-        let gameViewController = viewController as! UIViewController
+        let gameViewController = viewController as! GameViewController
+        gameViewController.inputTime = time
         self.present(gameViewController, animated: true, completion: nil)
     }
 }
