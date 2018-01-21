@@ -14,6 +14,8 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
         var games = [Game]()
         let pacman = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, preGamePrompt: PacmanGamePromptView())
         
+        let circle = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, preGamePrompt: PacmanGamePromptView())
+        
         games.append(pacman)
         
         return games

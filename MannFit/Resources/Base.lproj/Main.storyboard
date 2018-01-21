@@ -27,6 +27,21 @@
             </objects>
             <point key="canvasLocation" x="271" y="76"/>
         </scene>
+        <!--Balance Circle Game View Controller-->
+        <scene sceneID="qWw-ge-sQl">
+            <objects>
+                <viewController id="h2H-qn-tsV" customClass="BalanceCircleGameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SvU-cj-1Zd" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="s8v-WV-nrC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xuy-eM-tH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1025" y="75"/>
+        </scene>
         <!--Games-->
         <scene sceneID="HgQ-7p-PbE">
             <objects>
