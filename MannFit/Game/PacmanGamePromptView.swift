@@ -102,7 +102,7 @@ class PacmanGamePromptView: PreGamePromptView {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20.0)
         label.textColor = .white
-        label.text = "Enter excersie time:"
+        label.text = "Enter exercise time:"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
