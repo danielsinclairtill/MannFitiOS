@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  GameTimeCompliant.swift
 //  MannFit
 //
 //  Created by Daniel Till on 1/21/18.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
-    var inputTime: TimeInterval?
+protocol GameTimeCompliant {
+    var inputTime: TimeInterval { get set }
 }

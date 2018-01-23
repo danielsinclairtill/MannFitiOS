@@ -10,9 +10,10 @@ import UIKit
 import SpriteKit
 import CoreData
 
-class PacManGameViewController: GameViewController, CoreDataCompliant {
+class PacManGameViewController: UIViewController, CoreDataCompliant, GameTimeCompliant {
     
     var managedObjectContext: NSManagedObjectContext!
+    var inputTime: TimeInterval = GameData.pacmanDefaultTime
     private var scene: PacManGameScene?
     
     override func viewDidLoad() {

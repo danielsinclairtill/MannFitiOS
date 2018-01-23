@@ -70,6 +70,9 @@ class GameCollectionViewController: UICollectionViewController {
         guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CoreDataCompliant else { return }
         viewController.managedObjectContext = self.managedObjectContext
         
+        guard var gameViewController = viewController as? GameTimeCompliant else { return }
+        gameViewController.inputTime = time
+        
         // Hide the status bar
         statusBarShouldBeHidden = true
         UIView.animate(withDuration: 0.25) {
@@ -77,9 +80,8 @@ class GameCollectionViewController: UICollectionViewController {
         }
         
         // We know this is a GameViewController, so cast back
-        let gameViewController = viewController as! GameViewController
-        gameViewController.inputTime = time
-        self.present(gameViewController, animated: true, completion: nil)
+        let presentingViewController = gameViewController as! UIViewController
+        self.present(presentingViewController, animated: true, completion: nil)
     }
 }
 

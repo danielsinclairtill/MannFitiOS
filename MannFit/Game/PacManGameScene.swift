@@ -3,7 +3,7 @@ import GameplayKit
 import CoreMotion
 
 
-class PacManGameScene: SKScene {
+class PacManGameScene: SKScene, GameTimeCompliant {
     
     // MARK: Initilization
     private enum ColliderType: UInt32 {
@@ -20,9 +20,9 @@ class PacManGameScene: SKScene {
     
     private var gameTimer: Timer?
     private var gameActive: Bool = true
-    var inputTime: TimeInterval?
+    var inputTime: TimeInterval = GameData.pacmanDefaultTime
     private lazy var exerciseTime: TimeInterval = {
-        return inputTime ?? GameData.pacmanDefaultTime
+        return inputTime
     }()
     private lazy var timeLeft: TimeInterval = {
         return exerciseTime
