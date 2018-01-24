@@ -10,9 +10,10 @@ import UIKit
 import SpriteKit
 import CoreData
 
-class PacManGameViewController: UIViewController, CoreDataCompliant {
+class PacManGameViewController: UIViewController, CoreDataCompliant, GameTimeCompliant {
     
     var managedObjectContext: NSManagedObjectContext!
+    var inputTime: TimeInterval = GameData.pacmanDefaultTime
     private var scene: PacManGameScene?
     
     override func viewDidLoad() {
@@ -20,6 +21,7 @@ class PacManGameViewController: UIViewController, CoreDataCompliant {
         setNeedsStatusBarAppearanceUpdate()
         self.scene = PacManGameScene(size: view.bounds.size)
         scene?.gameOverDelegate = self
+        scene?.inputTime = inputTime
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true

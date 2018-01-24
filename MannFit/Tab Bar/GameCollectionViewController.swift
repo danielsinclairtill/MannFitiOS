@@ -52,9 +52,15 @@ class GameCollectionViewController: UICollectionViewController {
         let game = self.gameDataSource.object(at: indexPath)
         self.selectedGameIdentifier = game.storyboardIdentifier
         
-        let preGamePrompt = game.preGamePrompt
-        preGamePrompt.delegate = self
-        let popup = PopUpViewController(view: preGamePrompt, dismissible: true)
+        var preGamePromptView: PreGamePromptView
+        let preGamePromptType = game.gameType
+        switch preGamePromptType {
+        case .Pacman:
+            preGamePromptView = PacmanGamePromptView()
+        }
+        
+        preGamePromptView.delegate = self
+        let popup = PopUpViewController(view: preGamePromptView, dismissible: true)
         self.present(popup, animated: true, completion: nil)
     }
     
@@ -64,6 +70,9 @@ class GameCollectionViewController: UICollectionViewController {
         guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CoreDataCompliant else { return }
         viewController.managedObjectContext = self.managedObjectContext
         
+        guard var gameViewController = viewController as? GameTimeCompliant else { return }
+        gameViewController.inputTime = time
+        
         // Hide the status bar
         statusBarShouldBeHidden = true
         UIView.animate(withDuration: 0.25) {
@@ -71,8 +80,8 @@ class GameCollectionViewController: UICollectionViewController {
         }
         
         // We know this is a GameViewController, so cast back
-        let gameViewController = viewController as! UIViewController
-        self.present(gameViewController, animated: true, completion: nil)
+        let presentingViewController = gameViewController as! UIViewController
+        self.present(presentingViewController, animated: true, completion: nil)
     }
 }
 
