@@ -1,5 +1,5 @@
 //
-//  PacmanGamePromptView.swift
+//  PacmanPreGamePromptView.swift
 //  MannFit
 //
 //  Created by Daniel Till on 1/11/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PacmanGamePromptView: PreGamePromptView {
+class PacmanPreGamePromptView: PreGamePromptView {
     
     struct Game1Step {
         static let one = "Place smartphone on center of plankboard"
@@ -376,7 +376,7 @@ class PacmanGamePromptView: PreGamePromptView {
 
 // MARK: UITextFieldDelegate
 
-extension PacmanGamePromptView: UITextFieldDelegate {
+extension PacmanPreGamePromptView: UITextFieldDelegate {
     
     // function to limit input of timeInput field to only numbers
     func textField(_ textField: UITextField,

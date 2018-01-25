@@ -10,6 +10,7 @@ import UIKit
 
 enum GameType {
     case Pacman
+    case Testing
 }
 
 class GameDataSource: NSObject, UICollectionViewDataSource {
@@ -17,8 +18,10 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
     private lazy var games: [Game] = {
         var games = [Game]()
         let pacman = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, gameType: .Pacman)
+        let test = Game(gameName: GameData.testingName, gameImageName: GameData.testingImageName, storyboardIdentifier: GameData.testingIdentifier, gameType: .Testing)
         
         games.append(pacman)
+        games.append(test)
         
         return games
     }()
