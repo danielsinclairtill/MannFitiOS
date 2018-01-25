@@ -16,9 +16,17 @@ class PacmanGamePromptView: PreGamePromptView {
         static let three = "Stay in the path, move the plankboard horizontally to move the player"
     }
     
+    private let viewHeight: CGFloat = 500.0
     private let buttonWidth: CGFloat = 120.0
     private let buttonFontSize: CGFloat = 25.0
     private let iconWidth: CGFloat = 50.0
+    private lazy var keyboardTransitionPadding: CGFloat = {
+        var padding: CGFloat = 0.0
+        if let parentViw = self.superview {
+            padding = self.frame.minY - parentViw.frame.minY
+        }
+        return padding
+    }()
     
     private lazy var title: UILabel = {
         let label = UILabel()
@@ -167,6 +175,13 @@ class PacmanGamePromptView: PreGamePromptView {
             updateStartButton(text: text)
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+       
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.addGestureRecognizer(tap)
+        
         self.addSubview(self.title)
         
         // step 1
@@ -198,7 +213,6 @@ class PacmanGamePromptView: PreGamePromptView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let viewHeight: CGFloat = 500.0
         let horizontalPadding: CGFloat = 20.0
         let verticalPadding: CGFloat = 20.0
         
@@ -207,15 +221,16 @@ class PacmanGamePromptView: PreGamePromptView {
         let step2Size: CGSize = step2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step3Size: CGSize = step3.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
 
+        let inputFieldWidth: CGFloat = 100.0
+        let inputFieldSize: CGSize = timeInput.sizeThatFits(CGSize(width: inputFieldWidth, height: CGFloat.greatestFiniteMagnitude))
         let inputLabelSize: CGSize = inputLabel.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
-        let inputFieldSize: CGSize = timeInput.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         
         let startButtonSize: CGSize = startButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let cancelButtonSize: CGSize = cancelButton.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: self.bounds.width),
-            self.heightAnchor.constraint(equalToConstant: viewHeight)
+            self.heightAnchor.constraint(equalToConstant: self.viewHeight)
             ])
         
         NSLayoutConstraint.activate([
@@ -310,7 +325,7 @@ class PacmanGamePromptView: PreGamePromptView {
             ])
         
         NSLayoutConstraint.activate([
-            self.timeInput.widthAnchor.constraint(equalToConstant: inputFieldSize.width),
+            self.timeInput.widthAnchor.constraint(equalToConstant: inputFieldWidth),
             self.timeInput.heightAnchor.constraint(equalToConstant: inputFieldSize.height + verticalPadding),
             self.timeInput.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             self.timeInput.centerYAnchor.constraint(equalTo: self.startButton.topAnchor, constant: -inputFieldSize.height - verticalPadding),
@@ -322,6 +337,20 @@ class PacmanGamePromptView: PreGamePromptView {
             self.inputLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             self.inputLabel.bottomAnchor.constraint(equalTo: self.timeInput.topAnchor, constant: -verticalPadding / 2),
             ])
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.translatesAutoresizingMaskIntoConstraints = true
+            self.frame.origin.y -= keyboardSize.height - keyboardTransitionPadding
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.frame.origin.y += keyboardSize.height - keyboardTransitionPadding
+        }
     }
     
     @objc private func startGame() {
