@@ -127,7 +127,6 @@ class TestingGameScene: SKScene {
     }
     
     override func update(_ currentTime: CFTimeInterval) {
-        
         // motion update
         if gameActive {
             if let data = motionManager.accelerometerData {

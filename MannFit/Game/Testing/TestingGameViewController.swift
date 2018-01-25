@@ -62,5 +62,7 @@ extension TestingGameViewController: GameOverDelegate {
     }
     
     func sendGameData(game: String, duration: Int, absement: Float) {
+        // we will not be storing any data into the application itself for this game
+        return
     }
 }
