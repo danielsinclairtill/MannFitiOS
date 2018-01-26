@@ -16,6 +16,7 @@
 		68C8841C1FCC838C008D3FE6 /* requiem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 68C8841B1FCC838C008D3FE6 /* requiem.mp3 */; };
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		8B1CC4371FF424D000C6180F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */; };
+		8B1EB876201BCD47008C6779 /* ExportDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */; };
 		8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */; };
 		8B2A1DDD201972270031B7EE /* TestingGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A1DDC201972270031B7EE /* TestingGameViewController.swift */; };
 		8B2A1DDF2019730D0031B7EE /* TestingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A1DDE2019730D0031B7EE /* TestingGameScene.swift */; };
@@ -59,6 +60,7 @@
 		68C8841B1FCC838C008D3FE6 /* requiem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = requiem.mp3; sourceTree = "<group>"; };
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataDelegate.swift; sourceTree = "<group>"; };
 		8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		8B2A1DDC201972270031B7EE /* TestingGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingGameViewController.swift; sourceTree = "<group>"; };
 		8B2A1DDE2019730D0031B7EE /* TestingGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingGameScene.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				8B2A1DDC201972270031B7EE /* TestingGameViewController.swift */,
 				8B2A1DDE2019730D0031B7EE /* TestingGameScene.swift */,
 				8B2A1DE0201979540031B7EE /* TestingPreGamePromptView.swift */,
+				8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */,
 				A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */,
 				8B46928E201527D2004448C9 /* GameTimeCompliant.swift in Sources */,
+				8B1EB876201BCD47008C6779 /* ExportDataDelegate.swift in Sources */,
 				8BCFECFF1FFEA36800B418D7 /* PopUpViewAnimation.swift in Sources */,
 				A0B62FC11FC73FE50018151B /* MannFit.xcdatamodeld in Sources */,
 				A030F3251FB399D800658AA3 /* Game.swift in Sources */,

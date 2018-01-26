@@ -20,6 +20,7 @@ class TestingGameViewController: UIViewController, CoreDataCompliant {
         setNeedsStatusBarAppearanceUpdate()
         self.scene = TestingGameScene(size: view.bounds.size)
         scene?.gameOverDelegate = self
+        scene?.exportDataDelegate = self
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true
@@ -64,5 +65,30 @@ extension TestingGameViewController: GameOverDelegate {
     func sendGameData(game: String, duration: Int, absement: Float) {
         // we will not be storing any data into the application itself for this game
         return
+    }
+}
+
+extension TestingGameViewController: ExportDataDelegate {
+    func exportData(data: String, path: URL) {
+        do {
+            try data.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            
+            let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
+            vc.excludedActivityTypes = [
+                UIActivityType.assignToContact,
+                UIActivityType.saveToCameraRoll,
+                UIActivityType.postToFlickr,
+                UIActivityType.postToVimeo,
+                UIActivityType.postToTencentWeibo,
+                UIActivityType.postToTwitter,
+                UIActivityType.postToFacebook,
+                UIActivityType.openInIBooks
+            ]
+            present(vc, animated: true, completion: nil)
+            
+        } catch {
+            print("Failed to create file")
+            print("\(error)")
+        }
     }
 }

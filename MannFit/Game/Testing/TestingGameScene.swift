@@ -20,6 +20,7 @@ class TestingGameScene: SKScene {
     private let motionManager = CMMotionManager()
     private let userDefaults: UserDefaults = UserDefaults.standard
     weak var gameOverDelegate: GameOverDelegate?
+    weak var exportDataDelegate: ExportDataDelegate?
     
     private var gameActive: Bool = true
     private var recording: Bool = false
@@ -203,12 +204,8 @@ class TestingGameScene: SKScene {
             let newLine = "\(dataPoint.x),\(dataPoint.y),\(dataPoint.z)\n"
             csvText.append(newLine)
         }
-        
-        do {
-            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            print("Failed to create file")
-            print("\(error)")
+        if let path = path {
+            self.exportDataDelegate?.exportData(data: csvText, path: path)
         }
     }
     
