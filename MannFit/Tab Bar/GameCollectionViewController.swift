@@ -16,7 +16,7 @@ class GameCollectionViewController: UICollectionViewController {
     private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     private let itemsPerRow: CGFloat = 2
     private let gameDataSource = GameDataSource()
-    private var selectedGameIdentifier: String?
+    private var selectedGame: Game?
     var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
@@ -50,13 +50,15 @@ class GameCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let game = self.gameDataSource.object(at: indexPath)
-        self.selectedGameIdentifier = game.storyboardIdentifier
+        self.selectedGame = game
         
         var preGamePromptView: PreGamePromptView
         let preGamePromptType = game.gameType
         switch preGamePromptType {
         case .Pacman:
-            preGamePromptView = PacmanGamePromptView()
+            preGamePromptView = PacmanPreGamePromptView()
+        case .Testing:
+            preGamePromptView = TestingPreGamePromptView()
         }
         
         preGamePromptView.delegate = self
@@ -64,14 +66,23 @@ class GameCollectionViewController: UICollectionViewController {
         self.present(popup, animated: true, completion: nil)
     }
     
-    private func loadGame(identifier: String, time: TimeInterval) {
+    private func loadGame(game: Game, time: TimeInterval?) {
         guard let storyboard = self.storyboard else { return }
-        // If this view controller does not comply with the CoreData contract, exit because we cannot save data.
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CoreDataCompliant else { return }
-        viewController.managedObjectContext = self.managedObjectContext
         
-        guard var gameViewController = viewController as? GameTimeCompliant else { return }
-        gameViewController.inputTime = time
+        var presentingViewController: UIViewController
+        
+        // If this view controller does not comply with the CoreData contract, exit because we cannot save data.
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: game.storyboardIdentifier) as? CoreDataCompliant else { return }
+        viewController.managedObjectContext = self.managedObjectContext
+        // We know this is a GameViewController, so cast back
+        presentingViewController = viewController as! UIViewController
+        
+        // if time is apart of the game, set it up
+        if let time = time {
+            guard var timedViewController = viewController as? GameTimeCompliant else { return }
+            timedViewController.inputTime = time
+            presentingViewController = timedViewController as! UIViewController
+        }
         
         // Hide the status bar
         statusBarShouldBeHidden = true
@@ -79,8 +90,6 @@ class GameCollectionViewController: UICollectionViewController {
             self.setNeedsStatusBarAppearanceUpdate()
         }
         
-        // We know this is a GameViewController, so cast back
-        let presentingViewController = gameViewController as! UIViewController
         self.present(presentingViewController, animated: true, completion: nil)
     }
 }
@@ -111,11 +120,11 @@ extension GameCollectionViewController: CoreDataCompliant { }
 // MARK: - PreGamePromptDelegate
 extension GameCollectionViewController: PreGamePromptDelegate {
     
-    func startGame(time: TimeInterval) {
-        guard let identifier = self.selectedGameIdentifier else { return }
+    func startGame(time: TimeInterval?) {
+        guard let game = self.selectedGame else { return }
         // dismiss popup view
         self.dismiss(animated: true, completion: nil)
-        self.loadGame(identifier: identifier, time: time)
+        self.loadGame(game: game, time: time)
     }
     
     func cancelGame() {

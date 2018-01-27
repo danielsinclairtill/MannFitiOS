@@ -17,10 +17,17 @@ struct SettingsValues {
 }
 
 struct GameData {
+    
+    // Pacman Game
     static let pacmanName = "Pacman Path"
     static let pacmanImageName = "pacmanPlayerOpen"
     static let pacmanIdentifier = "pacmanIdentifier"
     static let pacmanDefaultTime = 20.0
+    
+    // Test Game
+    static let testingName = "Testing"
+    static let testingImageName = "testingGameImage"
+    static let testingIdentifier = "testingIdentifier"
 }
 
 struct CoreData {
