@@ -36,7 +36,7 @@ class SettingsTableViewController: UITableViewController {
         return false
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
