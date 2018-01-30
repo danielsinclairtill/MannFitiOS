@@ -16,7 +16,7 @@ class TestingPreGamePromptView: PreGamePromptView {
     
     private let viewHeight: CGFloat = 250.0
     private let buttonWidth: CGFloat = 120.0
-    private let buttonFontSize: CGFloat = 25.0
+    private let buttonFontSize: CGFloat = 22.0
     private let iconWidth: CGFloat = 50.0
     
     private lazy var title: UILabel = {
@@ -129,16 +129,18 @@ class TestingPreGamePromptView: PreGamePromptView {
             ])
         
         NSLayoutConstraint.activate([
-            self.startButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            self.startButton.widthAnchor.constraint(lessThanOrEqualToConstant: buttonWidth),
             self.startButton.heightAnchor.constraint(equalToConstant: startButtonSize.height),
             self.startButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: buttonWidth / 2 + horizontalPadding),
+            self.startButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -horizontalPadding),
             self.startButton.centerYAnchor.constraint(equalTo: self.bottomAnchor, constant:  -buttonWidth / 2),
             ])
         
         NSLayoutConstraint.activate([
-            self.cancelButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            self.cancelButton.widthAnchor.constraint(lessThanOrEqualToConstant: buttonWidth),
             self.cancelButton.heightAnchor.constraint(equalToConstant: cancelButtonSize.height),
             self.cancelButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -buttonWidth / 2 - horizontalPadding),
+            self.cancelButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalPadding),
             self.cancelButton.centerYAnchor.constraint(equalTo: self.startButton.centerYAnchor),
             ])
     }
