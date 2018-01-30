@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             vc.managedObjectContext = CoreDataWrapper().managedObjectContext
         }
         
+        // changes status bar in navigation bar to white color
+        UINavigationBar.appearance().barStyle = .black
         // We can no longer pass the MOC directly because the history VC is embeded in a Nav controller
         if let navVC = tabBarController.viewControllers![1] as? UINavigationController {
             guard let historyVC = navVC.topViewController as? CoreDataCompliant else { return true }

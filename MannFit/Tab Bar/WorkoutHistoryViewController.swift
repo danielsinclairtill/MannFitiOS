@@ -71,14 +71,6 @@ class WorkoutHistoryViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard let sections = self.fetchedResultsController.sections else {
             return 0
