@@ -57,6 +57,8 @@ class GameCollectionViewController: UICollectionViewController {
         switch preGamePromptType {
         case .Pacman:
             preGamePromptView = PacmanPreGamePromptView()
+        case .Circle:
+            preGamePromptView = CircleBalancePreGamePromptView()
         case .Testing:
             preGamePromptView = TestingPreGamePromptView()
         }

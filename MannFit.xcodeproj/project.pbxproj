@@ -29,6 +29,9 @@
 		8BD8E674200822A900ED2BDF /* PacmanPreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD8E673200822A900ED2BDF /* PacmanPreGamePromptView.swift */; };
 		8BD8E6762008233200ED2BDF /* PreGamePromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */; };
 		8BD8E678200828DC00ED2BDF /* PreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD8E677200828DC00ED2BDF /* PreGamePromptView.swift */; };
+		8BD93772202396C50056DEEA /* CircleBalanceGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD93771202396C50056DEEA /* CircleBalanceGameViewController.swift */; };
+		8BD93774202397080056DEEA /* CircleBalanceGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD93773202397080056DEEA /* CircleBalanceGameScene.swift */; };
+		8BD937762023982A0056DEEA /* CircleBalancePreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD937752023982A0056DEEA /* CircleBalancePreGamePromptView.swift */; };
 		8BF266681FFEF37100DCCA80 /* PopUpPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF266671FFEF37100DCCA80 /* PopUpPresentationController.swift */; };
 		A01A0A6A1FF6C9A6005DAB37 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A0A691FF6C9A6005DAB37 /* WorkoutTableViewCell.swift */; };
 		A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */; };
@@ -73,6 +76,9 @@
 		8BD8E673200822A900ED2BDF /* PacmanPreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacmanPreGamePromptView.swift; sourceTree = "<group>"; };
 		8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreGamePromptDelegate.swift; sourceTree = "<group>"; };
 		8BD8E677200828DC00ED2BDF /* PreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreGamePromptView.swift; sourceTree = "<group>"; };
+		8BD93771202396C50056DEEA /* CircleBalanceGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBalanceGameViewController.swift; sourceTree = "<group>"; };
+		8BD93773202397080056DEEA /* CircleBalanceGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBalanceGameScene.swift; sourceTree = "<group>"; };
+		8BD937752023982A0056DEEA /* CircleBalancePreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBalancePreGamePromptView.swift; sourceTree = "<group>"; };
 		8BF266671FFEF37100DCCA80 /* PopUpPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpPresentationController.swift; sourceTree = "<group>"; };
 		A01A0A691FF6C9A6005DAB37 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		A030C8CA1FC75B97006F591D /* GameOverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 		68FE5CDA1FB0D7BD00D2E6FA /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				8BD937702023968A0056DEEA /* Circle */,
 				8B2A1DDB201972110031B7EE /* Testing */,
 				8B2A1DD9201971E30031B7EE /* PacmanPath */,
 				8BD8E677200828DC00ED2BDF /* PreGamePromptView.swift */,
@@ -213,6 +220,16 @@
 				8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */,
 			);
 			path = PopUp;
+			sourceTree = "<group>";
+		};
+		8BD937702023968A0056DEEA /* Circle */ = {
+			isa = PBXGroup;
+			children = (
+				8BD93771202396C50056DEEA /* CircleBalanceGameViewController.swift */,
+				8BD93773202397080056DEEA /* CircleBalanceGameScene.swift */,
+				8BD937752023982A0056DEEA /* CircleBalancePreGamePromptView.swift */,
+			);
+			path = Circle;
 			sourceTree = "<group>";
 		};
 		A030F3231FB399C500658AA3 /* Model */ = {
@@ -331,6 +348,7 @@
 				8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */,
 				8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */,
 				A0B62FD01FC7434C0018151B /* GameDataSource.swift in Sources */,
+				8BD93774202397080056DEEA /* CircleBalanceGameScene.swift in Sources */,
 				8B46928E201527D2004448C9 /* GameTimeCompliant.swift in Sources */,
 				8B1EB876201BCD47008C6779 /* ExportDataDelegate.swift in Sources */,
 				8BCFECFF1FFEA36800B418D7 /* PopUpViewAnimation.swift in Sources */,
@@ -341,10 +359,12 @@
 				A0B62FCD1FC742B50018151B /* WorkoutItem+CoreDataProperties.swift in Sources */,
 				8BD8E6762008233200ED2BDF /* PreGamePromptDelegate.swift in Sources */,
 				68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */,
+				8BD937762023982A0056DEEA /* CircleBalancePreGamePromptView.swift in Sources */,
 				8BF266681FFEF37100DCCA80 /* PopUpPresentationController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
 				A01A0A6A1FF6C9A6005DAB37 /* WorkoutTableViewCell.swift in Sources */,
 				A0C0589B1FF5A265006169E6 /* WorkoutHistoryViewController.swift in Sources */,
+				8BD93772202396C50056DEEA /* CircleBalanceGameViewController.swift in Sources */,
 				8B2A1DDF2019730D0031B7EE /* TestingGameScene.swift in Sources */,
 				A0570D201FF41AB1001CAD79 /* LowPassFilterSignal.swift in Sources */,
 				8B1CC4371FF424D000C6180F /* SettingsTableViewController.swift in Sources */,

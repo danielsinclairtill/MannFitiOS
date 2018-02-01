@@ -24,6 +24,12 @@ struct GameData {
     static let pacmanIdentifier = "pacmanIdentifier"
     static let pacmanDefaultTime = 20.0
     
+    // Circle Game
+    static let circleName = "Circle Balance"
+    static let circleImageName = "CircleBalanceImage"
+    static let circleIdentifier = "circleIdentifier"
+    static let circleDefaultTime = 20.0
+    
     // Test Game
     static let testingName = "Testing"
     static let testingImageName = "testingGameImage"
