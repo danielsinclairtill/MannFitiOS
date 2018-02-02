@@ -42,6 +42,21 @@
             </objects>
             <point key="canvasLocation" x="1001" y="75"/>
         </scene>
+        <!--Circle Balance Game View Controller-->
+        <scene sceneID="cLX-Hv-QJ4">
+            <objects>
+                <viewController storyboardIdentifier="circleIdentifier" id="egh-MG-54S" customClass="CircleBalanceGameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0e2-YO-zT6" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Aqk-YM-FFZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uQg-Eo-dSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1679" y="75"/>
+        </scene>
         <!--Games-->
         <scene sceneID="HgQ-7p-PbE">
             <objects>
