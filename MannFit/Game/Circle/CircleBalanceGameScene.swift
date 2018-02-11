@@ -189,10 +189,10 @@ class CircleBalanceGameScene: SKScene {
         // motion update
         if let data = motionManager.accelerometerData {
             self.smoothXAcceleration.update(newValue: data.acceleration.x)
-            self.smoothXAcceleration.update(newValue: data.acceleration.y)
+            self.smoothYAcceleration.update(newValue: data.acceleration.y)
             let sensitivity = 5.0 * (userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault)
             player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
-            player.position.y = CGFloat(smoothXAcceleration.value) * frame.height / 2 * CGFloat(sensitivity) + frame.height / 2
+            player.position.y = CGFloat(smoothYAcceleration.value) * frame.height / 2 * CGFloat(sensitivity) + frame.height / 2
         }
         
         if gameActive {

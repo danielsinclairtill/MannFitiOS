@@ -43,7 +43,7 @@ extension TestingGameViewController: GameOverPromptDelegate {
     func restartGame() {
         // first dismiss popup
         self.dismiss(animated: true, completion: nil)
-        //self.scene?.restartGame()
+        self.scene?.restartGame()
     }
     
     func exitGame() {

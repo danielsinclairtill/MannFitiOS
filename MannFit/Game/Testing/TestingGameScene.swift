@@ -215,4 +215,8 @@ class TestingGameScene: SKScene {
         stopRecording(saveData: false)
         self.gameOverDelegate?.presentPrompt()
     }
+    
+    func restartGame() {
+        gameActive = true
+    }
 }
