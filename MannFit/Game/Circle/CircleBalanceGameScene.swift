@@ -198,7 +198,7 @@ class CircleBalanceGameScene: SKScene {
         if gameActive {
             let xDist = player.position.x - target.position.x
             let yDist = player.position.y - target.position.y
-            let absement = CGFloat(sqrt((xDist * xDist) + (yDist * yDist))) - targetRadius
+            let absement = CGFloat(sqrt((xDist * xDist) + (yDist * yDist))) - targetRadius / 2
             if absement >= 0 {
                 updateAbsement(Double(absement))
                 self.engine?.modifyPitch(with: -Float(absement * 2))
