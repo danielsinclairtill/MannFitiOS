@@ -23,25 +23,6 @@ class WorkoutHistoryViewController: UITableViewController {
                                           cacheName: nil)
     }()
     
-    private lazy var headerBlurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .dark)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = CGRect(x: 15, y: -15, width: tableView.bounds.size.width, height: 55)
-        blurView.autoresizingMask = .flexibleWidth
-        
-        return blurView
-    }()
-    
-    private lazy var headerLabel: UILabel = {
-        let headerLabel = UILabel()
-        headerLabel.frame = headerBlurView.frame
-        headerLabel.autoresizingMask = .flexibleWidth
-        headerLabel.textColor = UIColor.white
-        headerLabel.font = UIFont.systemFont(ofSize: 20)
-        
-        return headerLabel
-    }()
-
     private func setupNavigationBar() {
         self.title = "Workouts"
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -97,11 +78,37 @@ class WorkoutHistoryViewController: UITableViewController {
             fatalError("Unexpected section")
         }
         
-        headerLabel.text = sectionInfo.name
-   
-        headerBlurView.contentView.addSubview(headerLabel)
+        let blurView = self.createBlurView()
+        let headerLabel = self.createHeaderLabel(with: blurView.frame)
         
-        return headerBlurView
+        headerLabel.text = sectionInfo.name
+
+        blurView.contentView.addSubview(headerLabel)
+
+        return blurView
+    }
+    
+    private func createBlurView() -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = CGRect(x: 15, y: -15, width: tableView.bounds.size.width, height: 60)
+        blurView.autoresizingMask = .flexibleWidth
+        
+        return blurView
+    }
+    
+    private func createHeaderLabel(with frame: CGRect) -> UILabel {
+        let headerLabel = UILabel()
+        headerLabel.frame = frame
+        headerLabel.autoresizingMask = .flexibleWidth
+        headerLabel.textColor = UIColor.white
+        headerLabel.font = UIFont.systemFont(ofSize: 20)
+        
+        return headerLabel
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
