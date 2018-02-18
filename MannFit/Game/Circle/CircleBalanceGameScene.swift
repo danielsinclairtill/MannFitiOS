@@ -30,12 +30,17 @@ class CircleBalanceGameScene: SKScene {
     private var timerSet: Bool = false
     private var timeLabel = SKLabelNode()
     
+    // player center calibration
+    private var playerCenterX: Double = 0.0
+    private var playerCenterY: Double = 0.0
+    
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
     private let absementScoreLabel = SKLabelNode()
     private var absement: Double = 0
     private var absementScore: Double = 0
     private let stopButton = SKSpriteNode(imageNamed: "menu-icon")
+    private let centerButton = SKSpriteNode(imageNamed: "center-icon")
     
     private let player = SKShapeNode(circleOfRadius: 10.0)
     private let targetRadius: CGFloat = 20.0
@@ -85,6 +90,12 @@ class CircleBalanceGameScene: SKScene {
         stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
                                       y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
+        // centerButton setup
+        centerButton.zPosition = 1
+        centerButton.size = CGSize(width: 60.0, height: 60.0)
+        centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
+                                      y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
+        
         // timeLabel setup
         timeLabel.zPosition = 1
         timeLabel.fontName = "AvenirNextCondensed-Heavy"
@@ -125,6 +136,7 @@ class CircleBalanceGameScene: SKScene {
         addChild(absementLabel)
         addChild(absementScoreLabel)
         addChild(stopButton)
+        addChild(centerButton)
         addChild(timeLabel)
         addChild(target)
         addChild(player)
@@ -191,8 +203,8 @@ class CircleBalanceGameScene: SKScene {
             self.smoothXAcceleration.update(newValue: data.acceleration.x)
             self.smoothYAcceleration.update(newValue: data.acceleration.y)
             let sensitivity = 5.0 * (userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault)
-            player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
-            player.position.y = CGFloat(smoothYAcceleration.value) * frame.height / 2 * CGFloat(sensitivity) + frame.height / 2
+            player.position.x = CGFloat(playerCenterX + smoothXAcceleration.value) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
+            player.position.y = CGFloat(playerCenterY + smoothYAcceleration.value) * frame.height / 2 * CGFloat(sensitivity) + frame.height / 2
         }
         
         if gameActive {
@@ -239,6 +251,14 @@ class CircleBalanceGameScene: SKScene {
         countDownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCountdown), userInfo: nil, repeats: true)
     }
     
+    private func recenter() {
+        // get new recalibrated center position from accelerometerData
+        if let data = motionManager.accelerometerData {
+            playerCenterX = data.acceleration.x
+            playerCenterY = data.acceleration.y
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
@@ -246,6 +266,8 @@ class CircleBalanceGameScene: SKScene {
             
             if node == stopButton {
                 gameOver(completed: false)
+            } else if node == centerButton {
+                recenter()
             }
         }
     }
