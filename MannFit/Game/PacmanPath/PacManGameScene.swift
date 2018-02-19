@@ -30,12 +30,16 @@ class PacManGameScene: SKScene, GameTimeCompliant {
     private var timerSet: Bool = false
     private var timeLabel = SKLabelNode()
     
+    // player center calibration
+    private var playerCenterX: Double = 0.0
+    
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
     private let absementScoreLabel = SKLabelNode()
     private var absement: Double = 0
     private var absementScore: Double = 0
     private let stopButton = SKSpriteNode(imageNamed: "menu-icon")
+    private let centerButton = SKSpriteNode(imageNamed: "center-icon")
 
     private let wall1 = SKSpriteNode()
     private let wall2 = SKSpriteNode()
@@ -94,6 +98,12 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
                                       y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
+        // centerButton setup
+        centerButton.zPosition = 1
+        centerButton.size = CGSize(width: 60.0, height: 60.0)
+        centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
+                                        y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
+        
         // timeLabel setup
         timeLabel.zPosition = 1
         timeLabel.fontName = "AvenirNextCondensed-Heavy"
@@ -142,6 +152,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         addChild(absementLabel)
         addChild(absementScoreLabel)
         addChild(stopButton)
+        addChild(centerButton)
         addChild(timeLabel)
         addChild(wall1)
         addChild(wall2)
@@ -228,7 +239,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         if let data = motionManager.accelerometerData {
             self.smoothXAcceleration.update(newValue: data.acceleration.x)
             let sensitivity = 5.0 * (userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault)
-            player.position.x = CGFloat(smoothXAcceleration.value) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
+            player.position.x = CGFloat(smoothXAcceleration.value - playerCenterX) * frame.width / 2 * CGFloat(sensitivity) + frame.width / 2
         }
         
         if gameActive {
@@ -289,6 +300,13 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         gameActive = true
     }
     
+    private func recenter() {
+        // get new recalibrated center position from accelerometerData
+        if let data = motionManager.accelerometerData {
+            playerCenterX = data.acceleration.x
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
@@ -296,6 +314,8 @@ class PacManGameScene: SKScene, GameTimeCompliant {
             
             if node == stopButton {
                 gameOver(completed: false)
+            } else if node == centerButton {
+                recenter()
             }
         }
     }
