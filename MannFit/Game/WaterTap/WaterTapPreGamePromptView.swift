@@ -11,9 +11,9 @@ import UIKit
 class WaterTapPreGamePromptView: PreGamePromptView {
     
     struct Game1Step {
-        static let one = "Place smartphone on center of plankboard"
-        static let two = "Balance on the plankboard in push-up position"
-        static let three = "Stay inside the circle, move the plankboard to move the player"
+        static let one = "Attach smartphone to center of pull-up bar"
+        static let two = "Balance the bar in a pull-up position"
+        static let three = "Stop the flow of water by keeping the bar horizontal"
     }
     
     private let viewHeight: CGFloat = 500.0
@@ -55,7 +55,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     }()
     
     private lazy var icon1: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game1Icon1"))
+        let imageView = UIImageView(image: UIImage(named: "Game3Icon1"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -78,7 +78,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     }()
     
     private lazy var icon2: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game1Icon2"))
+        let imageView = UIImageView(image: UIImage(named: "Game3Icon2"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -101,7 +101,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     }()
     
     private lazy var icon3: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game2Icon3"))
+        let imageView = UIImageView(image: UIImage(named: "Game3Icon3"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

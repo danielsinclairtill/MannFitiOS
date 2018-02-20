@@ -45,7 +45,7 @@ class WaterTapGameScene: SKScene {
     private let waterFrame1 = SKTexture(imageNamed: "WaterAnimationFrame1")
     private let waterFrame2 = SKTexture(imageNamed: "WaterAnimationFrame2")
     private let waterAnimationKey = "movingWater"
-    private let maxWaterWidth: CGFloat = 300.0
+    private let maxWaterWidth: CGFloat = 150.0
     private let pipe = SKSpriteNode(imageNamed: "WaterAnimationTap")
     
     private let countDownLabel = SKLabelNode()
@@ -112,7 +112,7 @@ class WaterTapGameScene: SKScene {
         countDownLabel.zPosition = 1
         countDownLabel.fontName = "AvenirNextCondensed-Heavy"
         countDownLabel.fontSize = 40.0
-        countDownLabel.fontColor = SKColor.white
+        countDownLabel.fontColor = SKColor.red
         let countDownText = String(format: countDownString, countDown)
         countDownLabel.text = countDownText
         countDownLabel.horizontalAlignmentMode = .center
@@ -122,12 +122,13 @@ class WaterTapGameScene: SKScene {
         // water setup
         water.zPosition = 0
         water.size = CGSize(width: maxWaterWidth, height: self.frame.height)
-        water.position = CGPoint(x: frame.midX, y: frame.maxY)
+        water.position = CGPoint(x: frame.midX, y: frame.midY)
         movingWater()
         
         // target setup
-        pipe.zPosition = 1
-        pipe.position = CGPoint(x: frame.midX, y: frame.maxY)
+        pipe.zPosition = 0.5
+        pipe.size = CGSize(width: maxWaterWidth + 80.0, height: 50.0)
+        pipe.position = CGPoint(x: frame.midX, y: frame.maxY - pipe.size.height / 2)
         
         // add nodes
         addChild(background)
@@ -164,7 +165,7 @@ class WaterTapGameScene: SKScene {
     private func movingWater() {
         water.run(SKAction.repeatForever(
             SKAction.animate(with: [waterFrame1, waterFrame2],
-                             timePerFrame: 0.2,
+                             timePerFrame: 0.8,
                              resize: false,
                              restore: true)),
                     withKey:waterAnimationKey)
@@ -229,6 +230,7 @@ class WaterTapGameScene: SKScene {
         gameTimer?.invalidate()
         countDownTimer?.invalidate()
         gameActive = false
+        water.removeFromParent()
         self.engine?.stop()
         if completed {
             self.gameOverDelegate?.sendGameData(game: "Water Tap", duration: Int(exerciseTime), absement: Float(absementScore))
@@ -250,6 +252,7 @@ class WaterTapGameScene: SKScene {
         
         self.engine?.restart()
         
+        addChild(water)
         countDown = 10
         let countDownText = String(format: countDownString, countDown)
         countDownLabel.text = countDownText
