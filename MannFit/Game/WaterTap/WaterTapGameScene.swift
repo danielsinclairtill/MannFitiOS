@@ -121,7 +121,7 @@ class WaterTapGameScene: SKScene {
         
         // water setup
         water.zPosition = 0
-        water.size = CGSize(width: maxWaterWidth, height: self.frame.height)
+        water.size = CGSize(width: 0.0, height: self.frame.height)
         water.position = CGPoint(x: frame.midX, y: frame.midY)
         movingWater()
         
