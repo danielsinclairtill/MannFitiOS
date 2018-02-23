@@ -218,10 +218,8 @@ class WaterTapGameScene: SKScene {
         }
         
         if gameActive {
-            if absement >= 0 {
-                updateAbsement(Double(absement))
-                self.engine?.modifyPitch(with: -Float(absement * 2))
-            }
+            updateAbsement(Double(abs(absement)))
+            self.engine?.modifyPitch(with: -Float(absement * 2))
         }
     }
     
