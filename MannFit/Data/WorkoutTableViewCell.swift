@@ -28,8 +28,8 @@ class WorkoutTableViewCell: UITableViewCell {
     
     func configureCell(workoutItem: WorkoutItem) {
         self.workoutNameLabel.text = workoutItem.game
-        self.workoutScoreLabel.text = "\(String(format: "%.2f", workoutItem.absement))"
-        self.workoutImageView.image = UIImage(named: workoutItem.game)
+        self.workoutScoreLabel.text = workoutItem.formattedAbsementScore
+        self.workoutImageView.image = workoutItem.gameImage
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.workoutDateLabel.text = dateFormatter.string(from: workoutItem.date)

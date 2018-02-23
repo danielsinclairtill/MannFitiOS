@@ -42,4 +42,5 @@ struct CoreData {
 
 struct Storyboard {
     static let WorkoutCell = "workoutCell"
+    static let SegueWorkoutHistoryToDetail = "workoutHistoryToDetail"
 }
