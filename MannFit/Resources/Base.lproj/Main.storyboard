@@ -57,6 +57,21 @@
             </objects>
             <point key="canvasLocation" x="1679" y="75"/>
         </scene>
+        <!--Water Tap Game View Controller-->
+        <scene sceneID="Pwz-ea-q5g">
+            <objects>
+                <viewController storyboardIdentifier="waterTapIdentifier" id="wV2-mt-fVZ" customClass="WaterTapGameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eba-GZ-80J" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="b4n-hI-hpr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g2w-7E-WnX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2351" y="74"/>
+        </scene>
         <!--Games-->
         <scene sceneID="HgQ-7p-PbE">
             <objects>
@@ -79,28 +94,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WBk-zt-A7R">
-                                            <rect key="frame" x="15" y="30" width="170" height="170"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="WBk-zt-A7R" secondAttribute="height" multiplier="1:1" id="cRy-hA-uyW"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-EJ-qqL">
                                             <rect key="frame" x="74.5" y="5" width="52" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WBk-zt-A7R">
+                                            <rect key="frame" x="30" y="40" width="140" height="140"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="WBk-zt-A7R" secondAttribute="height" multiplier="1:1" id="cRy-hA-uyW"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Vcl-EJ-qqL" firstAttribute="top" secondItem="t24-cJ-lAF" secondAttribute="top" constant="5" id="7Gd-6r-jNw"/>
                                     <constraint firstItem="Vcl-EJ-qqL" firstAttribute="centerX" secondItem="t24-cJ-lAF" secondAttribute="centerX" id="7Lk-ZD-tU1"/>
-                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="Vcl-EJ-qqL" secondAttribute="bottom" constant="4" id="BWa-yX-tnN"/>
-                                    <constraint firstAttribute="bottom" secondItem="WBk-zt-A7R" secondAttribute="bottom" id="jBQ-8c-zNa"/>
-                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leading" constant="15" id="poe-jc-ZIX"/>
-                                    <constraint firstAttribute="trailing" secondItem="WBk-zt-A7R" secondAttribute="trailing" constant="15" id="yMn-Xy-Cgv"/>
+                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="Vcl-EJ-qqL" secondAttribute="bottom" constant="14" id="BWa-yX-tnN"/>
+                                    <constraint firstAttribute="bottom" secondItem="WBk-zt-A7R" secondAttribute="bottom" constant="20" id="jBQ-8c-zNa"/>
+                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leading" constant="30" id="poe-jc-ZIX"/>
+                                    <constraint firstAttribute="trailing" secondItem="WBk-zt-A7R" secondAttribute="trailing" constant="30" id="yMn-Xy-Cgv"/>
                                 </constraints>
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>

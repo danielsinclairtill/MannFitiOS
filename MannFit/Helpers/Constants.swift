@@ -30,6 +30,12 @@ struct GameData {
     static let circleIdentifier = "circleIdentifier"
     static let circleDefaultTime = 20.0
     
+    // Water Tap Game
+    static let waterTapName = "Water Tap"
+    static let waterTapImageName = "Water Tap"
+    static let waterTapIdentifier = "waterTapIdentifier"
+    static let waterTapDefaultTime = 20.0
+    
     // Test Game
     static let testingName = "Testing"
     static let testingImageName = "testingGameImage"
