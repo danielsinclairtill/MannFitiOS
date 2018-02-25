@@ -195,8 +195,7 @@ class WaterTapGameScene: SKScene {
     }
     
     private func updateAbsement(_ absement: Double) {
-        let convertedAbsement: Double = absement / Double(frame.width)
-        let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
+        let roundedConvertedAbsement = absement.rounded(toPlaces: 1)
         self.absement = roundedConvertedAbsement
         var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
