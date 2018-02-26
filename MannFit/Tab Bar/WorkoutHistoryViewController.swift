@@ -26,7 +26,6 @@ class WorkoutHistoryViewController: UITableViewController {
     private func setupNavigationBar() {
         self.title = "Workouts"
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .never
     }
     
     override func viewDidLoad() {
@@ -127,6 +126,22 @@ class WorkoutHistoryViewController: UITableViewController {
         cell.configureCell(workoutItem: item)
         
         return cell
+    }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Storyboard.SegueWorkoutHistoryToDetail {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+            
+            let item = self.fetchedResultsController.object(at: indexPath)
+            let destinationVC = segue.destination as! WorkoutDetailViewController
+            
+            destinationVC.workoutName = item.game
+            destinationVC.absementScore = item.formattedAbsementScore
+            destinationVC.date = item.date
+            destinationVC.duration = item.workoutDuration
+            destinationVC.workoutGameImage = item.gameImage
+        }
     }
 }
 

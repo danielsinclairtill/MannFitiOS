@@ -41,6 +41,10 @@ class HistoryViewController: UIViewController {
         dateFormatter.dateFormat = "MMMM"
         monthLabel.text = dateFormatter.string(from: date)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension HistoryViewController: JTAppleCalendarViewDelegate {

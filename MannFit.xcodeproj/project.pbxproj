@@ -42,6 +42,7 @@
 		A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */; };
 		A030F3251FB399D800658AA3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3241FB399D800658AA3 /* Game.swift */; };
 		A030F3271FB3A5B400658AA3 /* GameMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */; };
+		A031461D2040C43F00EAD098 /* WorkoutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A031461C2040C43F00EAD098 /* WorkoutDetailViewController.swift */; };
 		A0421F1C1FF6D5D200B44AC3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0421F1B1FF6D5D100B44AC3 /* Constants.swift */; };
 		A0570D201FF41AB1001CAD79 /* LowPassFilterSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0570D1F1FF41AB1001CAD79 /* LowPassFilterSignal.swift */; };
 		A07C5D5B1FBF5AAB00A9A6F8 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */; };
@@ -97,6 +98,7 @@
 		A030C8CC1FC763E3006F591D /* CoreDataCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCompliant.swift; sourceTree = "<group>"; };
 		A030F3241FB399D800658AA3 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A030F3261FB3A5B400658AA3 /* GameMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenuCell.swift; sourceTree = "<group>"; };
+		A031461C2040C43F00EAD098 /* WorkoutDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewController.swift; sourceTree = "<group>"; };
 		A0421F1B1FF6D5D100B44AC3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A0570D1F1FF41AB1001CAD79 /* LowPassFilterSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowPassFilterSignal.swift; sourceTree = "<group>"; };
 		A07C5D5A1FBF5AAB00A9A6F8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */,
 				8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */,
 				A0C0589A1FF5A265006169E6 /* WorkoutHistoryViewController.swift */,
+				A031461C2040C43F00EAD098 /* WorkoutDetailViewController.swift */,
 				A09ABEE8203CA89500AF649E /* HistoryViewController.swift */,
 			);
 			path = "Tab Bar";
@@ -475,6 +478,7 @@
 				8B2A1DDF2019730D0031B7EE /* TestingGameScene.swift in Sources */,
 				A0570D201FF41AB1001CAD79 /* LowPassFilterSignal.swift in Sources */,
 				8B1CC4371FF424D000C6180F /* SettingsTableViewController.swift in Sources */,
+				A031461D2040C43F00EAD098 /* WorkoutDetailViewController.swift in Sources */,
 				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
 				8BD8E678200828DC00ED2BDF /* PreGamePromptView.swift in Sources */,
 				8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */,
