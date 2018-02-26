@@ -394,7 +394,11 @@ extension WaterTapPreGamePromptView: UITextFieldDelegate {
             updateStartButton(text: text)
         }
         
-        return string == filtered
+        // check limit of the input
+        guard let text = textField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        
+        return string == filtered && newLength <= 3
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
