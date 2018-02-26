@@ -15,7 +15,8 @@ class WorkoutDetailViewController: UIViewController {
     @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var absementScoreLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
-
+    @IBOutlet weak var workoutTimeLabel: UILabel!
+    
     var workoutName: String!
     var absementScore: String!
     var date: Date!
@@ -33,6 +34,9 @@ class WorkoutDetailViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, MMM d"
         self.title = dateFormatter.string(from: date)
+        
+        dateFormatter.dateFormat = "h:mm a"
+        workoutTimeLabel.text = dateFormatter.string(from: date)
     }
 
 }
