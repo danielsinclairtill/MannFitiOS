@@ -398,7 +398,7 @@ extension PacmanPreGamePromptView: UITextFieldDelegate {
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
         
-        return string == filtered && newLength <= 3
+        return string == filtered && newLength <= SettingsValues.maxInputChars
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
