@@ -226,7 +226,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         
         convertedAbsement = roundedConvertedAbsement / SettingsValues.absementSampleRate
         self.absementScore += convertedAbsement
-        scoreText = String(format: "%.1f", self.absementScore)
+        scoreText = String(format: "%.2f", self.absementScore)
         absementScoreLabel.text = scoreText
     }
     
@@ -274,7 +274,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         self.engine?.stop()
         player.removeAction(forKey: pacmanAnimationKey)
         if completed {
-            self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(inputTime), absement: Float(absementScore.rounded(toPlaces: 1)))
+            self.gameOverDelegate?.sendGameData(game: "PacMan", duration: Int(inputTime), absement: Float(absementScore.rounded(toPlaces: 2)))
         }
         self.gameOverDelegate?.presentPrompt()
     }
@@ -288,7 +288,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         absementScore = 0.0
         var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
-        scoreText = String(format: "%.1f", self.absementScore)
+        scoreText = String(format: "%.2f", self.absementScore)
         absementScoreLabel.text = scoreText
         
         playerRelativeYPosition = playerRelativeStartYPosition

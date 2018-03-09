@@ -203,7 +203,7 @@ class WaterTapGameScene: SKScene {
         
         let convertedAbsement = roundedConvertedAbsement / SettingsValues.absementSampleRate
         self.absementScore += convertedAbsement
-        scoreText = String(format: "%.1f", self.absementScore)
+        scoreText = String(format: "%.2f", self.absementScore)
         absementScoreLabel.text = scoreText
     }
     
@@ -233,7 +233,7 @@ class WaterTapGameScene: SKScene {
         water.removeFromParent()
         self.engine?.stop()
         if completed {
-            self.gameOverDelegate?.sendGameData(game: "Water Tap", duration: Int(exerciseTime), absement: Float(absementScore.rounded(toPlaces: 1)))
+            self.gameOverDelegate?.sendGameData(game: "Water Tap", duration: Int(exerciseTime), absement: Float(absementScore.rounded(toPlaces: 2)))
         }
         self.gameOverDelegate?.presentPrompt()
     }
@@ -247,7 +247,7 @@ class WaterTapGameScene: SKScene {
         absementScore = 0.0
         var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
-        scoreText = String(format: "%.1f", self.absementScore)
+        scoreText = String(format: "%.2f", self.absementScore)
         absementScoreLabel.text = scoreText
         
         self.engine?.restart()
