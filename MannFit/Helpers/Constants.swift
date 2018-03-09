@@ -16,6 +16,7 @@ struct UserDefaultsKeys {
 struct SettingsValues {
     static let sensitivityDefault: Float = 0.5
     static let maxInputChars: Int = 3
+    static let absementSampleRate: Double = 60.0
 }
 
 struct GameData {

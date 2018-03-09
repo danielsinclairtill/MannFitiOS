@@ -186,12 +186,15 @@ class CircleBalanceGameScene: SKScene {
     }
     
     private func updateAbsement(_ absement: Double) {
-        let convertedAbsement: Double = absement / Double(frame.width)
+        var convertedAbsement: Double = absement / Double(frame.width)
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
+            
         self.absement = roundedConvertedAbsement
         var scoreText = String(format: "%.1f", self.absement)
         absementLabel.text = scoreText
-        self.absementScore += roundedConvertedAbsement
+        
+        convertedAbsement = roundedConvertedAbsement / SettingsValues.absementSampleRate
+        self.absementScore += convertedAbsement
         scoreText = String(format: "%.1f", self.absementScore)
         absementScoreLabel.text = scoreText
     }
@@ -225,7 +228,7 @@ class CircleBalanceGameScene: SKScene {
         gameActive = false
         self.engine?.stop()
         if completed {
-            self.gameOverDelegate?.sendGameData(game: "Circle Balance", duration: Int(exerciseTime), absement: Float(absementScore))
+            self.gameOverDelegate?.sendGameData(game: "Circle Balance", duration: Int(exerciseTime), absement: Float(absementScore.rounded(toPlaces: 1)))
         }
         self.gameOverDelegate?.presentPrompt()
     }
