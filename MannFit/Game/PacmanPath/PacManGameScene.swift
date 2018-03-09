@@ -75,7 +75,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         absementLabel.fontName = "AvenirNextCondensed-Heavy"
         absementLabel.fontSize = 50.0
         absementLabel.fontColor = SKColor.white
-        var scoreText = String(absement)
+        var scoreText = String(format: "%.1f", absementScore)
         absementLabel.text = scoreText
         absementLabel.horizontalAlignmentMode = .right
         absementLabel.position = CGPoint(x: bounds.width - absementLabel.frame.size.width / 2 + 10.0,
@@ -86,7 +86,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
         absementScoreLabel.fontSize = 50.0
         absementScoreLabel.fontColor = SKColor.red
-        scoreText = String(absement)
+        scoreText = String(format: "%.2f", absementScore)
         absementScoreLabel.text = scoreText
         absementScoreLabel.horizontalAlignmentMode = .right
         absementScoreLabel.position = CGPoint(x: absementLabel.position.x,

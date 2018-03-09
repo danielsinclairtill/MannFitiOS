@@ -69,7 +69,7 @@ class WaterTapGameScene: SKScene {
         absementLabel.fontSize = 50.0
         absementLabel.fontColor = SKColor.white
         var scoreText = String(absement)
-        absementLabel.text = scoreText
+        absementLabel.text = String(format: "%.1f", absementScore)
         absementLabel.horizontalAlignmentMode = .right
         absementLabel.position = CGPoint(x: bounds.width - absementLabel.frame.size.width / 2 + 10.0,
                                          y: bounds.height - absementLabel.frame.size.height - 15.0)
@@ -79,7 +79,7 @@ class WaterTapGameScene: SKScene {
         absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
         absementScoreLabel.fontSize = 50.0
         absementScoreLabel.fontColor = SKColor.red
-        scoreText = String(absement)
+        scoreText = String(format: "%.2f", absementScore)
         absementScoreLabel.text = scoreText
         absementScoreLabel.horizontalAlignmentMode = .right
         absementScoreLabel.position = CGPoint(x: absementLabel.position.x,
