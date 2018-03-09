@@ -58,7 +58,13 @@ class PacManGameScene: SKScene, GameTimeCompliant {
     private let balancePathStartY: CGFloat = 500.0
     private let balancePathLength: CGFloat = 600.0
     private let balancePathAmplification: CGFloat = 0.8
-
+    
+    private lazy var labelFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 40.0 : 50.0
+    }()
+    private lazy var buttonSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 50.0 : 60.0
+    }()
     
     var smoothXAcceleration = LowPassFilterSignal(value: 0, timeConstant: 0.90)
     
@@ -73,7 +79,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         // absementLabel setup
         absementLabel.zPosition = 1
         absementLabel.fontName = "AvenirNextCondensed-Heavy"
-        absementLabel.fontSize = 50.0
+        absementLabel.fontSize = labelFontSize
         absementLabel.fontColor = SKColor.white
         var scoreText = String(format: "%.1f", absementScore)
         absementLabel.text = scoreText
@@ -84,7 +90,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         // absementScoreLabel setup
         absementScoreLabel.zPosition = 1
         absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
-        absementScoreLabel.fontSize = 50.0
+        absementScoreLabel.fontSize = labelFontSize
         absementScoreLabel.fontColor = SKColor.red
         scoreText = String(format: "%.2f", absementScore)
         absementScoreLabel.text = scoreText
@@ -94,20 +100,20 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         
         // stopButton setup
         stopButton.zPosition = 1
-        stopButton.size = CGSize(width: 60.0, height: 60.0)
+        stopButton.size = CGSize(width: buttonSize, height: buttonSize)
         stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
                                       y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
         // centerButton setup
         centerButton.zPosition = 1
-        centerButton.size = CGSize(width: 60.0, height: 60.0)
+        centerButton.size = CGSize(width: buttonSize, height: buttonSize)
         centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
                                         y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
         
         // timeLabel setup
         timeLabel.zPosition = 1
         timeLabel.fontName = "AvenirNextCondensed-Heavy"
-        timeLabel.fontSize = 50.0
+        timeLabel.fontSize = labelFontSize
         timeLabel.fontColor = SKColor.white
         let timeText = String(Int(timeLeft))
         timeLabel.text = timeText

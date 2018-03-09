@@ -55,6 +55,8 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
         }
         
         cell.label.text = self.games[indexPath.item].gameName
+        let fontSize: CGFloat = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 16.0 : 20.0
+        cell.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         
         return cell
     }

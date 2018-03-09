@@ -11,8 +11,16 @@ import UIKit
 class GameOverPromptView: UIView {
     
     weak var delegate: GameOverPromptDelegate?
-    private let buttonWidth: CGFloat = 120.0
-    private let buttonFontSize: CGFloat = 22.0
+    
+    private let viewHeight: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 150.0 : 200.0
+    }()
+    private let buttonWidth: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 80.0 : 120.0
+    }()
+    private lazy var buttonFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 18.0 : 22.0
+    }()
     
     private lazy var title: UILabel = {
         let label = UILabel()
@@ -66,7 +74,6 @@ class GameOverPromptView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let viewHeight: CGFloat = 200.0
         let horizontalPadding: CGFloat = 20.0
         
         let titleSize: CGSize = title.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))

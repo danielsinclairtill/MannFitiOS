@@ -53,6 +53,16 @@ class WaterTapGameScene: SKScene {
     private var countDown: Int = 10
     private var countDownTimer: Timer?
     
+    private lazy var labelFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 40.0 : 50.0
+    }()
+    private lazy var countDownLabelFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 30.0 : 40.0
+    }()
+    private lazy var buttonSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 50.0 : 60.0
+    }()
+    
     private var smoothYAcceleration = LowPassFilterSignal(value: 0, timeConstant: 0.90)
     
     override func didMove(to view: SKView) {
@@ -66,7 +76,7 @@ class WaterTapGameScene: SKScene {
         // absementLabel setup
         absementLabel.zPosition = 1
         absementLabel.fontName = "AvenirNextCondensed-Heavy"
-        absementLabel.fontSize = 50.0
+        absementLabel.fontSize = labelFontSize
         absementLabel.fontColor = SKColor.white
         var scoreText = String(absement)
         absementLabel.text = String(format: "%.1f", absementScore)
@@ -77,7 +87,7 @@ class WaterTapGameScene: SKScene {
         // absementScoreLabel setup
         absementScoreLabel.zPosition = 1
         absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
-        absementScoreLabel.fontSize = 50.0
+        absementScoreLabel.fontSize = labelFontSize
         absementScoreLabel.fontColor = SKColor.red
         scoreText = String(format: "%.2f", absementScore)
         absementScoreLabel.text = scoreText
@@ -87,20 +97,20 @@ class WaterTapGameScene: SKScene {
         
         // stopButton setup
         stopButton.zPosition = 1
-        stopButton.size = CGSize(width: 60.0, height: 60.0)
+        stopButton.size = CGSize(width: buttonSize, height: buttonSize)
         stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
                                       y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
         // centerButton setup
         centerButton.zPosition = 1
-        centerButton.size = CGSize(width: 60.0, height: 60.0)
+        centerButton.size = CGSize(width: buttonSize, height: buttonSize)
         centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
                                         y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
         
         // timeLabel setup
         timeLabel.zPosition = 1
         timeLabel.fontName = "AvenirNextCondensed-Heavy"
-        timeLabel.fontSize = 50.0
+        timeLabel.fontSize = labelFontSize
         timeLabel.fontColor = SKColor.white
         let timeText = String(Int(timeLeft))
         timeLabel.text = timeText
@@ -111,7 +121,7 @@ class WaterTapGameScene: SKScene {
         // countDownLabel setup
         countDownLabel.zPosition = 1
         countDownLabel.fontName = "AvenirNextCondensed-Heavy"
-        countDownLabel.fontSize = 40.0
+        countDownLabel.fontSize = countDownLabelFontSize
         countDownLabel.fontColor = SKColor.red
         let countDownText = String(format: countDownString, countDown)
         countDownLabel.text = countDownText

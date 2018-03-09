@@ -14,10 +14,21 @@ class TestingPreGamePromptView: PreGamePromptView {
         static let one = "Simple testing game to present accelerometer data"
     }
     
-    private let viewHeight: CGFloat = 250.0
-    private let buttonWidth: CGFloat = 120.0
-    private let buttonFontSize: CGFloat = 22.0
-    private let iconWidth: CGFloat = 50.0
+    private let viewHeight: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 200.0 : 250.0
+    }()
+    private let buttonWidth: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 80.0 : 120.0
+    }()
+    private lazy var stepFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 12.0 : 14.0
+    }()
+    private lazy var buttonFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 18.0 : 22.0
+    }()
+    private let iconWidth: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 35.0 : 50.0
+    }()
     
     private lazy var title: UILabel = {
         let label = UILabel()
@@ -30,7 +41,7 @@ class TestingPreGamePromptView: PreGamePromptView {
     
     private lazy var step1: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = Game1Step.one
         label.numberOfLines = 3
