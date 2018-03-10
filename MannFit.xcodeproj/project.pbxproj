@@ -22,6 +22,9 @@
 		8B2A1DDD201972270031B7EE /* TestingGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A1DDC201972270031B7EE /* TestingGameViewController.swift */; };
 		8B2A1DDF2019730D0031B7EE /* TestingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A1DDE2019730D0031B7EE /* TestingGameScene.swift */; };
 		8B2A1DE1201979540031B7EE /* TestingPreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A1DE0201979540031B7EE /* TestingPreGamePromptView.swift */; };
+		8B38553A20545A3000EFD228 /* PongGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38553720545A3000EFD228 /* PongGameScene.swift */; };
+		8B38553B20545A3000EFD228 /* PongGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38553820545A3000EFD228 /* PongGameViewController.swift */; };
+		8B38553C20545A3000EFD228 /* PongPreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B38553920545A3000EFD228 /* PongPreGamePromptView.swift */; };
 		8B46928E201527D2004448C9 /* GameTimeCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B46928D201527D2004448C9 /* GameTimeCompliant.swift */; };
 		8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */; };
 		8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */; };
@@ -79,6 +82,9 @@
 		8B2A1DDC201972270031B7EE /* TestingGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingGameViewController.swift; sourceTree = "<group>"; };
 		8B2A1DDE2019730D0031B7EE /* TestingGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingGameScene.swift; sourceTree = "<group>"; };
 		8B2A1DE0201979540031B7EE /* TestingPreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingPreGamePromptView.swift; sourceTree = "<group>"; };
+		8B38553720545A3000EFD228 /* PongGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PongGameScene.swift; sourceTree = "<group>"; };
+		8B38553820545A3000EFD228 /* PongGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PongGameViewController.swift; sourceTree = "<group>"; };
+		8B38553920545A3000EFD228 /* PongPreGamePromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PongPreGamePromptView.swift; sourceTree = "<group>"; };
 		8B46928D201527D2004448C9 /* GameTimeCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeCompliant.swift; sourceTree = "<group>"; };
 		8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverPromptDelegate.swift; sourceTree = "<group>"; };
 		8B64AFB41FCB3D3400C82833 /* Double+Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounder.swift"; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 		68FE5CDA1FB0D7BD00D2E6FA /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				8B385536205459C200EFD228 /* Pong */,
 				8B73F947203CA02D008DC3A8 /* WaterTap */,
 				8BD937702023968A0056DEEA /* Circle */,
 				8B2A1DDB201972110031B7EE /* Testing */,
@@ -240,6 +247,16 @@
 				8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */,
 			);
 			path = Testing;
+			sourceTree = "<group>";
+		};
+		8B385536205459C200EFD228 /* Pong */ = {
+			isa = PBXGroup;
+			children = (
+				8B38553720545A3000EFD228 /* PongGameScene.swift */,
+				8B38553820545A3000EFD228 /* PongGameViewController.swift */,
+				8B38553920545A3000EFD228 /* PongPreGamePromptView.swift */,
+			);
+			path = Pong;
 			sourceTree = "<group>";
 		};
 		8B64AFB31FCB3CFD00C82833 /* Helpers */ = {
@@ -478,6 +495,7 @@
 				8BF266681FFEF37100DCCA80 /* PopUpPresentationController.swift in Sources */,
 				683840741FA7844F00889E75 /* AppDelegate.swift in Sources */,
 				8B73F94B203CA256008DC3A8 /* WaterTapGameScene.swift in Sources */,
+				8B38553B20545A3000EFD228 /* PongGameViewController.swift in Sources */,
 				A01A0A6A1FF6C9A6005DAB37 /* WorkoutTableViewCell.swift in Sources */,
 				A0C0589B1FF5A265006169E6 /* WorkoutHistoryViewController.swift in Sources */,
 				8BD93772202396C50056DEEA /* CircleBalanceGameViewController.swift in Sources */,
@@ -487,6 +505,8 @@
 				A031461D2040C43F00EAD098 /* WorkoutDetailViewController.swift in Sources */,
 				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
 				8BD8E678200828DC00ED2BDF /* PreGamePromptView.swift in Sources */,
+				8B38553C20545A3000EFD228 /* PongPreGamePromptView.swift in Sources */,
+				8B38553A20545A3000EFD228 /* PongGameScene.swift in Sources */,
 				8B64AFB71FCB4D4A00C82833 /* GameOverPromptView.swift in Sources */,
 				A07C5D5D1FBF605200A9A6F8 /* BalancePath.swift in Sources */,
 				A09ABEE9203CA89500AF649E /* HistoryViewController.swift in Sources */,

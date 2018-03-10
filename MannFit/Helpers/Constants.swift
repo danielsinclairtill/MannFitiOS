@@ -39,6 +39,12 @@ struct GameData {
     static let waterTapIdentifier = "waterTapIdentifier"
     static let waterTapDefaultTime = 20.0
     
+    // Pong Game
+    static let pongName = "Pong"
+    static let pongImageName = "Pong"
+    static let pongIdentifier = "pongIdentifier"
+    static let pongDefaultTime = 20.0
+    
     // Test Game
     static let testingName = "Testing"
     static let testingImageName = "testingGameImage"

@@ -72,6 +72,21 @@
             </objects>
             <point key="canvasLocation" x="2351" y="74"/>
         </scene>
+        <!--Pong Game View Controller-->
+        <scene sceneID="CJW-Ua-hMf">
+            <objects>
+                <viewController storyboardIdentifier="pongIdentifier" id="npH-z7-lRo" customClass="PongGameViewController" customModule="MannFit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="60I-9A-9ur" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="IMh-HT-Wox"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KvN-gk-K9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3041" y="74"/>
+        </scene>
         <!--Games-->
         <scene sceneID="HgQ-7p-PbE">
             <objects>
