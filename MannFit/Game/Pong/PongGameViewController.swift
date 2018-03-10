@@ -44,15 +44,13 @@ extension PongGameViewController: GameOverPromptDelegate {
     func restartGame() {
         // first dismiss popup
         self.dismiss(animated: true, completion: nil)
-        // IMPLEMENT THIS
-        // self.scene?.restartGame()
+        self.scene?.restartGame()
     }
     
     func exitGame() {
         // first dismiss popup
         self.dismiss(animated: true, completion: nil)
-        // IMPLEMENT THIS
-        // self.scene?.engine?.stop()
+        self.scene?.engine?.stop()
         self.exit()
     }
 }
