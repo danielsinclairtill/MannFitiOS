@@ -109,28 +109,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-EJ-qqL">
-                                            <rect key="frame" x="74.666666666666671" y="5" width="52" height="21"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WBk-zt-A7R">
                                             <rect key="frame" x="30" y="40" width="140" height="140"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="WBk-zt-A7R" secondAttribute="height" multiplier="1:1" id="cRy-hA-uyW"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vcl-EJ-qqL">
+                                            <rect key="frame" x="8" y="9" width="184" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Vcl-EJ-qqL" firstAttribute="top" secondItem="t24-cJ-lAF" secondAttribute="top" constant="5" id="7Gd-6r-jNw"/>
+                                    <constraint firstItem="Vcl-EJ-qqL" firstAttribute="top" secondItem="t24-cJ-lAF" secondAttribute="top" constant="9" id="7Gd-6r-jNw"/>
                                     <constraint firstItem="Vcl-EJ-qqL" firstAttribute="centerX" secondItem="t24-cJ-lAF" secondAttribute="centerX" id="7Lk-ZD-tU1"/>
-                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="Vcl-EJ-qqL" secondAttribute="bottom" constant="14" id="BWa-yX-tnN"/>
+                                    <constraint firstItem="WBk-zt-A7R" firstAttribute="top" secondItem="Vcl-EJ-qqL" secondAttribute="bottom" constant="10" id="BWa-yX-tnN"/>
                                     <constraint firstAttribute="bottom" secondItem="WBk-zt-A7R" secondAttribute="bottom" constant="20" id="jBQ-8c-zNa"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Vcl-EJ-qqL" secondAttribute="trailing" id="njD-hz-vN1"/>
                                     <constraint firstItem="WBk-zt-A7R" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leading" constant="30" id="poe-jc-ZIX"/>
                                     <constraint firstAttribute="trailing" secondItem="WBk-zt-A7R" secondAttribute="trailing" constant="30" id="yMn-Xy-Cgv"/>
+                                    <constraint firstItem="Vcl-EJ-qqL" firstAttribute="leading" secondItem="t24-cJ-lAF" secondAttribute="leadingMargin" id="yiP-Cy-k9N"/>
                                 </constraints>
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>
@@ -148,7 +150,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uv9-73-Fi3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="271.19999999999999" y="808.24587706146929"/>
+            <point key="canvasLocation" x="271.19999999999999" y="807.63546798029563"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="eTK-d0-Da9">

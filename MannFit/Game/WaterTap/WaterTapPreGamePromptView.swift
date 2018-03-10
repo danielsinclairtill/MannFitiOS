@@ -16,10 +16,21 @@ class WaterTapPreGamePromptView: PreGamePromptView {
         static let three = "Stop the flow of water by keeping the bar horizontal"
     }
     
-    private let viewHeight: CGFloat = 500.0
-    private let buttonWidth: CGFloat = 120.0
-    private let buttonFontSize: CGFloat = 22.0
-    private let iconWidth: CGFloat = 50.0
+    private let viewHeight: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 420.0 : 500.0
+    }()
+    private let buttonWidth: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 80.0 : 120.0
+    }()
+    private lazy var stepFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 12.0 : 14.0
+    }()
+    private lazy var buttonFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 18.0 : 22.0
+    }()
+    private let iconWidth: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 35.0 : 50.0
+    }()
     private lazy var keyboardTransitionPadding: CGFloat = {
         var padding: CGFloat = 0.0
         if let parentViw = self.superview {
@@ -46,7 +57,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     
     private lazy var step1: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = Game1Step.one
         label.numberOfLines = 3
@@ -69,7 +80,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     
     private lazy var step2: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = Game1Step.two
         label.numberOfLines = 3
@@ -92,7 +103,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     
     private lazy var step3: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = Game1Step.three
         label.numberOfLines = 3

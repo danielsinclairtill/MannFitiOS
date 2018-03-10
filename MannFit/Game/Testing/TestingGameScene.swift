@@ -40,6 +40,10 @@ class TestingGameScene: SKScene {
     private let recordMarker = SKSpriteNode(imageNamed: "record-icon")
     private let stopButton = SKSpriteNode(imageNamed: "stop-icon")
     
+    private lazy var labelFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 40.0 : 50.0
+    }()
+    
     var smoothXAcceleration = LowPassFilterSignal(value: 0, timeConstant: 0.90)
     
     override func didMove(to view: SKView) {
@@ -53,7 +57,7 @@ class TestingGameScene: SKScene {
         // xLabel setup
         xLabel.zPosition = 1
         xLabel.fontName = "AvenirNextCondensed-Heavy"
-        xLabel.fontSize = 50.0
+        xLabel.fontSize = labelFontSize
         xLabel.fontColor = SKColor.white
         xLabel.text = String(format: "X: %.3f", x)
         xLabel.horizontalAlignmentMode = .left
@@ -62,7 +66,7 @@ class TestingGameScene: SKScene {
         // yLabel setup
         yLabel.zPosition = 1
         yLabel.fontName = "AvenirNextCondensed-Heavy"
-        yLabel.fontSize = 50.0
+        yLabel.fontSize = labelFontSize
         yLabel.fontColor = SKColor.white
         yLabel.text = String(format: "Y: %.3f", y)
         yLabel.horizontalAlignmentMode = .left
@@ -72,7 +76,7 @@ class TestingGameScene: SKScene {
         // zLabel setup
         zLabel.zPosition = 1
         zLabel.fontName = "AvenirNextCondensed-Heavy"
-        zLabel.fontSize = 50.0
+        zLabel.fontSize = labelFontSize
         zLabel.fontColor = SKColor.white
         zLabel.text = String(format: "Z: %.3f", z)
         zLabel.horizontalAlignmentMode = .left
