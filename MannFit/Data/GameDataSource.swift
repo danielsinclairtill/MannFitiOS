@@ -12,6 +12,7 @@ enum GameType {
     case Pacman
     case Circle
     case WaterTap
+    case Pong
     case Testing
 }
 
@@ -22,11 +23,13 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
         let pacman = Game(gameName: GameData.pacmanName, gameImageName: GameData.pacmanImageName, storyboardIdentifier: GameData.pacmanIdentifier, gameType: .Pacman)
         let circle = Game(gameName: GameData.circleName, gameImageName: GameData.circleImageName, storyboardIdentifier: GameData.circleIdentifier, gameType: .Circle)
         let waterTap = Game(gameName: GameData.waterTapName, gameImageName: GameData.waterTapImageName, storyboardIdentifier: GameData.waterTapIdentifier, gameType: .WaterTap)
+        let pong = Game(gameName: GameData.pongName, gameImageName: GameData.pongImageName, storyboardIdentifier: GameData.pongIdentifier, gameType: .Pong)
         let test = Game(gameName: GameData.testingName, gameImageName: GameData.testingImageName, storyboardIdentifier: GameData.testingIdentifier, gameType: .Testing)
         
         games.append(pacman)
         games.append(circle)
         games.append(waterTap)
+        games.append(pong)
         games.append(test)
         
         return games
