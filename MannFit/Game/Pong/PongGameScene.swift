@@ -224,10 +224,11 @@ class PongGameScene: SKScene {
         
         if gameActive {
             // Update score
-            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 1.0))
+            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.0))
         } else {
             ball.position = CGPoint(x: frame.midX, y: frame.midY)
             ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            enemyPaddle.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
         }
     }
     
@@ -242,7 +243,7 @@ class PongGameScene: SKScene {
             gameActive = true
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGameTimer), userInfo: nil, repeats: true)
             timerSet = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 10, dy: -10))
+            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: -5))
         }
     }
     
