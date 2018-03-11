@@ -164,7 +164,7 @@ class PongGameScene: SKScene {
         ball.zPosition = 0
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.fillColor = UIColor.white
-        ball.physicsBody = SKPhysicsBody(rectangleOf: paddleSize)
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: 15.0)
         ball.physicsBody?.isDynamic = true
         ball.physicsBody?.affectedByGravity = false
         ball.physicsBody?.allowsRotation = false
@@ -242,7 +242,7 @@ class PongGameScene: SKScene {
             gameActive = true
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGameTimer), userInfo: nil, repeats: true)
             timerSet = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 20, dy: -20))
+            ball.physicsBody?.applyImpulse(CGVector(dx: 10, dy: -10))
         }
     }
     
