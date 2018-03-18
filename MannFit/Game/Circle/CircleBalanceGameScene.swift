@@ -103,8 +103,8 @@ class CircleBalanceGameScene: SKScene {
         // centerButton setup
         centerButton.zPosition = 1
         centerButton.size = CGSize(width: buttonSize, height: buttonSize)
-        centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
-                                      y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
+        centerButton.position = CGPoint(x: frame.midX, y: frame.midY)
+
         
         // timeLabel setup
         timeLabel.zPosition = 1
