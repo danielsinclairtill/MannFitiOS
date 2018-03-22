@@ -96,7 +96,7 @@ class PongGameScene: SKScene {
         background.scale(to: frame.size)
         
         // absementLabel setup
-        absementLabel.zPosition = 1
+        absementLabel.zPosition = 5
         absementLabel.fontName = "AvenirNextCondensed-Heavy"
         absementLabel.fontSize = labelFontSize
         absementLabel.fontColor = SKColor.white
@@ -107,7 +107,7 @@ class PongGameScene: SKScene {
                                          y: bounds.height - absementLabel.frame.size.height - 15.0)
         
         // absementScoreLabel setup
-        absementScoreLabel.zPosition = 1
+        absementScoreLabel.zPosition = 5
         absementScoreLabel.fontName = "AvenirNextCondensed-Heavy"
         absementScoreLabel.fontSize = labelFontSize
         absementScoreLabel.fontColor = SKColor.red
@@ -118,19 +118,19 @@ class PongGameScene: SKScene {
                                               y: absementLabel.frame.minY - absementScoreLabel.frame.size.height - 10.0 )
         
         // stopButton setup
-        stopButton.zPosition = 1
+        stopButton.zPosition = 5
         stopButton.size = CGSize(width: buttonSize, height: buttonSize)
         stopButton.position = CGPoint(x: absementScoreLabel.position.x - stopButton.size.width / 2,
                                       y: absementScoreLabel.frame.minY - stopButton.size.height / 2 - 10.0 )
         
         // centerButton setup
-        centerButton.zPosition = 1
+        centerButton.zPosition = 5
         centerButton.size = CGSize(width: buttonSize, height: buttonSize)
         centerButton.position = CGPoint(x: absementScoreLabel.position.x - centerButton.size.width / 2,
                                         y: stopButton.frame.minY - centerButton.size.height / 2 - 10.0 )
         
         // timeLabel setup
-        timeLabel.zPosition = 1
+        timeLabel.zPosition = 5
         timeLabel.fontName = "AvenirNextCondensed-Heavy"
         timeLabel.fontSize = labelFontSize
         timeLabel.fontColor = SKColor.white
@@ -141,7 +141,7 @@ class PongGameScene: SKScene {
                                      y: bounds.height - timeLabel.frame.size.height - 15.0)
         
         // countDownLabel setup
-        countDownLabel.zPosition = 1
+        countDownLabel.zPosition = 4
         countDownLabel.fontName = "AvenirNextCondensed-Heavy"
         countDownLabel.fontSize = countDownLabelFontSize
         countDownLabel.fontColor = SKColor.white
@@ -254,7 +254,7 @@ class PongGameScene: SKScene {
         self.engine?.setupAudioEngine()
     }
     
-    override func update(_ currentTime: CFTimeInterval) {
+    override func didSimulatePhysics() {
         
         // motion update
         if let data = motionManager.accelerometerData {
@@ -264,12 +264,13 @@ class PongGameScene: SKScene {
         }
         
         if gameActive {
-            // Update score
-            enemyPaddle.run(SKAction.moveTo(x: ball.position.x, duration: 0.0))
-        } else {
-            ball.position = CGPoint(x: frame.midX, y: frame.midY)
-            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            enemyPaddle.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
+            // move enemyPaddle
+            enemyPaddle.position.x = ball.position.x
+            
+            // handle absement difference
+            let xDifference = abs(playerPaddle.position.x - ball.position.x)
+            updateAbsement(Double(xDifference))
+            self.engine?.modifyPitch(with: -Float(xDifference * 2))
         }
         
         // handle ball below player paddle
@@ -277,14 +278,14 @@ class PongGameScene: SKScene {
             playerPaddle.physicsBody?.categoryBitMask = 0
             moveThroughBallBottom = true
         }
-
+        
         if moveThroughBallBottom && ball.position.y - ballRadius > playerPaddle.position.y + paddleHeight / 2 {
             playerPaddle.physicsBody?.categoryBitMask = ColliderType.Paddle.rawValue
             moveThroughBallBottom = false
         }
         
         // handle ball above enemy paddle
-        if ball.position.y > enemyPaddle.position.y - paddleHeight / 2{
+        if ball.position.y > enemyPaddle.position.y - paddleHeight / 2 {
             enemyPaddle.physicsBody?.categoryBitMask = 0
             moveThroughBallTop = true
         }
@@ -319,10 +320,28 @@ class PongGameScene: SKScene {
         }
     }
     
+    private func updateAbsement(_ absement: Double) {
+        var convertedAbsement: Double = absement / Double(frame.width)
+        let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
+        
+        self.absement = roundedConvertedAbsement
+        var scoreText = String(format: "%.1f", self.absement)
+        absementLabel.text = scoreText
+        
+        convertedAbsement = roundedConvertedAbsement / SettingsValues.absementSampleRate
+        self.absementScore += convertedAbsement
+        scoreText = String(format: "%.2f", self.absementScore)
+        absementScoreLabel.text = scoreText
+    }
+    
     // MARK: - Game over
     @objc private func gameOver(completed: Bool) {
         gameTimer?.invalidate()
         countDownTimer?.invalidate()
+        
+        // stop ball movement
+        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        
         gameActive = false
         self.engine?.stop()
         if completed {
@@ -342,6 +361,11 @@ class PongGameScene: SKScene {
         absementLabel.text = scoreText
         scoreText = String(format: "%.2f", self.absementScore)
         absementScoreLabel.text = scoreText
+        
+        // reset ball and paddle position
+        ball.position = CGPoint(x: frame.midX, y: frame.midY)
+        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        enemyPaddle.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
         
         self.engine?.restart()
         
@@ -371,5 +395,4 @@ class PongGameScene: SKScene {
             }
         }
     }
-    
 }
