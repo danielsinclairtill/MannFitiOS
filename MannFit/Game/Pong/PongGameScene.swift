@@ -46,15 +46,35 @@ class PongGameScene: SKScene {
     private let stopButton = SKSpriteNode(imageNamed: "menu-icon")
     private let centerButton = SKSpriteNode(imageNamed: "center-icon")
     
-    private let playerPaddle = SKShapeNode(rectOf: CGSize(width: 100, height: 30))
-    private let enemyPaddle = SKShapeNode(rectOf: CGSize(width: 100, height: 30))
-    private let ball = SKShapeNode(circleOfRadius: 15)
+    private let paddleHeight: CGFloat = 30.0
+    private let paddleWidth: CGFloat = 100.0
+    private let markerWidth: CGFloat = 5.0
+    private let ballRadius: CGFloat = 15.0
+    
+    private lazy var playerPaddle = {
+        return SKShapeNode(rectOf: CGSize(width: paddleWidth, height: paddleHeight))
+    }()
+    private lazy var playerMarker = {
+        return SKShapeNode(rectOf: CGSize(width: markerWidth, height: paddleHeight))
+    }()
+    private lazy var enemyPaddle = {
+        return SKShapeNode(rectOf: CGSize(width: paddleWidth, height: paddleHeight))
+    }()
+    private lazy var enemyMarker = {
+        return SKShapeNode(rectOf: CGSize(width: markerWidth, height: paddleHeight))
+    }()
+    private lazy var ball = {
+        return SKShapeNode(circleOfRadius: ballRadius)
+    }()
+    private let ballLine = SKShapeNode()
     
     private let countDownLabel = SKLabelNode()
     private let countDownString = "Starting in...%d"
     private var countDown: Int = 10
     private var countDownTimer: Timer?
     
+    private var moveThroughBallTop: Bool = false
+    private var moveThroughBallBottom: Bool = false
     
     private lazy var labelFontSize: CGFloat = {
         return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 40.0 : 50.0
@@ -132,7 +152,7 @@ class PongGameScene: SKScene {
                                           y: bounds.height / 3)
         
         // Player setup
-        let paddleSize = CGSize(width: 100, height: 30)
+        let paddleSize = CGSize(width: paddleWidth, height: paddleHeight)
         playerPaddle.zPosition = 0
         playerPaddle.position = CGPoint(x: frame.midX, y: 100)
         playerPaddle.fillColor = UIColor.white
@@ -145,6 +165,10 @@ class PongGameScene: SKScene {
         playerPaddle.physicsBody?.categoryBitMask = ColliderType.Paddle.rawValue
         playerPaddle.physicsBody?.collisionBitMask = ColliderType.Ball.rawValue
         playerPaddle.physicsBody?.contactTestBitMask = ColliderType.Ball.rawValue
+        
+        // Player marker setup
+        playerMarker.zPosition = 1
+        playerMarker.fillColor = UIColor.blue
         
         // Enemy setup
         enemyPaddle.zPosition = 0
@@ -160,11 +184,15 @@ class PongGameScene: SKScene {
         enemyPaddle.physicsBody?.collisionBitMask = ColliderType.Ball.rawValue
         enemyPaddle.physicsBody?.contactTestBitMask = ColliderType.Ball.rawValue
         
+        // Enemy marker setup
+        enemyMarker.zPosition = 1
+        enemyMarker.fillColor = UIColor.blue
+        
         // Ball setup
         ball.zPosition = 0
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         ball.fillColor = UIColor.white
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: 15.0)
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ballRadius)
         ball.physicsBody?.isDynamic = true
         ball.physicsBody?.affectedByGravity = false
         ball.physicsBody?.allowsRotation = false
@@ -175,6 +203,16 @@ class PongGameScene: SKScene {
         ball.physicsBody?.categoryBitMask = ColliderType.Ball.rawValue
         ball.physicsBody?.collisionBitMask = ColliderType.Paddle.rawValue
         ball.physicsBody?.contactTestBitMask = ColliderType.Paddle.rawValue
+        
+        // Ball Line setup
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: 2 * self.frame.height))
+        path.addLine(to: CGPoint(x: 0, y: 0))
+        ballLine.path = path.cgPath
+        ballLine.strokeColor = UIColor.red
+        ballLine.lineWidth = 2
+        ballLine.zPosition = 2
+        ballLine.position.y = -self.frame.height
         
         // game border
         let border = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -193,6 +231,9 @@ class PongGameScene: SKScene {
         addChild(playerPaddle)
         addChild(enemyPaddle)
         addChild(ball)
+        ball.addChild(ballLine)
+        playerPaddle.addChild(playerMarker)
+        enemyPaddle.addChild(enemyMarker)
         
         // motion setup
         motionManager.startAccelerometerUpdates()
@@ -230,6 +271,28 @@ class PongGameScene: SKScene {
             ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             enemyPaddle.position = CGPoint(x: frame.midX, y: frame.maxY - 100)
         }
+        
+        // handle ball below player paddle
+        if ball.position.y < playerPaddle.position.y + paddleHeight / 2 {
+            playerPaddle.physicsBody?.categoryBitMask = 0
+            moveThroughBallBottom = true
+        }
+
+        if moveThroughBallBottom && ball.position.y - ballRadius > playerPaddle.position.y + paddleHeight / 2 {
+            playerPaddle.physicsBody?.categoryBitMask = ColliderType.Paddle.rawValue
+            moveThroughBallBottom = false
+        }
+        
+        // handle ball above enemy paddle
+        if ball.position.y > enemyPaddle.position.y - paddleHeight / 2{
+            enemyPaddle.physicsBody?.categoryBitMask = 0
+            moveThroughBallTop = true
+        }
+        
+        if moveThroughBallTop && ball.position.y + ballRadius < enemyPaddle.position.y -  paddleHeight / 2{
+            enemyPaddle.physicsBody?.categoryBitMask = ColliderType.Paddle.rawValue
+            moveThroughBallTop = false
+        }
     }
     
     // MARK: Game Progression
@@ -243,7 +306,7 @@ class PongGameScene: SKScene {
             gameActive = true
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGameTimer), userInfo: nil, repeats: true)
             timerSet = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: -5))
+            ball.physicsBody?.applyImpulse(CGVector(dx: 2, dy: -2))
         }
     }
     
