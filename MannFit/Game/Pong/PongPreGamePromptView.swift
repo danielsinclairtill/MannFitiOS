@@ -13,7 +13,7 @@ class PongPreGamePromptView: PreGamePromptView {
     struct Game1Step {
         static let one = "Attach smartphone to center of pull-up bar"
         static let two = "Balance the bar in a pull-up position"
-        static let three = "Play pong! Control paddle with pull-bar movement"
+        static let three = "Try to center the paddle with the moving ball line, control paddle with pull-up bar movement"
     }
     
     private let viewHeight: CGFloat = 500.0
@@ -95,7 +95,7 @@ class PongPreGamePromptView: PreGamePromptView {
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = .white
         label.text = Game1Step.three
-        label.numberOfLines = 3
+        label.numberOfLines = 4
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
