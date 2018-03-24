@@ -39,13 +39,11 @@ class AudioEngine {
         
         self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
         self.audioPlayerNode.volume = userDefaults.float(forKey: UserDefaultsKeys.settingsVolumeKey)
-
+    
         do {
             try self.engine.start()
             self.audioPlayerNode.play()
         } catch {
-            //TODO: - Error handling
-            print("Error. Handle this")
             fatalError()
         }
     }
@@ -55,12 +53,17 @@ class AudioEngine {
     }
     
     func restart() {
-        self.audioPlayerNode.stop()
+        self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
         self.audioPlayerNode.play()
     }
     
     func modifyPitch(with value: Float) {
         self.unitTimePitch.pitch = value
+        self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
+    }
+    
+    func modifyPlaybackRate(with rate: Float) {
+        self.unitTimePitch.rate = rate
         self.audioPlayerNode.scheduleBuffer(self.audioBuffer, at: nil, options: self.bufferOptions, completionHandler: nil)
     }
     
