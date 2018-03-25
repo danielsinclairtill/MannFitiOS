@@ -20,7 +20,7 @@ class SettingsTableViewController: UITableViewController {
     private var sensitivity: Float = 0.5
     private var music: Bool = true
     private var volume: Float = 0.5
-    private var pongSpeed: Float = 0.5
+    private var pongSpeed: Float = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
