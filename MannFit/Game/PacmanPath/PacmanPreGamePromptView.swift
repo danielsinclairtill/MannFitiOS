@@ -16,7 +16,7 @@ class PacmanPreGamePromptView: PreGamePromptView {
     private let prePromptComponents = PrePromptComponents()
     private var apparatusType: ApparatusType = .PlankBoard
     private let viewHeight: CGFloat = {
-        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 470.0 : 520.0
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 460.0 : 520.0
     }()
 
     private lazy var keyboardTransitionPadding: CGFloat = {

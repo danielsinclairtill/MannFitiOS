@@ -16,7 +16,7 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     private let prePromptComponents = PrePromptComponents()
     private var apparatusType: ApparatusType = .PullUpBar
     private let viewHeight: CGFloat = {
-        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 420.0 : 500.0
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 440.0 : 500.0
     }()
 
     private lazy var keyboardTransitionPadding: CGFloat = {

@@ -17,7 +17,7 @@ enum ApparatusType {
 class PrePromptComponents {
     
     let apparatusFontSize: CGFloat = {
-        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 16.0 : 12.0
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 14.0 : 16.0
     }()
     let buttonWidth: CGFloat = {
         return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 80.0 : 120.0
@@ -90,7 +90,7 @@ class PrePromptComponents {
 
     func plankStep1() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = PlankBoardStep.one
         label.numberOfLines = 3
@@ -100,7 +100,7 @@ class PrePromptComponents {
     
     func plankStep2() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = PlankBoardStep.two
         label.numberOfLines = 3
@@ -110,7 +110,7 @@ class PrePromptComponents {
     
     func pullUpStep1() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = PullUpStep.one
         label.numberOfLines = 3
@@ -120,7 +120,7 @@ class PrePromptComponents {
     
     func pullUpStep2() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = PullUpStep.two
         label.numberOfLines = 3
@@ -130,7 +130,7 @@ class PrePromptComponents {
     
     func gameStep(_ step: String, numberOfLines: Int) -> UILabel {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.systemFont(ofSize: stepFontSize)
         label.textColor = .white
         label.text = step
         label.numberOfLines = numberOfLines

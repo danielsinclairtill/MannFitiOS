@@ -15,7 +15,12 @@ class PongPreGamePromptView: PreGamePromptView {
     
     private let prePromptComponents = PrePromptComponents()
     private var apparatusType: ApparatusType = .PlankBoard
-    private let viewHeight: CGFloat = 520.0
+    private let viewHeight: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 460.0 : 520.0
+    }()
+    private let stepLineNumber: Int = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 5 : 4
+    }()
     private lazy var keyboardTransitionPadding: CGFloat = {
         var padding: CGFloat = 0.0
         if let parentViw = self.superview {
@@ -53,7 +58,7 @@ class PongPreGamePromptView: PreGamePromptView {
     // step 3
     private lazy var number3: UIImageView = prePromptComponents.icon(name: "three-icon")
     
-    private lazy var step3: UILabel = prePromptComponents.gameStep(PongPreGamePromptView.stepPlankboard, numberOfLines: 4)
+    private lazy var step3: UILabel = prePromptComponents.gameStep(PongPreGamePromptView.stepPlankboard, numberOfLines: stepLineNumber)
     
     private lazy var icon3: UIImageView = prePromptComponents.icon(name: "Game4Icon3")
     
