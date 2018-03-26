@@ -10,16 +10,10 @@ import UIKit
 
 class PongPreGamePromptView: PreGamePromptView {
     
-    struct Game1Step {
-        static let one = "Attach smartphone to center of pull-up bar"
-        static let two = "Balance the bar in a pull-up position"
-        static let three = "Try to center the paddle with the moving ball line, control paddle with pull-up bar movement"
-    }
+    private static let stepPullUp = "Try to center the paddle with the moving ball line, control paddle with pull-up bar movement"
     
+    private let prePromptComponents = PrePromptComponents()
     private let viewHeight: CGFloat = 500.0
-    private let buttonWidth: CGFloat = 120.0
-    private let buttonFontSize: CGFloat = 22.0
-    private let iconWidth: CGFloat = 50.0
     private lazy var keyboardTransitionPadding: CGFloat = {
         var padding: CGFloat = 0.0
         if let parentViw = self.superview {
@@ -28,139 +22,46 @@ class PongPreGamePromptView: PreGamePromptView {
         return padding
     }()
     
-    private lazy var title: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 25.0)
-        label.textColor = .white
-        label.text = GameData.pongName
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var title: UILabel = prePromptComponents.title(name: GameData.pongName)
     
     // step 1
-    private lazy var number1: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "one-icon"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var number1: UIImageView = prePromptComponents.icon(name: "one-icon")
     
-    private lazy var step1: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.textColor = .white
-        label.text = Game1Step.one
-        label.numberOfLines = 3
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var step1: UILabel = prePromptComponents.pullUpStep1()
     
-    private lazy var icon1: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game3Icon1"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var icon1: UIImageView = prePromptComponents.icon(name: "Game3Icon1")
     
     // step 2
-    private lazy var number2: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "two-icon"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var number2: UIImageView = prePromptComponents.icon(name: "two-icon")
     
-    private lazy var step2: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.textColor = .white
-        label.text = Game1Step.two
-        label.numberOfLines = 3
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var step2: UILabel = prePromptComponents.pullUpStep2()
     
-    private lazy var icon2: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game3Icon2"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var icon2: UIImageView = prePromptComponents.icon(name: "Game3Icon2")
     
     // step 3
-    private lazy var number3: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "three-icon"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var number3: UIImageView = prePromptComponents.icon(name: "three-icon")
     
-    private lazy var step3: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.textColor = .white
-        label.text = Game1Step.three
-        label.numberOfLines = 4
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var step3: UILabel = prePromptComponents.gameStep(PongPreGamePromptView.stepPullUp, numberOfLines: 4)
     
-    private lazy var icon3: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Game4Icon3"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var icon3: UIImageView = prePromptComponents.icon(name: "Game4Icon3")
     
-    private lazy var inputLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
-        label.textColor = .white
-        label.text = "Enter exercise time:"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var inputLabel: UILabel = prePromptComponents.inputLabel()
     
     private lazy var timeInput: UITextField = {
-        let textField = UITextField()
-        textField.keyboardType = .decimalPad
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        
-        let attributes: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.paragraphStyle: paragraphStyle,
-            ]
-        textField.attributedPlaceholder = NSAttributedString(string: "Seconds", attributes:attributes)
-        
-        textField.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
-        textField.borderStyle = UITextBorderStyle.roundedRect
-        textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
-        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        let textField = prePromptComponents.timeInput()
         textField.delegate = self
         return textField
     }()
     
     private lazy var startButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.white
-        button.layer.cornerRadius = 10.0
-        button.setTitle("START", for: .normal)
-        button.titleLabel?.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
-        button.setTitleColor(.black, for: .normal)
+        let button = prePromptComponents.startButton()
         button.addTarget(self, action: #selector(startGame), for: .touchUpInside)
-        button.isEnabled = false
-        button.alpha = 0.5
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.white
-        button.layer.cornerRadius = 10.0
-        button.setTitle("CANCEL", for: .normal)
-        button.titleLabel?.font = UIFont(name: "HelveticaNeue-CondensedBlack", size: buttonFontSize)
-        button.setTitleColor(.black, for: .normal)
+        let button = prePromptComponents.cancelButton()
         button.addTarget(self, action: #selector(cancelGame), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -215,6 +116,9 @@ class PongPreGamePromptView: PreGamePromptView {
         
         let horizontalPadding: CGFloat = 20.0
         let verticalPadding: CGFloat = 20.0
+        
+        let iconWidth = prePromptComponents.iconWidth
+        let buttonWidth = prePromptComponents.buttonWidth
         
         let titleSize: CGSize = title.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step1Size: CGSize = step1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
