@@ -17,6 +17,7 @@
 		68FE5CDD1FB0D82F00D2E6FA /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */; };
 		6E453710D588EBF5C04BBF3C /* Pods_MannFit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4E1EFC07F0C694D099C760 /* Pods_MannFit.framework */; };
 		8B196ABF2069557600E5A857 /* PrePromptComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B196ABE2069557600E5A857 /* PrePromptComponents.swift */; };
+		8B196AC120698ECD00E5A857 /* GameApparatusCompliant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B196AC020698ECD00E5A857 /* GameApparatusCompliant.swift */; };
 		8B1CC4371FF424D000C6180F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */; };
 		8B1EB876201BCD47008C6779 /* ExportDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */; };
 		8B28E00B1FFD5DFA0059FE6F /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */; };
@@ -82,6 +83,7 @@
 		68FE5CDC1FB0D82F00D2E6FA /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		8A4E1EFC07F0C694D099C760 /* Pods_MannFit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MannFit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B196ABE2069557600E5A857 /* PrePromptComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrePromptComponents.swift; path = MannFit/Game/PrePromptComponents.swift; sourceTree = SOURCE_ROOT; };
+		8B196AC020698ECD00E5A857 /* GameApparatusCompliant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameApparatusCompliant.swift; sourceTree = "<group>"; };
 		8B1CC4361FF424D000C6180F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		8B1EB875201BCD47008C6779 /* ExportDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataDelegate.swift; sourceTree = "<group>"; };
 		8B28E00A1FFD5DFA0059FE6F /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				8B5D64A61FD2172E009A97E0 /* GameOverPromptDelegate.swift */,
 				8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */,
 				8B46928D201527D2004448C9 /* GameTimeCompliant.swift */,
+				8B196AC020698ECD00E5A857 /* GameApparatusCompliant.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				8BD8E674200822A900ED2BDF /* PacmanPreGamePromptView.swift in Sources */,
 				8B64AFB51FCB3D3400C82833 /* Double+Rounder.swift in Sources */,
 				A030C8CB1FC75B97006F591D /* GameOverDelegate.swift in Sources */,
+				8B196AC120698ECD00E5A857 /* GameApparatusCompliant.swift in Sources */,
 				8B2A1DE1201979540031B7EE /* TestingPreGamePromptView.swift in Sources */,
 				8B5D64A71FD2172E009A97E0 /* GameOverPromptDelegate.swift in Sources */,
 				A0ED3F872066D66F009494D1 /* Workouts.swift in Sources */,

@@ -10,10 +10,12 @@ import UIKit
 
 class PongPreGamePromptView: PreGamePromptView {
     
+    private static let stepPlankboard = "Try to center the paddle with the moving ball line, control paddle with plankboard movement"
     private static let stepPullUp = "Try to center the paddle with the moving ball line, control paddle with pull-up bar movement"
     
     private let prePromptComponents = PrePromptComponents()
-    private let viewHeight: CGFloat = 500.0
+    private var apparatusType: ApparatusType = .PlankBoard
+    private let viewHeight: CGFloat = 520.0
     private lazy var keyboardTransitionPadding: CGFloat = {
         var padding: CGFloat = 0.0
         if let parentViw = self.superview {
@@ -24,24 +26,34 @@ class PongPreGamePromptView: PreGamePromptView {
     
     private lazy var title: UILabel = prePromptComponents.title(name: GameData.pongName)
     
+    private lazy var apparatusSwitch: UISwitch = {
+        let apparatusSwitch = prePromptComponents.apparatusSwitch(isOn: false)
+        apparatusSwitch.addTarget(self, action: #selector(apparatusChange), for: .valueChanged)
+        return apparatusSwitch
+    }()
+    
+    private lazy var apparatusTitle1: UILabel = prePromptComponents.apparatusTitlePullUpBar()
+    
+    private lazy var apparatusTitle2: UILabel = prePromptComponents.apparatusTitlePlankboard()
+    
     // step 1
     private lazy var number1: UIImageView = prePromptComponents.icon(name: "one-icon")
     
-    private lazy var step1: UILabel = prePromptComponents.pullUpStep1()
+    private lazy var step1: UILabel = prePromptComponents.plankStep1()
     
-    private lazy var icon1: UIImageView = prePromptComponents.icon(name: "Game3Icon1")
+    private lazy var icon1: UIImageView = prePromptComponents.icon(name: "Game1Icon1")
     
     // step 2
     private lazy var number2: UIImageView = prePromptComponents.icon(name: "two-icon")
     
-    private lazy var step2: UILabel = prePromptComponents.pullUpStep2()
+    private lazy var step2: UILabel = prePromptComponents.plankStep2()
     
-    private lazy var icon2: UIImageView = prePromptComponents.icon(name: "Game3Icon2")
+    private lazy var icon2: UIImageView = prePromptComponents.icon(name: "Game1Icon2")
     
     // step 3
     private lazy var number3: UIImageView = prePromptComponents.icon(name: "three-icon")
     
-    private lazy var step3: UILabel = prePromptComponents.gameStep(PongPreGamePromptView.stepPullUp, numberOfLines: 4)
+    private lazy var step3: UILabel = prePromptComponents.gameStep(PongPreGamePromptView.stepPlankboard, numberOfLines: 4)
     
     private lazy var icon3: UIImageView = prePromptComponents.icon(name: "Game4Icon3")
     
@@ -84,6 +96,9 @@ class PongPreGamePromptView: PreGamePromptView {
         self.addGestureRecognizer(tap)
         
         self.addSubview(self.title)
+        self.addSubview(self.apparatusTitle1)
+        self.addSubview(self.apparatusTitle2)
+        self.addSubview(self.apparatusSwitch)
         
         // step 1
         self.addSubview(self.number1)
@@ -121,6 +136,8 @@ class PongPreGamePromptView: PreGamePromptView {
         let buttonWidth = prePromptComponents.buttonWidth
         
         let titleSize: CGSize = title.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle1Size: CGSize = apparatusTitle1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle2Size: CGSize = apparatusTitle2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step1Size: CGSize = step1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step2Size: CGSize = step2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step3Size: CGSize = step3.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
@@ -144,13 +161,31 @@ class PongPreGamePromptView: PreGamePromptView {
             self.title.centerYAnchor.constraint(equalTo: self.topAnchor, constant: titleSize.height / 2 + 20.0),
             ])
         
+        NSLayoutConstraint.activate([
+            self.apparatusSwitch.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.apparatusSwitch.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle1.widthAnchor.constraint(equalToConstant: apparatusTitle1Size.width),
+            self.apparatusTitle1.heightAnchor.constraint(equalToConstant: apparatusTitle1Size.height),
+            self.apparatusTitle1.leadingAnchor.constraint(equalTo: self.apparatusSwitch.trailingAnchor, constant: 10.0),
+            self.apparatusTitle1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle2.widthAnchor.constraint(equalToConstant: apparatusTitle2Size.width),
+            self.apparatusTitle2.heightAnchor.constraint(equalToConstant: apparatusTitle2Size.height),
+            self.apparatusTitle2.trailingAnchor.constraint(equalTo: self.apparatusSwitch.leadingAnchor, constant: -10.0),
+            self.apparatusTitle2.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
+            ])
         
         // step 1
         NSLayoutConstraint.activate([
             self.number1.widthAnchor.constraint(equalToConstant: iconWidth),
             self.number1.heightAnchor.constraint(equalToConstant: iconWidth),
             self.number1.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: iconWidth / 2 + horizontalPadding),
-            self.number1.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding),
+            self.number1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
             ])
         
         NSLayoutConstraint.activate([
@@ -261,7 +296,26 @@ class PongPreGamePromptView: PreGamePromptView {
     
     @objc private func startGame() {
         if let text = timeInput.text, let time = Double(text) {
-            self.delegate?.startGame(time: time)
+            self.delegate?.startGame(time: time, apparatusType: apparatusType)
+        }
+    }
+    
+    @objc private func apparatusChange() {
+        switch apparatusType {
+        case .PlankBoard:
+            apparatusType = .PullUpBar
+            step1.text = PrePromptComponents.PullUpStep.one
+            icon1.image = UIImage(named: "Game3Icon1")
+            step2.text = PrePromptComponents.PullUpStep.two
+            icon2.image = UIImage(named: "Game3Icon2")
+            step3.text = PongPreGamePromptView.stepPullUp
+        case .PullUpBar:
+            apparatusType = .PlankBoard
+            step1.text = PrePromptComponents.PlankBoardStep.one
+            icon1.image = UIImage(named: "Game1Icon1")
+            step2.text = PrePromptComponents.PlankBoardStep.two
+            icon2.image = UIImage(named: "Game1Icon2")
+            step3.text = PongPreGamePromptView.stepPlankboard
         }
     }
     

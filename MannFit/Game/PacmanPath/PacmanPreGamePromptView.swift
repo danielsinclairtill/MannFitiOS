@@ -11,11 +11,12 @@ import UIKit
 class PacmanPreGamePromptView: PreGamePromptView {
     
     private static let stepPlankboard = "Stay in the path, move the plankboard horizontally to move the player"
+    private static let stepPullUp = "Stay in the path, move the pull-up bar to move the player"
     
     private let prePromptComponents = PrePromptComponents()
     private var apparatusType: ApparatusType = .PlankBoard
     private let viewHeight: CGFloat = {
-        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 450.0 : 500.0
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 470.0 : 520.0
     }()
 
     private lazy var keyboardTransitionPadding: CGFloat = {
@@ -26,7 +27,7 @@ class PacmanPreGamePromptView: PreGamePromptView {
         return padding
     }()
     
-    private lazy var title: UILabel = prePromptComponents.title(name: GameData.circleName)
+    private lazy var title: UILabel = prePromptComponents.title(name: GameData.pacmanName)
     
     private lazy var apparatusSwitch: UISwitch = {
         let apparatusSwitch = prePromptComponents.apparatusSwitch(isOn: false)
@@ -34,21 +35,21 @@ class PacmanPreGamePromptView: PreGamePromptView {
         return apparatusSwitch
     }()
     
-    private lazy var apparatusTitle1: UILabel = prePromptComponents.apparatusTitlePlankboard()
+    private lazy var apparatusTitle1: UILabel = prePromptComponents.apparatusTitlePullUpBar()
     
-    private lazy var apparatusTitle2: UILabel = prePromptComponents.apparatusTitlePullUpBar()
+    private lazy var apparatusTitle2: UILabel = prePromptComponents.apparatusTitlePlankboard()
     
     // step 1
     private lazy var number1: UIImageView = prePromptComponents.icon(name: "one-icon")
     
-    private lazy var step1: UILabel = prePromptComponents.pullUpStep1()
+    private lazy var step1: UILabel = prePromptComponents.plankStep1()
     
     private lazy var icon1: UIImageView = prePromptComponents.icon(name: "Game1Icon1")
     
     // step 2
     private lazy var number2: UIImageView = prePromptComponents.icon(name: "two-icon")
     
-    private lazy var step2: UILabel = prePromptComponents.pullUpStep2()
+    private lazy var step2: UILabel = prePromptComponents.plankStep1()
     
     private lazy var icon2: UIImageView = prePromptComponents.icon(name: "Game1Icon2")
     
@@ -165,21 +166,21 @@ class PacmanPreGamePromptView: PreGamePromptView {
         
         NSLayoutConstraint.activate([
             self.apparatusSwitch.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.apparatusSwitch.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding),
+            self.apparatusSwitch.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
             ])
         
         NSLayoutConstraint.activate([
             self.apparatusTitle1.widthAnchor.constraint(equalToConstant: apparatusTitle1Size.width),
             self.apparatusTitle1.heightAnchor.constraint(equalToConstant: apparatusTitle1Size.height),
             self.apparatusTitle1.leadingAnchor.constraint(equalTo: self.apparatusSwitch.trailingAnchor, constant: 10.0),
-            self.apparatusTitle1.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            self.apparatusTitle1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
             ])
         
         NSLayoutConstraint.activate([
             self.apparatusTitle2.widthAnchor.constraint(equalToConstant: apparatusTitle2Size.width),
             self.apparatusTitle2.heightAnchor.constraint(equalToConstant: apparatusTitle2Size.height),
             self.apparatusTitle2.trailingAnchor.constraint(equalTo: self.apparatusSwitch.leadingAnchor, constant: -10.0),
-            self.apparatusTitle2.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            self.apparatusTitle2.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
             ])
         
         // step 1
@@ -187,7 +188,7 @@ class PacmanPreGamePromptView: PreGamePromptView {
             self.number1.widthAnchor.constraint(equalToConstant: iconWidth),
             self.number1.heightAnchor.constraint(equalToConstant: iconWidth),
             self.number1.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: iconWidth / 2 + horizontalPadding),
-            self.number1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.bottomAnchor, constant: iconWidth / 2),
+            self.number1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
             ])
         
         NSLayoutConstraint.activate([
@@ -300,14 +301,24 @@ class PacmanPreGamePromptView: PreGamePromptView {
         switch apparatusType {
         case .PlankBoard:
             apparatusType = .PullUpBar
+            step1.text = PrePromptComponents.PullUpStep.one
+            icon1.image = UIImage(named: "Game3Icon1")
+            step2.text = PrePromptComponents.PullUpStep.two
+            icon2.image = UIImage(named: "Game3Icon2")
+            step3.text = PacmanPreGamePromptView.stepPullUp
         case .PullUpBar:
             apparatusType = .PlankBoard
+            step1.text = PrePromptComponents.PlankBoardStep.one
+            icon1.image = UIImage(named: "Game1Icon1")
+            step2.text = PrePromptComponents.PlankBoardStep.two
+            icon2.image = UIImage(named: "Game1Icon2")
+            step3.text = PacmanPreGamePromptView.stepPlankboard
         }
     }
     
     @objc private func startGame() {
         if let text = timeInput.text, let time = Double(text) {
-            self.delegate?.startGame(time: time)
+            self.delegate?.startGame(time: time, apparatusType: apparatusType)
         }
     }
     

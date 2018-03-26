@@ -264,7 +264,7 @@ class CircleBalancePreGamePromptView: PreGamePromptView {
     
     @objc private func startGame() {
         if let text = timeInput.text, let time = Double(text) {
-            self.delegate?.startGame(time: time)
+            self.delegate?.startGame(time: time, apparatusType: nil)
         }
     }
     

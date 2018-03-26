@@ -73,7 +73,7 @@ class PrePromptComponents {
         let switchDemo = UISwitch(frame: CGRect(x: 0, y: 0, width: iconWidth, height: iconWidth))
         switchDemo.isOn = isOn
         switchDemo.setOn(isOn, animated: false)
-        switchDemo.layer.borderWidth = 1
+        switchDemo.layer.borderWidth = 2
         switchDemo.layer.borderColor = UIColor.white.cgColor
         switchDemo.layer.cornerRadius = 16
         switchDemo.tintColor = .clear

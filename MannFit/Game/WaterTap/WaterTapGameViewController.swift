@@ -10,10 +10,11 @@ import UIKit
 import SpriteKit
 import CoreData
 
-class WaterTapGameViewController: UIViewController, CoreDataCompliant, GameTimeCompliant {
+class WaterTapGameViewController: UIViewController, CoreDataCompliant, GameTimeCompliant, GameApparatusCompliant {
     
     var managedObjectContext: NSManagedObjectContext!
     var inputTime: TimeInterval = GameData.waterTapDefaultTime
+    var inputApparatus: ApparatusType = .PullUpBar
     private var scene: WaterTapGameScene?
     
     override func viewDidLoad() {
@@ -22,6 +23,7 @@ class WaterTapGameViewController: UIViewController, CoreDataCompliant, GameTimeC
         self.scene = WaterTapGameScene(size: view.bounds.size)
         scene?.gameOverDelegate = self
         scene?.inputTime = inputTime
+        scene?.inputApparatus = inputApparatus
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true

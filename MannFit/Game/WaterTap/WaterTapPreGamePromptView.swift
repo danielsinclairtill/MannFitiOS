@@ -11,8 +11,10 @@ import UIKit
 class WaterTapPreGamePromptView: PreGamePromptView {
     
     private static let stepPullUp = "Stop the flow of water by keeping the bar horizontal"
+    private static let stepPlankboard = "Stop the flow of water by keeping the plankboard still"
     
     private let prePromptComponents = PrePromptComponents()
+    private var apparatusType: ApparatusType = .PullUpBar
     private let viewHeight: CGFloat = {
         return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 420.0 : 500.0
     }()
@@ -26,6 +28,16 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     }()
     
     private lazy var title: UILabel = prePromptComponents.title(name: GameData.waterTapName)
+    
+    private lazy var apparatusSwitch: UISwitch = {
+        let apparatusSwitch = prePromptComponents.apparatusSwitch(isOn: true)
+        apparatusSwitch.addTarget(self, action: #selector(apparatusChange), for: .valueChanged)
+        return apparatusSwitch
+    }()
+    
+    private lazy var apparatusTitle1: UILabel = prePromptComponents.apparatusTitlePullUpBar()
+    
+    private lazy var apparatusTitle2: UILabel = prePromptComponents.apparatusTitlePlankboard()
     
     // step 1
     private lazy var number1: UIImageView = prePromptComponents.icon(name: "one-icon")
@@ -87,6 +99,9 @@ class WaterTapPreGamePromptView: PreGamePromptView {
         self.addGestureRecognizer(tap)
         
         self.addSubview(self.title)
+        self.addSubview(self.apparatusTitle1)
+        self.addSubview(self.apparatusTitle2)
+        self.addSubview(self.apparatusSwitch)
         
         // step 1
         self.addSubview(self.number1)
@@ -124,6 +139,8 @@ class WaterTapPreGamePromptView: PreGamePromptView {
         let buttonWidth = prePromptComponents.buttonWidth
         
         let titleSize: CGSize = title.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle1Size: CGSize = apparatusTitle1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle2Size: CGSize = apparatusTitle2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step1Size: CGSize = step1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step2Size: CGSize = step2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step3Size: CGSize = step3.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
@@ -147,13 +164,32 @@ class WaterTapPreGamePromptView: PreGamePromptView {
             self.title.centerYAnchor.constraint(equalTo: self.topAnchor, constant: titleSize.height / 2 + 20.0),
             ])
         
+        NSLayoutConstraint.activate([
+            self.apparatusSwitch.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.apparatusSwitch.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle1.widthAnchor.constraint(equalToConstant: apparatusTitle1Size.width),
+            self.apparatusTitle1.heightAnchor.constraint(equalToConstant: apparatusTitle1Size.height),
+            self.apparatusTitle1.leadingAnchor.constraint(equalTo: self.apparatusSwitch.trailingAnchor, constant: 10.0),
+            self.apparatusTitle1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle2.widthAnchor.constraint(equalToConstant: apparatusTitle2Size.width),
+            self.apparatusTitle2.heightAnchor.constraint(equalToConstant: apparatusTitle2Size.height),
+            self.apparatusTitle2.trailingAnchor.constraint(equalTo: self.apparatusSwitch.leadingAnchor, constant: -10.0),
+            self.apparatusTitle2.centerYAnchor.constraint(equalTo: self.apparatusSwitch.centerYAnchor),
+            ])
+        
         
         // step 1
         NSLayoutConstraint.activate([
             self.number1.widthAnchor.constraint(equalToConstant: iconWidth),
             self.number1.heightAnchor.constraint(equalToConstant: iconWidth),
             self.number1.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: iconWidth / 2 + horizontalPadding),
-            self.number1.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding),
+            self.number1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
             ])
         
         NSLayoutConstraint.activate([
@@ -264,7 +300,26 @@ class WaterTapPreGamePromptView: PreGamePromptView {
     
     @objc private func startGame() {
         if let text = timeInput.text, let time = Double(text) {
-            self.delegate?.startGame(time: time)
+            self.delegate?.startGame(time: time, apparatusType: apparatusType)
+        }
+    }
+    
+    @objc private func apparatusChange() {
+        switch apparatusType {
+        case .PlankBoard:
+            apparatusType = .PullUpBar
+            step1.text = PrePromptComponents.PullUpStep.one
+            icon1.image = UIImage(named: "Game3Icon1")
+            step2.text = PrePromptComponents.PullUpStep.two
+            icon2.image = UIImage(named: "Game3Icon2")
+            step3.text = WaterTapPreGamePromptView.stepPullUp
+        case .PullUpBar:
+            apparatusType = .PlankBoard
+            step1.text = PrePromptComponents.PlankBoardStep.one
+            icon1.image = UIImage(named: "Game1Icon1")
+            step2.text = PrePromptComponents.PlankBoardStep.two
+            icon2.image = UIImage(named: "Game1Icon2")
+            step3.text = WaterTapPreGamePromptView.stepPlankboard
         }
     }
     
