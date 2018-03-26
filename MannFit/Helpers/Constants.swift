@@ -12,6 +12,7 @@ struct UserDefaultsKeys {
     static let settingsMusicKey = "settingsMusicKey"
     static let settingsVolumeKey = "settingsVolumeKey"
     static let settingsPongSpeedKey = "settingsPongSpeedKey"
+    static let filteredWorkoutKey = "filteredWorkoutKey"
 }
 
 struct SettingsValues {
@@ -61,6 +62,8 @@ struct Storyboard {
     static let WorkoutCell = "workoutCell"
     static let SegueWorkoutHistoryToDetail = "workoutHistoryToDetail"
     static let CalendarCell = "CalendarCell"
+    static let FilterWorkoutCell = "FilterWorkoutCell"
+    static let SegueFilterWorkouts = "filterWorkoutsSegue"
 }
 
 struct Colours {
