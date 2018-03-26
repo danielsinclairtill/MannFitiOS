@@ -13,6 +13,7 @@ class PacmanPreGamePromptView: PreGamePromptView {
     private static let stepPlankboard = "Stay in the path, move the plankboard horizontally to move the player"
     
     private let prePromptComponents = PrePromptComponents()
+    private var apparatusType: ApparatusType = .PlankBoard
     private let viewHeight: CGFloat = {
         return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 450.0 : 500.0
     }()
@@ -26,6 +27,16 @@ class PacmanPreGamePromptView: PreGamePromptView {
     }()
     
     private lazy var title: UILabel = prePromptComponents.title(name: GameData.circleName)
+    
+    private lazy var apparatusSwitch: UISwitch = {
+        let apparatusSwitch = prePromptComponents.apparatusSwitch(isOn: false)
+        apparatusSwitch.addTarget(self, action: #selector(apparatusChange), for: .valueChanged)
+        return apparatusSwitch
+    }()
+    
+    private lazy var apparatusTitle1: UILabel = prePromptComponents.apparatusTitlePlankboard()
+    
+    private lazy var apparatusTitle2: UILabel = prePromptComponents.apparatusTitlePullUpBar()
     
     // step 1
     private lazy var number1: UIImageView = prePromptComponents.icon(name: "one-icon")
@@ -87,6 +98,9 @@ class PacmanPreGamePromptView: PreGamePromptView {
         self.addGestureRecognizer(tap)
         
         self.addSubview(self.title)
+        self.addSubview(self.apparatusTitle1)
+        self.addSubview(self.apparatusTitle2)
+        self.addSubview(self.apparatusSwitch)
         
         // step 1
         self.addSubview(self.number1)
@@ -124,6 +138,8 @@ class PacmanPreGamePromptView: PreGamePromptView {
         let buttonWidth = prePromptComponents.buttonWidth
         
         let titleSize: CGSize = title.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle1Size: CGSize = apparatusTitle1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
+        let apparatusTitle2Size: CGSize = apparatusTitle2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step1Size: CGSize = step1.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step2Size: CGSize = step2.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
         let step3Size: CGSize = step3.sizeThatFits(CGSize(width: 100.0, height: CGFloat.greatestFiniteMagnitude))
@@ -147,13 +163,31 @@ class PacmanPreGamePromptView: PreGamePromptView {
             self.title.centerYAnchor.constraint(equalTo: self.topAnchor, constant: titleSize.height / 2 + 20.0),
             ])
         
+        NSLayoutConstraint.activate([
+            self.apparatusSwitch.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.apparatusSwitch.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle1.widthAnchor.constraint(equalToConstant: apparatusTitle1Size.width),
+            self.apparatusTitle1.heightAnchor.constraint(equalToConstant: apparatusTitle1Size.height),
+            self.apparatusTitle1.leadingAnchor.constraint(equalTo: self.apparatusSwitch.trailingAnchor, constant: 10.0),
+            self.apparatusTitle1.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            ])
+        
+        NSLayoutConstraint.activate([
+            self.apparatusTitle2.widthAnchor.constraint(equalToConstant: apparatusTitle2Size.width),
+            self.apparatusTitle2.heightAnchor.constraint(equalToConstant: apparatusTitle2Size.height),
+            self.apparatusTitle2.trailingAnchor.constraint(equalTo: self.apparatusSwitch.leadingAnchor, constant: -10.0),
+            self.apparatusTitle2.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding / 2),
+            ])
         
         // step 1
         NSLayoutConstraint.activate([
             self.number1.widthAnchor.constraint(equalToConstant: iconWidth),
             self.number1.heightAnchor.constraint(equalToConstant: iconWidth),
             self.number1.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: iconWidth / 2 + horizontalPadding),
-            self.number1.centerYAnchor.constraint(equalTo: self.title.bottomAnchor, constant: iconWidth / 2 + verticalPadding),
+            self.number1.centerYAnchor.constraint(equalTo: self.apparatusSwitch.bottomAnchor, constant: iconWidth / 2),
             ])
         
         NSLayoutConstraint.activate([
@@ -259,6 +293,15 @@ class PacmanPreGamePromptView: PreGamePromptView {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.frame.origin.y += keyboardSize.height - keyboardTransitionPadding
+        }
+    }
+    
+    @objc private func apparatusChange() {
+        switch apparatusType {
+        case .PlankBoard:
+            apparatusType = .PullUpBar
+        case .PullUpBar:
+            apparatusType = .PlankBoard
         }
     }
     

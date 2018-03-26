@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
+enum ApparatusType {
+    case PlankBoard
+    case PullUpBar
+}
 
 class PrePromptComponents {
     
+    let apparatusFontSize: CGFloat = {
+        return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 16.0 : 12.0
+    }()
     let buttonWidth: CGFloat = {
         return UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 80.0 : 120.0
     }()
@@ -42,6 +49,37 @@ class PrePromptComponents {
         label.text = name
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }
+    
+    func apparatusTitlePlankboard() -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: apparatusFontSize)
+        label.textColor = .white
+        label.text = "Plankboard"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+    func apparatusTitlePullUpBar() -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: apparatusFontSize)
+        label.textColor = .white
+        label.text = "Pull-Up Bar"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+    func apparatusSwitch(isOn: Bool) -> UISwitch {
+        let switchDemo = UISwitch(frame: CGRect(x: 0, y: 0, width: iconWidth, height: iconWidth))
+        switchDemo.isOn = isOn
+        switchDemo.setOn(isOn, animated: false)
+        switchDemo.layer.borderWidth = 1
+        switchDemo.layer.borderColor = UIColor.white.cgColor
+        switchDemo.layer.cornerRadius = 16
+        switchDemo.tintColor = .clear
+        switchDemo.onTintColor = .clear
+        switchDemo.translatesAutoresizingMaskIntoConstraints = false
+        return switchDemo
     }
     
     func icon(name: String) -> UIImageView {
