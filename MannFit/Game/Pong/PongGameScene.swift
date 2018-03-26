@@ -308,7 +308,8 @@ class PongGameScene: SKScene {
             gameActive = true
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateGameTimer), userInfo: nil, repeats: true)
             timerSet = true
-            ball.physicsBody?.applyImpulse(CGVector(dx: 2, dy: -2))
+            let speed = CGFloat(userDefaults.float(forKey: UserDefaultsKeys.settingsPongSpeedKey))
+            ball.physicsBody?.applyImpulse(CGVector(dx: speed, dy: -speed))
         }
     }
     
