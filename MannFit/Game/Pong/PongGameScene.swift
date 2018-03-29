@@ -280,7 +280,6 @@ class PongGameScene: SKScene {
             // handle absement difference
             let xDifference = abs(playerPaddle.position.x - ball.position.x)
             updateAbsement(Double(xDifference))
-            absementGraphPoints.append(Float(abs(xDifference)))
             self.engine?.modifyPitch(with: -Float(xDifference * 2))
             self.engine?.modifyPlaybackRate(with: Float(1 - (self.absement * 2)))
         }
@@ -335,6 +334,7 @@ class PongGameScene: SKScene {
     
     private func updateAbsement(_ absement: Double) {
         var convertedAbsement: Double = absement / Double(frame.width)
+        absementGraphPoints.append(Float(abs(convertedAbsement)))
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
         
         self.absement = roundedConvertedAbsement

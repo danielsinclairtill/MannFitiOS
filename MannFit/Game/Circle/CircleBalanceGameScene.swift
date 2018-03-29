@@ -199,6 +199,7 @@ class CircleBalanceGameScene: SKScene {
     
     private func updateAbsement(_ absement: Double) {
         var convertedAbsement: Double = absement / Double(frame.width)
+        absementGraphPoints.append(Float(abs(convertedAbsement)))
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
             
         self.absement = roundedConvertedAbsement
@@ -228,7 +229,6 @@ class CircleBalanceGameScene: SKScene {
             let absement = CGFloat(sqrt((xDist * xDist) + (yDist * yDist))) - targetRadius / 2
             if absement >= 0 {
                 updateAbsement(Double(absement))
-                absementGraphPoints.append(Float(abs(absement)))
                 self.engine?.modifyPitch(with: -Float(absement * 2))
                 self.engine?.modifyPlaybackRate(with: Float(1 - (self.absement * 2)))
             }

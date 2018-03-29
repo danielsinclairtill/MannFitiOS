@@ -18,6 +18,7 @@ class WorkoutDetailViewController: UIViewController {
     @IBOutlet weak var workoutTimeLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var improvementLabel: UILabel!
+    @IBOutlet weak var absementGraphView: AbsementGraphView!
     
     var workoutName: String!
     var absementScore: String!
@@ -26,6 +27,7 @@ class WorkoutDetailViewController: UIViewController {
     var workoutGameImage: UIImage?
     var highScore: String!
     var improvement: String!
+    var absementGraphPoints: [Float]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,9 @@ class WorkoutDetailViewController: UIViewController {
         highScoreLabel.text = highScore
         improvementLabel.text = improvement
         durationLabel.text = String(format: "%ds", duration)
+        absementGraphView.workoutDuration = Array(0...(absementGraphPoints.count - 1))
+        absementGraphView.absementGraphPoints = absementGraphPoints
+        absementGraphView.setGraphData()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, MMM d"

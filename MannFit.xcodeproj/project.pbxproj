@@ -34,6 +34,7 @@
 		8B73F94B203CA256008DC3A8 /* WaterTapGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B73F94A203CA256008DC3A8 /* WaterTapGameScene.swift */; };
 		8B73F94D203CA26C008DC3A8 /* WaterTapPreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B73F94C203CA26C008DC3A8 /* WaterTapPreGamePromptView.swift */; };
 		8B73F951203CA296008DC3A8 /* WaterTapGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B73F950203CA295008DC3A8 /* WaterTapGameViewController.swift */; };
+		8BA757BB206D502100EC1A69 /* AbsementGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA757BA206D502100EC1A69 /* AbsementGraphView.swift */; };
 		8BCFECFF1FFEA36800B418D7 /* PopUpViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFECFE1FFEA36800B418D7 /* PopUpViewAnimation.swift */; };
 		8BD8E674200822A900ED2BDF /* PacmanPreGamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD8E673200822A900ED2BDF /* PacmanPreGamePromptView.swift */; };
 		8BD8E6762008233200ED2BDF /* PreGamePromptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */; };
@@ -100,6 +101,7 @@
 		8B73F94A203CA256008DC3A8 /* WaterTapGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTapGameScene.swift; sourceTree = "<group>"; };
 		8B73F94C203CA26C008DC3A8 /* WaterTapPreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTapPreGamePromptView.swift; sourceTree = "<group>"; };
 		8B73F950203CA295008DC3A8 /* WaterTapGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterTapGameViewController.swift; sourceTree = "<group>"; };
+		8BA757BA206D502100EC1A69 /* AbsementGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsementGraphView.swift; sourceTree = "<group>"; };
 		8BCFECFE1FFEA36800B418D7 /* PopUpViewAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewAnimation.swift; sourceTree = "<group>"; };
 		8BD8E673200822A900ED2BDF /* PacmanPreGamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacmanPreGamePromptView.swift; sourceTree = "<group>"; };
 		8BD8E6752008233200ED2BDF /* PreGamePromptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreGamePromptDelegate.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				A031461C2040C43F00EAD098 /* WorkoutDetailViewController.swift */,
 				A09ABEE8203CA89500AF649E /* HistoryViewController.swift */,
 				A0ED3F842066D5F7009494D1 /* FilterWorkoutTableViewController.swift */,
+				8BA757BA206D502100EC1A69 /* AbsementGraphView.swift */,
 			);
 			path = "Tab Bar";
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				A031461D2040C43F00EAD098 /* WorkoutDetailViewController.swift in Sources */,
 				A030C8CD1FC763E3006F591D /* CoreDataCompliant.swift in Sources */,
 				8BD8E678200828DC00ED2BDF /* PreGamePromptView.swift in Sources */,
+				8BA757BB206D502100EC1A69 /* AbsementGraphView.swift in Sources */,
 				A0ED3F852066D5F7009494D1 /* FilterWorkoutTableViewController.swift in Sources */,
 				8B38553C20545A3000EFD228 /* PongPreGamePromptView.swift in Sources */,
 				8B38553A20545A3000EFD228 /* PongGameScene.swift in Sources */,

@@ -227,6 +227,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
     
     private func updateAbsement(_ absement: Double) {
         var convertedAbsement: Double = absement / Double(frame.width)
+        absementGraphPoints.append(Float(abs(convertedAbsement)))
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
         
         self.absement = roundedConvertedAbsement
@@ -279,7 +280,6 @@ class PacManGameScene: SKScene, GameTimeCompliant {
                 balancePathNode.path = balancePath.path
             }
             updateAbsement(Double(xDifference))
-            absementGraphPoints.append(Float(abs(xDifference)))
             self.engine?.modifyPitch(with: -Float(xDifference * 2))
             self.engine?.modifyPlaybackRate(with: Float(1 - (self.absement * 2)))
         }

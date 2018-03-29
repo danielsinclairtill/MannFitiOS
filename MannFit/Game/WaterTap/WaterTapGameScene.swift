@@ -208,6 +208,7 @@ class WaterTapGameScene: SKScene {
     }
     
     private func updateAbsement(_ absement: Double) {
+        absementGraphPoints.append(Float(abs(absement)))
         let roundedConvertedAbsement = absement.rounded(toPlaces: 1)
         
         self.absement = roundedConvertedAbsement
@@ -241,7 +242,6 @@ class WaterTapGameScene: SKScene {
         
         if gameActive {
             updateAbsement(Double(abs(absement)))
-            absementGraphPoints.append(Float(abs(absement)))
             self.engine?.modifyPitch(with: -Float(absement * 300))
             self.engine?.modifyPlaybackRate(with: Float(1 - (self.absement * 2)))
         }
