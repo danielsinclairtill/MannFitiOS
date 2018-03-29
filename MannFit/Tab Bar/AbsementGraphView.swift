@@ -22,7 +22,7 @@ class AbsementGraphView: UIView {
     }
     
     func setGraphData() {
-        lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0, easingOption: .easeInOutSine)
+        lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0, easingOption: .easeInOutCubic)
         setCubicLineChart(dataPoints: workoutDuration, values: absementGraphPoints)
     }
     
