@@ -62,7 +62,7 @@ extension TestingGameViewController: GameOverDelegate {
         self.present(popup, animated: true, completion: nil)
     }
     
-    func sendGameData(game: String, duration: Int, absement: Float) {
+    func sendGameData(game: String, duration: Int, absement: Float, absementGraphPoints: [Float]) {
         // we will not be storing any data into the application itself for this game
         return
     }

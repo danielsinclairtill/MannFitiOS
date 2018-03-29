@@ -39,6 +39,8 @@ class PongGameScene: SKScene {
     // player center calibration
     private var playerCenterX: Double = 0.0
     
+    private var absementGraphPoints: [Float] = []
+    
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
     private let absementScoreLabel = SKLabelNode()
@@ -278,6 +280,7 @@ class PongGameScene: SKScene {
             // handle absement difference
             let xDifference = abs(playerPaddle.position.x - ball.position.x)
             updateAbsement(Double(xDifference))
+            absementGraphPoints.append(Float(abs(xDifference)))
             self.engine?.modifyPitch(with: -Float(xDifference * 2))
             self.engine?.modifyPlaybackRate(with: Float(1 - (self.absement * 2)))
         }
@@ -355,7 +358,7 @@ class PongGameScene: SKScene {
         gameActive = false
         self.engine?.stop()
         if completed {
-            self.gameOverDelegate?.sendGameData(game: Workout.Pong.rawValue, duration: Int(exerciseTime), absement: Float(absementScore.rounded(toPlaces: 2)))
+            self.gameOverDelegate?.sendGameData(game: Workout.Pong.rawValue, duration: Int(exerciseTime), absement: Float(absementScore.rounded(toPlaces: 2)), absementGraphPoints: absementGraphPoints)
         }
         self.gameOverDelegate?.presentPrompt()
     }
@@ -364,6 +367,8 @@ class PongGameScene: SKScene {
         timeLeft = self.exerciseTime
         timerSet = false
         timeLabel.text = String(Int(timeLeft))
+        
+        absementGraphPoints = []
         
         absement = 0.0
         absementScore = 0.0

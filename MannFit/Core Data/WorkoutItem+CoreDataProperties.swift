@@ -17,6 +17,7 @@ extension WorkoutItem {
     }
 
     @NSManaged public var absement: Float
+    @NSManaged public var absementGraphPoints: [Float]
     @NSManaged public var caloriesBurned: Int64
     @NSManaged public var workoutDuration: Int64
     @NSManaged public var date: Date
