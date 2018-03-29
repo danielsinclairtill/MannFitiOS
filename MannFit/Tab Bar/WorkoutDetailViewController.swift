@@ -18,6 +18,8 @@ class WorkoutDetailViewController: UIViewController {
     @IBOutlet weak var workoutTimeLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var improvementLabel: UILabel!
+    @IBOutlet weak var absementGraphLabel: UILabel!
+    @IBOutlet weak var absementGraphView: AbsementGraphView!
     
     var workoutName: String!
     var absementScore: String!
@@ -26,6 +28,7 @@ class WorkoutDetailViewController: UIViewController {
     var workoutGameImage: UIImage?
     var highScore: String!
     var improvement: String!
+    var absementGraphPoints: [Float]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,16 @@ class WorkoutDetailViewController: UIViewController {
         improvementLabel.text = improvement
         durationLabel.text = String(format: "%ds", duration)
         
+        // layout is too small to display graph on iPhone 5s
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+            self.absementGraphLabel.isHidden = true
+            self.absementGraphView.isHidden = true
+        } else {
+            absementGraphView.workoutDuration = Array(0...(absementGraphPoints.count - 1))
+            absementGraphView.absementGraphPoints = absementGraphPoints
+            absementGraphView.setGraphData()
+        }
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, MMM d"
         self.title = dateFormatter.string(from: date)

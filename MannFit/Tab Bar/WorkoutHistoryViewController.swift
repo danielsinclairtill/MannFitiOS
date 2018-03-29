@@ -165,6 +165,7 @@ class WorkoutHistoryViewController: UITableViewController {
             destinationVC.workoutGameImage = item.gameImage
             destinationVC.highScore = getHighScore(for: item.game) ?? item.formattedAbsementScore
             destinationVC.improvement = calculateWorkoutImprovement(for: item) ?? "0.0%"
+            destinationVC.absementGraphPoints = item.absementGraphPoints
 
         } else if segue.identifier == Storyboard.SegueFilterWorkouts {
             let destinationVC = segue.destination as! FilterWorkoutTableViewController

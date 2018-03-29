@@ -34,6 +34,8 @@ class PacManGameScene: SKScene, GameTimeCompliant {
     // player center calibration
     private var playerCenterX: Double = 0.0
     
+    private var absementGraphPoints: [Float] = []
+    
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
     private let absementScoreLabel = SKLabelNode()
@@ -225,6 +227,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
     
     private func updateAbsement(_ absement: Double) {
         var convertedAbsement: Double = absement / Double(frame.width)
+        absementGraphPoints.append(Float(abs(convertedAbsement)))
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
         
         self.absement = roundedConvertedAbsement
@@ -289,7 +292,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         self.engine?.stop()
         player.removeAction(forKey: pacmanAnimationKey)
         if completed {
-            self.gameOverDelegate?.sendGameData(game: Workout.PacMan.rawValue, duration: Int(inputTime), absement: Float(absementScore.rounded(toPlaces: 2)))
+            self.gameOverDelegate?.sendGameData(game: Workout.PacMan.rawValue, duration: Int(inputTime), absement: Float(absementScore.rounded(toPlaces: 2)), absementGraphPoints: absementGraphPoints)
         }
         self.gameOverDelegate?.presentPrompt()
     }
@@ -298,6 +301,8 @@ class PacManGameScene: SKScene, GameTimeCompliant {
         timeLeft = self.exerciseTime
         timerSet = false
         timeLabel.text = String(Int(timeLeft))
+        
+        absementGraphPoints = []
         
         absement = 0.0
         absementScore = 0.0

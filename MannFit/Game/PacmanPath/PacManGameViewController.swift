@@ -70,16 +70,17 @@ extension PacManGameViewController: GameOverDelegate {
         self.present(popup, animated: true, completion: nil)
     }
     
-    func sendGameData(game: String, duration: Int, absement: Float) {
-        self.prepareItem(game: game, duration: duration, absement: absement)
+    func sendGameData(game: String, duration: Int, absement: Float, absementGraphPoints: [Float]) {
+        self.prepareItem(game: game, duration: duration, absement: absement, absementGraphPoints: absementGraphPoints)
         self.managedObjectContext.saveChanges()
     }
     
-    private func prepareItem(game: String, duration: Int, absement: Float) {
+    private func prepareItem(game: String, duration: Int, absement: Float, absementGraphPoints: [Float]) {
         let workoutItem = NSEntityDescription.insertNewObject(forEntityName: "WorkoutItem", into: self.managedObjectContext) as! WorkoutItem
         workoutItem.game = game
         workoutItem.workoutDuration = Int64(duration)
         workoutItem.absement = absement
+        workoutItem.absementGraphPoints = absementGraphPoints
         workoutItem.date = Date()
         workoutItem.caloriesBurned = 0 // calculate this after
     }
