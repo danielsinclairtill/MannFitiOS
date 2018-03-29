@@ -14,7 +14,11 @@ class PacManGameViewController: UIViewController, CoreDataCompliant, GameTimeCom
     
     var managedObjectContext: NSManagedObjectContext!
     var inputTime: TimeInterval = GameData.pacmanDefaultTime
+
+    let defaults = UserDefaults.standard
+    
     var inputApparatus: ApparatusType = .PlankBoard
+
     private var scene: PacManGameScene?
     
     override func viewDidLoad() {

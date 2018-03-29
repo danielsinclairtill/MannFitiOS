@@ -14,6 +14,7 @@ class PongGameViewController: UIViewController, CoreDataCompliant, GameTimeCompl
     
     var managedObjectContext: NSManagedObjectContext!
     var inputTime: TimeInterval = GameData.circleDefaultTime
+    let defaults = UserDefaults.standard
     var inputApparatus: ApparatusType = .PlankBoard
     private var scene: PongGameScene?
     

@@ -163,12 +163,25 @@ class WorkoutHistoryViewController: UITableViewController {
             destinationVC.date = item.date
             destinationVC.duration = item.workoutDuration
             destinationVC.workoutGameImage = item.gameImage
+            destinationVC.highScore = getHighScore(for: item.game) ?? item.formattedAbsementScore
         } else if segue.identifier == Storyboard.SegueFilterWorkouts {
             let destinationVC = segue.destination as! FilterWorkoutTableViewController
             destinationVC.delegate = self
             destinationVC.storedWorkoutFilter = getStoredWorkoutFilter()
             
         }
+    }
+    
+    private func getHighScore(for game: String) -> String? {
+        guard let items = fetchedResultsController.fetchedObjects else { return nil }
+        
+        let filteredWorkouts = items.filter { $0.game == game }
+
+        
+        let highScore = filteredWorkouts.min { $0.absement < $1.absement }
+        guard let _highScore = highScore else { return nil }
+        
+        return String(format: "%.2f", _highScore.absement)
     }
 }
 
@@ -191,7 +204,8 @@ extension WorkoutHistoryViewController: NSFetchedResultsControllerDelegate {
     // When a change occurs in the MOC, update the table view
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         if type == .delete {
-            self.tableView.deleteRows(at: [indexPath!], with: .fade)
+            guard let indexPath = indexPath else { return }
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

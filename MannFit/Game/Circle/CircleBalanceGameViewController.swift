@@ -14,6 +14,7 @@ class CircleBalanceGameViewController: UIViewController, CoreDataCompliant, Game
     
     var managedObjectContext: NSManagedObjectContext!
     var inputTime: TimeInterval = GameData.circleDefaultTime
+    let defaults = UserDefaults.standard
     private var scene: CircleBalanceGameScene?
     
     override func viewDidLoad() {

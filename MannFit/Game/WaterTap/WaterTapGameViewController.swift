@@ -14,7 +14,9 @@ class WaterTapGameViewController: UIViewController, CoreDataCompliant, GameTimeC
     
     var managedObjectContext: NSManagedObjectContext!
     var inputTime: TimeInterval = GameData.waterTapDefaultTime
+    let defaults = UserDefaults.standard
     var inputApparatus: ApparatusType = .PullUpBar
+
     private var scene: WaterTapGameScene?
     
     override func viewDidLoad() {
