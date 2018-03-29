@@ -561,6 +561,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="never" id="iQJ-YH-jRN"/>
                     <connections>
+                        <outlet property="absementGraphLabel" destination="icC-wv-hxq" id="jDe-n1-O23"/>
                         <outlet property="absementGraphView" destination="bIv-cD-TT7" id="N4O-lC-qoJ"/>
                         <outlet property="absementScoreLabel" destination="Cxe-Xs-5dL" id="3qL-mV-rUM"/>
                         <outlet property="durationLabel" destination="nrk-V9-RFc" id="J1b-uP-aTr"/>
