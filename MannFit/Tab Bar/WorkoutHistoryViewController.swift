@@ -164,11 +164,12 @@ class WorkoutHistoryViewController: UITableViewController {
             destinationVC.duration = item.workoutDuration
             destinationVC.workoutGameImage = item.gameImage
             destinationVC.highScore = getHighScore(for: item.game) ?? item.formattedAbsementScore
+            destinationVC.improvement = calculateWorkoutImprovement(for: item) ?? "0.0%"
+
         } else if segue.identifier == Storyboard.SegueFilterWorkouts {
             let destinationVC = segue.destination as! FilterWorkoutTableViewController
             destinationVC.delegate = self
             destinationVC.storedWorkoutFilter = getStoredWorkoutFilter()
-            
         }
     }
     
@@ -176,12 +177,34 @@ class WorkoutHistoryViewController: UITableViewController {
         guard let items = fetchedResultsController.fetchedObjects else { return nil }
         
         let filteredWorkouts = items.filter { $0.game == game }
-
         
         let highScore = filteredWorkouts.min { $0.absement < $1.absement }
+        
         guard let _highScore = highScore else { return nil }
         
         return String(format: "%.2f", _highScore.absement)
+    }
+    
+    private func calculateWorkoutImprovement(for workout: WorkoutItem) -> String? {
+        guard let items = fetchedResultsController.fetchedObjects else { return nil }
+        
+        let filteredWorkouts = items.filter { $0.game == workout.game }
+        
+        guard filteredWorkouts.count > 1 else { return nil }
+        
+        guard let index = filteredWorkouts.index(of: workout),
+            filteredWorkouts.count > index + 1 else { return nil }
+        
+        let previousWorkout = filteredWorkouts[index + 1]
+        
+        var workoutImprovement = -(workout.absement - previousWorkout.absement) / previousWorkout.absement
+        
+        // Special case, with floats, 0s have signs as well
+        if workoutImprovement == -0.0 {
+            workoutImprovement *= -1
+        }
+        
+        return String(format: "%.1f%%", workoutImprovement * 100)
     }
 }
 
