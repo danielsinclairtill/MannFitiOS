@@ -19,6 +19,7 @@ class FilterWorkoutTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .black
         tableView.separatorStyle = .none
     }
 
