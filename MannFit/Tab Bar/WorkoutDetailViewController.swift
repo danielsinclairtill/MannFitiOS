@@ -21,6 +21,8 @@ class WorkoutDetailViewController: UIViewController {
     @IBOutlet weak var absementGraphLabel: UILabel!
     @IBOutlet weak var absementGraphView: AbsementGraphView!
     
+    private let userDefaults: UserDefaults = UserDefaults.standard
+    
     var workoutName: String!
     var absementScore: String!
     var date: Date!
@@ -41,7 +43,7 @@ class WorkoutDetailViewController: UIViewController {
         durationLabel.text = String(format: "%ds", duration)
         
         // layout is too small to display graph on iPhone 5s
-        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || absementGraphPoints.isEmpty {
             self.absementGraphLabel.isHidden = true
             self.absementGraphView.isHidden = true
         } else {

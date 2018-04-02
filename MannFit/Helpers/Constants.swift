@@ -12,10 +12,13 @@ struct UserDefaultsKeys {
     static let settingsMusicKey = "settingsMusicKey"
     static let settingsVolumeKey = "settingsVolumeKey"
     static let settingsPongSpeedKey = "settingsPongSpeedKey"
+    static let settingsAbsementSamplingKey = "settingsAbsementSamplingKey"
+    static let settingsSamplingRateKey = "settingsSamplingRateKey"
     static let filteredWorkoutKey = "filteredWorkoutKey"
 }
 
 struct SettingsValues {
+    static let maxSampleRate: Int = 7
     static let sensitivityDefault: Float = 0.5
     static let pongSpeedDefault: Float = 1.0
     static let maxInputChars: Int = 3

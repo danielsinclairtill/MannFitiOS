@@ -35,6 +35,10 @@ class WaterTapGameScene: SKScene {
     private var playerCenterY: Double = 0.0
     
     private var absementGraphPoints: [Float] = []
+    private var samplingTick: Int = 0
+    private lazy var samplingRate: Int = {
+        return SettingsValues.maxSampleRate - userDefaults.integer(forKey: UserDefaultsKeys.settingsSamplingRateKey)
+    }()
     
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
@@ -208,7 +212,13 @@ class WaterTapGameScene: SKScene {
     }
     
     private func updateAbsement(_ absement: Double) {
-        absementGraphPoints.append(Float(abs(absement)))
+        if userDefaults.bool(forKey: UserDefaultsKeys.settingsAbsementSamplingKey) {
+            if samplingTick % samplingRate == 0 {
+                absementGraphPoints.append(Float(abs(absement)))
+                samplingTick = 0
+            }
+            samplingTick += 1
+        }
         let roundedConvertedAbsement = absement.rounded(toPlaces: 1)
         
         self.absement = roundedConvertedAbsement

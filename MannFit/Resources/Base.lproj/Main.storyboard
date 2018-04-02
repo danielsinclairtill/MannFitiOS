@@ -287,6 +287,72 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Graph" id="pOF-yT-pJD">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="gNy-Nf-X0N">
+                                        <rect key="frame" x="0.0" y="425.33333333333337" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gNy-Nf-X0N" id="yLh-Zi-iyS">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Absement Sample Graph" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejt-b6-hOB">
+                                                    <rect key="frame" x="16" y="12.666666666666664" width="218" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GkO-LC-JP3">
+                                                    <rect key="frame" x="312" y="9" width="51" height="31"/>
+                                                    <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="absementSampleGraphSwitch:" destination="bHz-dz-i8y" eventType="valueChanged" id="Bl6-dC-eWR"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="GkO-LC-JP3" secondAttribute="trailing" constant="14" id="1kL-Ag-0Tp"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ejt-b6-hOB" secondAttribute="trailingMargin" id="3L7-Pt-kdW"/>
+                                                <constraint firstItem="ejt-b6-hOB" firstAttribute="leading" secondItem="yLh-Zi-iyS" secondAttribute="leadingMargin" id="B04-ag-To7"/>
+                                                <constraint firstItem="GkO-LC-JP3" firstAttribute="centerY" secondItem="yLh-Zi-iyS" secondAttribute="centerY" id="Kab-EX-Fw9"/>
+                                                <constraint firstItem="ejt-b6-hOB" firstAttribute="centerY" secondItem="yLh-Zi-iyS" secondAttribute="centerY" id="XuG-XV-q1L"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="88" id="T6S-La-gVa">
+                                        <rect key="frame" x="0.0" y="475.33333333333337" width="375" height="88"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T6S-La-gVa" id="vVr-xZ-BS6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="87.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIX-K8-oMx">
+                                                    <rect key="frame" x="132.66666666666666" y="11" width="110" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="6" minValue="1" maxValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="rK3-rZ-pj9">
+                                                    <rect key="frame" x="14" y="43" width="347" height="31"/>
+                                                    <connections>
+                                                        <action selector="absementSampleRateSlider:" destination="bHz-dz-i8y" eventType="valueChanged" id="OnS-nT-c7m"/>
+                                                        <action selector="volumeSlider:" destination="bHz-dz-i8y" eventType="valueChanged" id="rre-mT-7uH"/>
+                                                    </connections>
+                                                </slider>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rK3-rZ-pj9" firstAttribute="leading" secondItem="vVr-xZ-BS6" secondAttribute="leadingMargin" id="4Qt-Jr-PCb"/>
+                                                <constraint firstItem="rK3-rZ-pj9" firstAttribute="trailing" secondItem="vVr-xZ-BS6" secondAttribute="trailingMargin" id="Wfb-0F-YN5"/>
+                                                <constraint firstItem="rK3-rZ-pj9" firstAttribute="top" secondItem="oIX-K8-oMx" secondAttribute="bottom" constant="8" id="iIi-OJ-qBz"/>
+                                                <constraint firstItem="oIX-K8-oMx" firstAttribute="top" secondItem="vVr-xZ-BS6" secondAttribute="topMargin" id="iX2-Bl-Pzv"/>
+                                                <constraint firstItem="oIX-K8-oMx" firstAttribute="centerX" secondItem="vVr-xZ-BS6" secondAttribute="centerX" id="v4I-Ze-Ea4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="bHz-dz-i8y" id="iuC-z7-yuF"/>
@@ -295,6 +361,8 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="" systemItem="more" id="rUo-zj-i0X"/>
                     <connections>
+                        <outlet property="absementSampleGraphSwitch" destination="GkO-LC-JP3" id="BWZ-MY-4Rv"/>
+                        <outlet property="absementSampleRate" destination="rK3-rZ-pj9" id="sUM-he-o7K"/>
                         <outlet property="musicSwitch" destination="7Cw-3W-RbU" id="ekB-s5-wKd"/>
                         <outlet property="pongSpeedSlider" destination="Z6T-y0-rvh" id="yKD-E7-wSh"/>
                         <outlet property="sensitivitySlider" destination="Pjm-N3-XNQ" id="mrw-VO-gXa"/>
@@ -520,7 +588,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kFY-14-d5p" userLabel="Image Workout Name Stack View">
-                                <rect key="frame" x="130" y="124" width="114" height="140.33333333333337"/>
+                                <rect key="frame" x="130" y="124.00000000000001" width="114" height="140.33333333333337"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fik-jT-u7G">
                                         <rect key="frame" x="7" y="0.0" width="100" height="100"/>
