@@ -20,7 +20,7 @@ class WorkoutDetailViewController: UIViewController {
     @IBOutlet weak var improvementLabel: UILabel!
     @IBOutlet weak var absementGraphLabel: UILabel!
     @IBOutlet weak var absementGraphView: AbsementGraphView!
-        
+
     var workoutName: String!
     var absementScore: String!
     var date: Date!
