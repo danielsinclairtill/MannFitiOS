@@ -266,7 +266,7 @@ class PacManGameScene: SKScene, GameTimeCompliant {
             case .PlankBoard:
                 dataValue = data.acceleration.x
             case .PullUpBar:
-                dataValue = data.acceleration.y
+                dataValue = data.acceleration.x
             }
             self.smoothXAcceleration.update(newValue: dataValue)
             let sensitivity = 5.0 * (userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault)
