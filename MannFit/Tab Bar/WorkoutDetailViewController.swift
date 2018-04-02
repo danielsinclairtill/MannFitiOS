@@ -41,7 +41,7 @@ class WorkoutDetailViewController: UIViewController {
         durationLabel.text = String(format: "%ds", duration)
         
         // layout is too small to display graph on iPhone 5s
-        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || absementGraphPoints.isEmpty {
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || absementGraphPoints.isEmpty || Float(absementScore) == 0.0 {
             self.absementGraphLabel.isHidden = true
             self.absementGraphView.isHidden = true
         } else {
