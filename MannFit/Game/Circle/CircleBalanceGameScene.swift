@@ -35,6 +35,10 @@ class CircleBalanceGameScene: SKScene {
     private var playerCenterY: Double = 0.0
     
     private var absementGraphPoints: [Float] = []
+    private var samplingTick: Int = 0
+    private lazy var samplingRate: Int = {
+        return SettingsValues.maxSampleRate - userDefaults.integer(forKey: UserDefaultsKeys.settingsSamplingRateKey)
+    }()
     
     private let background = SKSpriteNode()
     private let absementLabel = SKLabelNode()
@@ -199,7 +203,14 @@ class CircleBalanceGameScene: SKScene {
     
     private func updateAbsement(_ absement: Double) {
         var convertedAbsement: Double = absement / Double(frame.width)
-        absementGraphPoints.append(Float(abs(convertedAbsement)))
+        
+        if userDefaults.bool(forKey: UserDefaultsKeys.settingsAbsementSamplingKey) {
+            if samplingTick % samplingRate == 0 {
+                absementGraphPoints.append(Float(abs(convertedAbsement)))
+                samplingTick = 0
+            }
+            samplingTick += 1
+        }
         let roundedConvertedAbsement = convertedAbsement.rounded(toPlaces: 1)
             
         self.absement = roundedConvertedAbsement
