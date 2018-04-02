@@ -241,11 +241,11 @@ class WaterTapGameScene: SKScene {
             case .PlankBoard:
                 dataValue = data.acceleration.x
             case .PullUpBar:
-                dataValue = data.acceleration.y
+                dataValue = data.acceleration.x
             }
             self.smoothYAcceleration.update(newValue: dataValue)
             let sensitivity = userDefaults.float(forKey: UserDefaultsKeys.settingsMotionSensitivityKey) / SettingsValues.sensitivityDefault
-            absement = CGFloat(smoothYAcceleration.value - playerCenterY) * 2 * CGFloat(sensitivity)
+            absement = abs(CGFloat(smoothYAcceleration.value - playerCenterY) * 2 * CGFloat(sensitivity))
             let widthScale: CGFloat = absement > 1.0 ? 1.0 : absement
             water.size.width = widthScale * maxWaterWidth
         }

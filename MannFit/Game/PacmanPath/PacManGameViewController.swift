@@ -31,7 +31,6 @@ class PacManGameViewController: UIViewController, CoreDataCompliant, GameTimeCom
         UIApplication.shared.isIdleTimerDisabled = true
         let skView = view as! SKView
         skView.showsFPS = true
-        skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         scene?.scaleMode = .resizeFill
         skView.presentScene(scene)
