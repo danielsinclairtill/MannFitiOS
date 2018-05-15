@@ -23,7 +23,7 @@ The “History” tab bar view shows the summed up and progress in absement / sc
 
 ## Settings / More
 The “More” tab bar view gives an array of options the user can customize:
-sensitivity of accelerometer data / smartphone motion sensors
+- sensitivity of accelerometer data / smartphone motion sensors
 - music ON / OFF
 - music volume
 - game #4 ping pong, ball speed
